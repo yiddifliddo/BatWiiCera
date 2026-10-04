@@ -26,6 +26,7 @@ Rules for this register:
 | CR-0009 | 2026-10-04 | 0.1.6 | Corrective change | Readable menu buttons, Menu/Start pills removed, save-state indicator | `release/v0.1.6` | Submitted for approval |
 | CR-0010 | 2026-10-04 | 0.1.7 | Standard change | Console logos grey until highlighted, then full colour | `release/v0.1.7` | Submitted for approval |
 | CR-0011 | 2026-10-04 | 0.1.8 | Standard change | Dark grey colour set (dark mode) | `release/v0.1.8` | Submitted for approval |
+| CR-0012 | 2026-10-04 | 0.1.9 | Corrective change | Pointer hand removed completely | `release/v0.1.9` | Submitted for approval |
 
 ---
 
@@ -846,6 +847,74 @@ before (same values moved into variables).
 
 Select the Classic grey colour set, or install the `v0.1.7` folder or zip.
 In the repository, revert the merge of `release/v0.1.8`.
+
+### Post-implementation review
+
+To be completed after the device test.
+
+---
+
+## CR-0012 - Pointer hand removed completely
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0012 |
+| Date raised | 2026-10-04 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.9 (folder `v0.1.9/BatWiiCera`, zip `v0.1.9/BatWiiCera-v0.1.9.zip`) |
+| Previous version | 0.1.8 (folder `v0.1.8`, left unchanged) |
+| Change type | Corrective change (device test) |
+| Branch | `release/v0.1.9` (branched from `release/v0.1.8`) |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+On the device (photo supplied) the pointer-hand tile overlay introduced in
+CR-0005 rendered small and squashed on the highlighted tile. The author asked
+for it to be removed completely rather than fixed.
+
+* `gridtile.overlay` and `gridtile.overlay:selected` removed from the
+  `system` and `grid` views.
+* The `pointer` option ("Pointer hand on highlighted tile") removed from the
+  theme options.
+* `_inc/images/cursor-hand.svg` deleted from this version.
+* `v0.1.9/` created as a full copy of `v0.1.8/` (zip excluded and rebuilt);
+  theme `README.md`, `LICENSE`, repository `README.md`, previews and this
+  register updated.
+
+### Reason for change
+
+Device test defect; author decision to drop the feature.
+
+### Risk assessment
+
+Removal only; no new behaviour. Risk rating: **Negligible**. Users who had
+the option set keep working because the option no longer exists and the
+engine ignores the stale setting.
+
+### Impact
+
+New version folder only; earlier versions untouched.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| XML well-formedness of all `v0.1.9` XML files | Pass |
+| No remaining reference to the overlay, option or hand artwork; asset path check | Pass |
+| Four mock-ups re-rendered without the hand | Pass (visual) |
+| Zip integrity and extracted contents identical to the folder | Pass |
+| Confirmation on the Batocera device | **Not performed** - required before approval |
+
+### Rollback plan
+
+Install the `v0.1.8` folder or zip. In the repository, revert the merge of
+`release/v0.1.9`.
 
 ### Post-implementation review
 

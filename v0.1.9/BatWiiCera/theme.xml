@@ -1,0 +1,735 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+=====================================================================
+ BatWiiCera - an EmulationStation theme for Batocera
+ Version : 0.1.9
+ Author  : Dan Lee
+ Licence : Creative Commons BY-NC-SA 4.0 (see LICENSE)
+
+ A retro console "channel menu" look: a grid of rounded channel tiles
+ on a striped background, a curved bottom bar with a clock, and a
+ channel-preview style game list with live video previews.
+
+ Navigation : console grid  ->  game list with preview  ->  launch
+ Layout     : designed on a 16:9 canvas, with a 4:3 override file.
+
+ Credits (reused under CC-BY-NC-SA, see LICENSE):
+   - Coloured system logos: Carbon by Rookervik (based on Simple by
+     Nils Bonenberger), Batocera edition by Fabrice Caruso
+   - Fallback system logos and help icons: Art Book Next by Anthony Caccese
+   - Gamepad activity icon and theme structure ideas:
+     es-theme-minimal by lilbud / Fabrice Caruso
+   - Theme-folder music approach: PlayStation-X by pajarorrojo
+ Fonts: Varela Round (Apache 2.0), Nunito (SIL OFL 1.1)
+=====================================================================
+-->
+<theme defaultView="detailed" defaultTransition="fade">
+  <formatVersion>7</formatVersion>
+
+  <!-- =============================================================
+       Theme options (Main Menu > UI Settings > Theme Configuration)
+       ============================================================= -->
+  <subset name="colorset" displayName="Colour set">
+    <include name="classic" displayName="Classic grey">./_inc/colors/classic.xml</include>
+    <include name="sky" displayName="Sky blue">./_inc/colors/sky.xml</include>
+    <include name="dark" displayName="Dark grey">./_inc/colors/dark.xml</include>
+  </subset>
+
+  <subset name="aspect-ratio" displayName="Aspect ratio">
+    <include if="{screen.ratio} == '4/3'" name="4-3" displayName="4:3 (detected)">./_inc/layouts/4-3.xml</include>
+    <include if="{screen.ratio} == '5/4'" name="4-3" displayName="4:3 (detected)">./_inc/layouts/4-3.xml</include>
+    <include name="16-9" displayName="16:9 widescreen" />
+    <include name="4-3" displayName="4:3 standard">./_inc/layouts/4-3.xml</include>
+  </subset>
+
+  <subset name="grid-source" displayName="Game grid tile image">
+    <include name="image" displayName="Screenshot" />
+    <include name="thumbnail" displayName="Box art" />
+    <include name="marquee" displayName="Logo" />
+    <include name="mix" displayName="Mix image" />
+  </subset>
+
+  <subset name="music" displayName="Background music (from _music folder)">
+    <include name="on" displayName="On">./_inc/music.xml</include>
+    <include name="off" displayName="Off" />
+  </subset>
+
+  <!-- =============================================================
+       Shared variables
+       ============================================================= -->
+  <variables>
+    <fontRound>./_inc/fonts/VarelaRound-Regular.ttf</fontRound>
+    <fontRegular>./_inc/fonts/Nunito-Regular.ttf</fontRegular>
+    <fontBold>./_inc/fonts/Nunito-Bold.ttf</fontBold>
+    <logoPath>./_inc/systems/logos/${system.theme}.svg</logoPath>
+    <logoPathPng>./_inc/systems/logos/${system.theme}.png</logoPathPng>
+  </variables>
+
+  <!-- =============================================================
+       Screen overlay: clock sits in the dip of the bottom bar
+       ============================================================= -->
+  <view name="screen">
+    <text name="clock">
+      <pos>0.5 0.775</pos>
+      <origin>0.5 0.5</origin>
+      <size>0.30 0.08</size>
+      <fontPath>${fontRound}</fontPath>
+      <fontSize>0.075</fontSize>
+      <color>${textSecondary}</color>
+      <alignment>center</alignment>
+      <verticalAlignment>center</verticalAlignment>
+      <zIndex>60</zIndex>
+    </text>
+    <!-- Controller activity: top right, clear of the help prompts, left of the network icon -->
+    <controllerActivity name="controllerActivity">
+      <pos>0.80 0.028</pos>
+      <size>0.12 0.028</size>
+      <horizontalAlignment>right</horizontalAlignment>
+      <itemSpacing>0.004</itemSpacing>
+      <imagePath>./_inc/images/gamepad.svg</imagePath>
+      <color>B8B8B8FF</color>
+      <activityColor>${accent}</activityColor>
+      <hotkeyColor>E07A7AFF</hotkeyColor>
+    </controllerActivity>
+  </view>
+
+  <!-- =============================================================
+       Pop-up menus
+       ============================================================= -->
+  <view name="menu">
+    <menuBackground name="menubg">
+      <path>./_inc/images/menu-frame.png</path>
+      <cornerSize>24 24</cornerSize>
+      <color>${menuFrameTint}</color>
+      <scrollbarColor>${accentLight}</scrollbarColor>
+      <scrollbarSize>0.006</scrollbarSize>
+      <scrollbarCorner>0.5</scrollbarCorner>
+      <scrollbarAlignment>outer right</scrollbarAlignment>
+    </menuBackground>
+    <menuText name="menutitle">
+      <fontPath>${fontRound}</fontPath>
+      <fontSize>0.05</fontSize>
+      <color>${textPrimary}</color>
+    </menuText>
+    <menuText name="menufooter">
+      <fontPath>${fontRegular}</fontPath>
+      <fontSize>0.022</fontSize>
+      <color>${textMuted}</color>
+    </menuText>
+    <menuText name="menutext">
+      <fontPath>${fontRegular}</fontPath>
+      <fontSize>0.032</fontSize>
+      <color>${textPrimary}</color>
+      <separatorColor>${separator}</separatorColor>
+      <selectorColor>${accentLight}</selectorColor>
+      <selectorColorEnd>${accent}</selectorColorEnd>
+      <selectorGradientType>vertical</selectorGradientType>
+      <selectedColor>${textOnAccent}</selectedColor>
+    </menuText>
+    <menuTextSmall name="menutextsmall">
+      <fontPath>${fontRegular}</fontPath>
+      <fontSize>0.024</fontSize>
+      <color>${textSecondary}</color>
+    </menuTextSmall>
+    <menuGroup name="menugroup">
+      <fontPath>${fontBold}</fontPath>
+      <fontSize>0.026</fontSize>
+      <color>${accentDark}</color>
+      <backgroundColor>${menuGroupBg}</backgroundColor>
+      <separatorColor>${separator}</separatorColor>
+    </menuGroup>
+    <menuButton name="menubutton">
+      <!-- The engine multiplies these by the menu text colour (normal) and the
+           selector colour (focused): white outline -> grey outline with dark text,
+           white solid -> blue pill with white text -->
+      <path>./_inc/images/pill-outline.png</path>
+      <filledPath>./_inc/images/pill-solid.png</filledPath>
+      <cornerSize>40 40</cornerSize>
+    </menuButton>
+    <helpsystem name="help">
+      <textColor>${textSecondary}</textColor>
+      <iconColor>${accent}</iconColor>
+      <fontPath>${fontRegular}</fontPath>
+      <fontSize>0.025</fontSize>
+    </helpsystem>
+  </view>
+
+  <!-- =============================================================
+       Elements shared by every browsing view
+       ============================================================= -->
+  <view name="system, basic, detailed, grid">
+    <!-- Striped backdrop -->
+    <image name="background" extra="true">
+      <pos>0 0</pos>
+      <size>1 1</size>
+      <origin>0 0</origin>
+      <path>${bgImage}</path>
+      <tile>true</tile>
+      <zIndex>0</zIndex>
+    </image>
+
+    <!-- Curved bottom bar -->
+    <image name="bottom-bar" extra="true">
+      <pos>0 0.722</pos>
+      <size>1 0.278</size>
+      <origin>0 0</origin>
+      <path>${barImage}</path>
+      <zIndex>20</zIndex>
+    </image>
+
+    <!-- RetroAchievements block (replaces the old SD card icon).
+         Signed in: the player's avatar and user name, fetched from
+         RetroAchievements. Not signed in: a grey trophy and a label.
+         Either one opens the RetroAchievements panel when clicked. -->
+    <webimage name="ra-avatar" extra="true" if="{global.cheevos} == true" onclick="cheevos">
+      <path>https://media.retroachievements.org/UserPic/${global.cheevos.username}.png</path>
+      <pos>0.15 0.875</pos>
+      <origin>0.5 0.5</origin>
+      <maxSize>0.042 0.075</maxSize>
+      <roundCorners>0.2</roundCorners>
+      <linearSmooth>true</linearSmooth>
+      <zIndex>25</zIndex>
+    </webimage>
+    <image name="ra-trophy" extra="true" if="{global.cheevos} == false" onclick="cheevos">
+      <path>./_inc/images/trophy.svg</path>
+      <pos>0.15 0.875</pos>
+      <origin>0.5 0.5</origin>
+      <maxSize>0.036 0.065</maxSize>
+      <color>B8B8B8FF</color>
+      <zIndex>25</zIndex>
+    </image>
+    <text name="ra-name" extra="true" onclick="cheevos">
+      <text>RetroAchievements</text>
+      <text if="{global.cheevos} == true">${global.cheevos.username}</text>
+      <pos>0.15 0.935</pos>
+      <origin>0.5 0.5</origin>
+      <size>0.13 0.03</size>
+      <fontPath>${fontBold}</fontPath>
+      <fontSize>0.02</fontSize>
+      <color>${textMuted}</color>
+      <color if="{global.cheevos} == true">${accentDark}</color>
+      <alignment>center</alignment>
+      <verticalAlignment>center</verticalAlignment>
+      <singleLineScroll>true</singleLineScroll>
+      <zIndex>25</zIndex>
+    </text>
+
+    <!-- Help prompts inside the bar -->
+    <helpsystem name="help">
+      <pos>0.5 0.975</pos>
+      <origin>0.5 0.5</origin>
+      <textColor>${textSecondary}</textColor>
+      <iconColor>${accent}</iconColor>
+      <fontPath>${fontRegular}</fontPath>
+      <fontSize>0.024</fontSize>
+      <iconUpDown>./_inc/images/help-dpad-updown.svg</iconUpDown>
+      <iconLeftRight>./_inc/images/help-dpad-leftright.svg</iconLeftRight>
+      <iconUpDownLeftRight>./_inc/images/help-dpad-updownleftright.svg</iconUpDownLeftRight>
+      <iconA>./_inc/images/help-button-east.svg</iconA>
+      <iconB>./_inc/images/help-button-south.svg</iconB>
+      <iconX>./_inc/images/help-button-north.svg</iconX>
+      <iconY>./_inc/images/help-button-west.svg</iconY>
+    </helpsystem>
+  </view>
+
+  <!-- =============================================================
+       SYSTEM VIEW: grid of console "channels"
+       ============================================================= -->
+  <view name="system">
+    <!-- Round buttons: click actions (mouse or touch) -->
+    <image name="home-button" extra="true" onclick="search">
+      <pos>0.075 0.865</pos>
+      <origin>0.5 0.5</origin>
+      <maxSize>0.075 0.135</maxSize>
+      <path>${homeButtonImage}</path>
+      <zIndex>25</zIndex>
+    </image>
+    <image name="mail-button" extra="true" onclick="netplay">
+      <pos>0.925 0.865</pos>
+      <origin>0.5 0.5</origin>
+      <maxSize>0.075 0.135</maxSize>
+      <path>${mailButtonImage}</path>
+      <zIndex>25</zIndex>
+    </image>
+
+    <!-- The grid takes each console's tile picture from this logo element -->
+    <image name="logo">
+      <path>${logoPath}</path>
+      <path>${logoPathPng}</path>
+    </image>
+    <text name="logoText">
+      <fontPath>${fontBold}</fontPath>
+      <color>${textPrimary}</color>
+      <forceUppercase>false</forceUppercase>
+    </text>
+
+    <!-- Channel grid (replaces the usual carousel) -->
+    <imagegrid name="imagegrid">
+      <pos>0.075 0.06</pos>
+      <size>0.85 0.635</size>
+      <autoLayout>4 3</autoLayout>
+      <autoLayoutSelectedZoom>1.05</autoLayoutSelectedZoom>
+      <animateSelection>true</animateSelection>
+      <margin>0.014 0.028</margin>
+      <!-- inner padding so the zoomed selected tile is not clipped at the grid edges -->
+      <padding>0.015 0.015 0.015 0.015</padding>
+      <scrollDirection>vertical</scrollDirection>
+      <centerSelection>false</centerSelection>
+      <scrollLoop>false</scrollLoop>
+      <gameImage>./_inc/images/disc.svg</gameImage>
+      <folderImage>./_inc/images/disc.svg</folderImage>
+      <scrollbarColor>00000000</scrollbarColor>
+      <zIndex>10</zIndex>
+    </imagegrid>
+    <gridtile name="default">
+      <backgroundImage>./_inc/images/tile.png</backgroundImage>
+      <backgroundCornerSize>28 28</backgroundCornerSize>
+      <backgroundColor>${tileTint}</backgroundColor>
+      <selectionMode>full</selectionMode>
+      <imageSizeMode>maxSize</imageSizeMode>
+      <!-- Logos are full colour: no tint -->
+      <imageColor>FFFFFFFF</imageColor>
+      <padding>30 34 30 34</padding>
+    </gridtile>
+    <gridtile name="selected">
+      <backgroundImage>./_inc/images/tile-selected.png</backgroundImage>
+      <backgroundCornerSize>30 30</backgroundCornerSize>
+      <backgroundColor>FFFFFFFF</backgroundColor>
+      <imageColor>FFFFFFFF</imageColor>
+      <padding>30 34 30 34</padding>
+    </gridtile>
+    <!-- No name label on console tiles: the logo is enough -->
+    <text name="gridtile">
+      <visible>false</visible>
+      <size>0 0</size>
+    </text>
+    <!-- Console logos sit in greyscale and fade to full colour when their
+         tile is highlighted (tiles fire activate/deactivate storyboards) -->
+    <image name="gridtile.image">
+      <saturation>0</saturation>
+      <storyboard event="activate">
+        <animation property="saturation" from="0" to="1" duration="250" mode="easeOut"/>
+      </storyboard>
+      <storyboard event="deactivate">
+        <animation property="saturation" from="1" to="0" duration="250" mode="easeOut"/>
+      </storyboard>
+    </image>
+
+
+    <!-- Side arrows -->
+    <image name="arrow-left" extra="true">
+      <pos>0.028 0.375</pos>
+      <origin>0.5 0.5</origin>
+      <maxSize>0.025 0.08</maxSize>
+      <path>./_inc/images/arrow-left.svg</path>
+      <zIndex>15</zIndex>
+    </image>
+    <image name="arrow-right" extra="true">
+      <pos>0.972 0.375</pos>
+      <origin>0.5 0.5</origin>
+      <maxSize>0.025 0.08</maxSize>
+      <path>./_inc/images/arrow-right.svg</path>
+      <zIndex>15</zIndex>
+    </image>
+
+    <!-- Selected console name under the clock, game count beneath -->
+    <text name="system-name" extra="true">
+      <pos>0.5 0.865</pos>
+      <origin>0.5 0.5</origin>
+      <size>0.46 0.06</size>
+      <text>${system.fullName}</text>
+      <fontPath>${fontBold}</fontPath>
+      <fontSize>0.045</fontSize>
+      <color>${textPrimary}</color>
+      <alignment>center</alignment>
+      <verticalAlignment>center</verticalAlignment>
+      <zIndex>30</zIndex>
+    </text>
+    <text name="systemInfo">
+      <pos>0.5 0.92</pos>
+      <origin>0.5 0.5</origin>
+      <size>0.46 0.04</size>
+      <fontPath>${fontRegular}</fontPath>
+      <fontSize>0.024</fontSize>
+      <color>${textMuted}</color>
+      <backgroundColor>00000000</backgroundColor>
+      <alignment>center</alignment>
+      <zIndex>30</zIndex>
+    </text>
+  </view>
+
+  <!-- =============================================================
+       GAME LIST (basic + detailed): channel preview screen
+       ============================================================= -->
+  <view name="basic, detailed, grid">
+    <!-- Round buttons: click actions (mouse or touch) -->
+    <image name="home-button" extra="true" onclick="back">
+      <pos>0.075 0.865</pos>
+      <origin>0.5 0.5</origin>
+      <maxSize>0.075 0.135</maxSize>
+      <path>${homeButtonImage}</path>
+      <zIndex>25</zIndex>
+    </image>
+    <image name="mail-button" extra="true" onclick="gameoptions">
+      <pos>0.925 0.865</pos>
+      <origin>0.5 0.5</origin>
+      <maxSize>0.075 0.135</maxSize>
+      <path>${mailButtonImage}</path>
+      <zIndex>25</zIndex>
+    </image>
+  </view>
+
+  <view name="basic, detailed">
+    <!-- Left: white rounded panel holding the console logo and game list -->
+    <ninepatch name="list-panel" extra="true">
+      <pos>0.04 0.06</pos>
+      <size>0.36 0.64</size>
+      <path>./_inc/images/panel.png</path>
+      <cornerSize>40 40</cornerSize>
+      <color>${panelTint}</color>
+      <zIndex>5</zIndex>
+    </ninepatch>
+    <ninepatch name="logo-plate" extra="true" ifSubset="colorset:dark">
+      <pos>0.065 0.07</pos>
+      <size>0.31 0.09</size>
+      <path>./_inc/images/panel.png</path>
+      <cornerSize>40 40</cornerSize>
+      <color>E4E4E4FF</color>
+      <zIndex>7</zIndex>
+    </ninepatch>
+    <image name="logo">
+      <pos>0.22 0.115</pos>
+      <origin>0.5 0.5</origin>
+      <maxSize>0.26 0.08</maxSize>
+      <path>${logoPath}</path>
+      <path>${logoPathPng}</path>
+      <zIndex>8</zIndex>
+    </image>
+    <text name="logoText">
+      <pos>0.22 0.115</pos>
+      <origin>0.5 0.5</origin>
+      <size>0.30 0.08</size>
+      <text>${system.fullName}</text>
+      <fontPath>${fontBold}</fontPath>
+      <fontSize>0.045</fontSize>
+      <color>${textPrimary}</color>
+      <alignment>center</alignment>
+      <verticalAlignment>center</verticalAlignment>
+      <forceUppercase>false</forceUppercase>
+      <zIndex>8</zIndex>
+    </text>
+    <textlist name="gamelist">
+      <pos>0.055 0.17</pos>
+      <size>0.33 0.51</size>
+      <origin>0 0</origin>
+      <fontPath>${fontRegular}</fontPath>
+      <fontSize>0.03</fontSize>
+      <alignment>left</alignment>
+      <horizontalMargin>0.015</horizontalMargin>
+      <lineSpacing>1.7</lineSpacing>
+      <primaryColor>${textPrimary}</primaryColor>
+      <secondaryColor>${folderColor}</secondaryColor>
+      <selectedColor>${textOnAccent}</selectedColor>
+      <selectorColor>${accentLight}</selectorColor>
+      <selectorColorEnd>${accent}</selectorColorEnd>
+      <selectorGradientType>vertical</selectorGradientType>
+      <scrollbarColor>${separator}</scrollbarColor>
+      <scrollbarSize>0.005</scrollbarSize>
+      <scrollbarCorner>0.5</scrollbarCorner>
+      <scrollbarAlignment>outer right</scrollbarAlignment>
+      <zIndex>9</zIndex>
+    </textlist>
+
+    <text name="game-count" extra="true">
+      <pos>0.5 0.92</pos>
+      <origin>0.5 0.5</origin>
+      <size>0.20 0.035</size>
+      <text>${system.fullName}</text>
+      <fontPath>${fontRegular}</fontPath>
+      <fontSize>0.022</fontSize>
+      <color>${textMuted}</color>
+      <alignment>center</alignment>
+      <zIndex>30</zIndex>
+    </text>
+
+    <!-- Hide everything we do not lay out explicitly -->
+    <text name="md_lbl_rating, md_lbl_releasedate, md_lbl_developer, md_lbl_publisher, md_lbl_genre, md_lbl_players, md_lbl_lastplayed, md_lbl_playcount, md_lbl_gametime">
+      <visible>false</visible>
+    </text>
+    <text name="md_developer, md_publisher, md_playcount, md_gametime">
+      <visible>false</visible>
+    </text>
+    <datetime name="md_lastplayed">
+      <visible>false</visible>
+    </datetime>
+    <image name="md_image, md_thumbnail">
+      <visible>false</visible>
+    </image>
+  </view>
+
+  <!-- Basic view (no metadata): show a static preview panel -->
+  <view name="basic">
+    <ninepatch name="screen-panel" extra="true">
+      <pos>0.43 0.06</pos>
+      <size>0.53 0.64</size>
+      <path>./_inc/images/panel.png</path>
+      <cornerSize>40 40</cornerSize>
+      <color>${panelTint}</color>
+      <zIndex>5</zIndex>
+    </ninepatch>
+    <image name="no-preview" extra="true">
+      <pos>0.695 0.38</pos>
+      <origin>0.5 0.5</origin>
+      <maxSize>0.49 0.50</maxSize>
+      <path>${noPreviewImage}</path>
+      <roundCorners>0.04</roundCorners>
+      <zIndex>8</zIndex>
+    </image>
+  </view>
+
+  <!-- Detailed view: live preview plus metadata strip -->
+  <view name="detailed">
+    <!-- Preview "screen" -->
+    <ninepatch name="screen-panel" extra="true">
+      <pos>0.43 0.06</pos>
+      <size>0.53 0.44</size>
+      <path>./_inc/images/panel.png</path>
+      <cornerSize>40 40</cornerSize>
+      <color>${panelTint}</color>
+      <zIndex>5</zIndex>
+    </ninepatch>
+    <video name="md_video">
+      <pos>0.695 0.28</pos>
+      <origin>0.5 0.5</origin>
+      <maxSize>0.50 0.40</maxSize>
+      <delay>0.5</delay>
+      <showSnapshotNoVideo>true</showSnapshotNoVideo>
+      <showSnapshotDelay>true</showSnapshotDelay>
+      <snapshotSource>image</snapshotSource>
+      <default>${noPreviewImage}</default>
+      <defaultSnapshot>${noPreviewImage}</defaultSnapshot>
+      <roundCorners>0.04</roundCorners>
+      <linearSmooth>true</linearSmooth>
+      <zIndex>12</zIndex>
+    </video>
+
+    <!-- Info strip under the screen -->
+    <ninepatch name="info-panel" extra="true">
+      <pos>0.43 0.52</pos>
+      <size>0.53 0.18</size>
+      <path>./_inc/images/panel.png</path>
+      <cornerSize>40 40</cornerSize>
+      <color>${panelTint}</color>
+      <zIndex>5</zIndex>
+    </ninepatch>
+    <image name="md_marquee">
+      <pos>0.445 0.595</pos>
+      <origin>0 0.5</origin>
+      <maxSize>0.14 0.11</maxSize>
+      <zIndex>12</zIndex>
+    </image>
+    <rating name="md_rating">
+      <pos>0.445 0.665</pos>
+      <origin>0 0.5</origin>
+      <size>0.14 0.025</size>
+      <filledPath>./_inc/images/star-filled.svg</filledPath>
+      <unfilledPath>./_inc/images/star-unfilled.svg</unfilledPath>
+      <color>FFFFFFFF</color>
+      <zIndex>12</zIndex>
+    </rating>
+    <image name="game-cheevos" extra="true" if="{global.cheevos} == true">
+      <path>./_inc/images/trophy.svg</path>
+      <pos>0.935 0.555</pos>
+      <origin>0.5 0.5</origin>
+      <maxSize>0.022 0.038</maxSize>
+      <color>E8B820FF</color>
+      <visible>{game:cheevos}</visible>
+      <zIndex>13</zIndex>
+    </image>
+    <text name="md_name">
+      <pos>0.60 0.535</pos>
+      <size>0.31 0.04</size>
+      <fontPath>${fontBold}</fontPath>
+      <fontSize>0.032</fontSize>
+      <color>${textPrimary}</color>
+      <alignment>left</alignment>
+      <singleLineScroll>true</singleLineScroll>
+      <zIndex>12</zIndex>
+    </text>
+    <datetime name="md_releasedate">
+      <pos>0.60 0.578</pos>
+      <size>0.06 0.03</size>
+      <format>%Y</format>
+      <fontPath>${fontRegular}</fontPath>
+      <fontSize>0.022</fontSize>
+      <color>${accentDark}</color>
+      <alignment>left</alignment>
+      <zIndex>12</zIndex>
+    </datetime>
+    <text name="md_players">
+      <pos>0.66 0.578</pos>
+      <size>0.08 0.03</size>
+      <fontPath>${fontRegular}</fontPath>
+      <fontSize>0.022</fontSize>
+      <color>${accentDark}</color>
+      <alignment>left</alignment>
+      <zIndex>12</zIndex>
+    </text>
+    <text name="md_genre">
+      <pos>0.74 0.578</pos>
+      <size>0.205 0.03</size>
+      <fontPath>${fontRegular}</fontPath>
+      <fontSize>0.022</fontSize>
+      <color>${accentDark}</color>
+      <alignment>left</alignment>
+      <singleLineScroll>true</singleLineScroll>
+      <zIndex>12</zIndex>
+    </text>
+    <!-- Compact disc shown only when the game has save states; click opens the save manager -->
+    <image name="game-savestates" extra="true" onclick="savestates">
+      <path>./_inc/images/compact-disc.svg</path>
+      <pos>0.935 0.655</pos>
+      <origin>0.5 0.5</origin>
+      <maxSize>0.03 0.052</maxSize>
+      <visible>{game:savestate}</visible>
+      <zIndex>13</zIndex>
+    </image>
+    <text name="md_description">
+      <pos>0.60 0.612</pos>
+      <size>0.305 0.08</size>
+      <fontPath>${fontRegular}</fontPath>
+      <fontSize>0.02</fontSize>
+      <color>${textSecondary}</color>
+      <alignment>left</alignment>
+      <lineSpacing>1.3</lineSpacing>
+      <autoScroll>vertical</autoScroll>
+      <autoScrollDelay>3000</autoScrollDelay>
+      <zIndex>12</zIndex>
+    </text>
+  </view>
+
+  <!-- =============================================================
+       GAME GRID: games as channel tiles, video in the selected tile
+       ============================================================= -->
+  <view name="grid">
+    <imagegrid name="gamegrid">
+      <pos>0.05 0.06</pos>
+      <size>0.90 0.635</size>
+      <autoLayout>5 3</autoLayout>
+      <autoLayoutSelectedZoom>1.05</autoLayoutSelectedZoom>
+      <animateSelection>true</animateSelection>
+      <margin>0.012 0.028</margin>
+      <padding>0.015 0.015 0.015 0.015</padding>
+      <scrollDirection>vertical</scrollDirection>
+      <centerSelection>false</centerSelection>
+      <scrollLoop>false</scrollLoop>
+      <imageSource>${subset.grid-source}</imageSource>
+      <gameImage>${noPreviewImage}</gameImage>
+      <folderImage>./_inc/images/disc.svg</folderImage>
+      <showVideoAtDelay>900</showVideoAtDelay>
+      <scrollbarColor>00000000</scrollbarColor>
+      <zIndex>10</zIndex>
+    </imagegrid>
+    <gridtile name="default">
+      <backgroundImage>./_inc/images/tile.png</backgroundImage>
+      <backgroundCornerSize>28 28</backgroundCornerSize>
+      <backgroundColor>${tileTint}</backgroundColor>
+      <selectionMode>full</selectionMode>
+      <imageSizeMode>minSize</imageSizeMode>
+      <imageSizeMode ifSubset="grid-source:thumbnail|marquee">maxSize</imageSizeMode>
+      <imageColor>FFFFFFFF</imageColor>
+      <padding>10 10 10 10</padding>
+    </gridtile>
+    <gridtile name="selected">
+      <backgroundImage>./_inc/images/tile-selected.png</backgroundImage>
+      <backgroundCornerSize>30 30</backgroundCornerSize>
+      <backgroundColor>FFFFFFFF</backgroundColor>
+      <imageColor>FFFFFFFF</imageColor>
+      <padding>12 12 12 12</padding>
+    </gridtile>
+    <image name="gridtile.image">
+      <roundCorners>0.08</roundCorners>
+    </image>
+    <video name="gridtile.video">
+      <roundCorners>0.08</roundCorners>
+    </video>
+    <text name="gridtile">
+      <pos>0 0.76</pos>
+      <size>1 0.20</size>
+      <fontPath>${fontBold}</fontPath>
+      <fontSize>0.02</fontSize>
+      <color>${textPrimary}</color>
+      <backgroundColor>${labelBg}</backgroundColor>
+      <alignment>center</alignment>
+      <verticalAlignment>center</verticalAlignment>
+      <singleLineScroll>true</singleLineScroll>
+    </text>
+    <text name="gridtile_selected">
+      <color>${accentDark}</color>
+      <backgroundColor>${labelBgSelected}</backgroundColor>
+    </text>
+    <image name="gridtile.favorite">
+      <path>./_inc/images/star-filled.svg</path>
+      <pos>0.05 0.06</pos>
+      <origin>0 0</origin>
+      <maxSize>0.12 0.14</maxSize>
+    </image>
+    <image name="gridtile.cheevos" if="{global.cheevos} == true">
+      <path>./_inc/images/trophy.svg</path>
+      <pos>0.95 0.06</pos>
+      <origin>1 0</origin>
+      <maxSize>0.12 0.14</maxSize>
+      <color>E8B820FF</color>
+    </image>
+
+    <!-- Console logo in the bar, game name under the clock -->
+    <image name="logo">
+      <pos>0.5 0.735</pos>
+      <origin>0.5 1</origin>
+      <maxSize>0.20 0.05</maxSize>
+      <path>${logoPath}</path>
+      <path>${logoPathPng}</path>
+      <visible>false</visible>
+    </image>
+    <text name="md_name">
+      <pos>0.5 0.865</pos>
+      <origin>0.5 0.5</origin>
+      <size>0.46 0.06</size>
+      <fontPath>${fontBold}</fontPath>
+      <fontSize>0.04</fontSize>
+      <color>${textPrimary}</color>
+      <alignment>center</alignment>
+      <verticalAlignment>center</verticalAlignment>
+      <singleLineScroll>true</singleLineScroll>
+      <zIndex>30</zIndex>
+    </text>
+    <text name="game-system" extra="true">
+      <pos>0.5 0.92</pos>
+      <origin>0.5 0.5</origin>
+      <size>0.46 0.035</size>
+      <text>${system.fullName}</text>
+      <fontPath>${fontRegular}</fontPath>
+      <fontSize>0.022</fontSize>
+      <color>${textMuted}</color>
+      <alignment>center</alignment>
+      <zIndex>30</zIndex>
+    </text>
+
+    <!-- Hide default metadata in the grid view -->
+    <text name="md_lbl_rating, md_lbl_releasedate, md_lbl_developer, md_lbl_publisher, md_lbl_genre, md_lbl_players, md_lbl_lastplayed, md_lbl_playcount, md_lbl_gametime, md_developer, md_publisher, md_genre, md_players, md_playcount, md_gametime, md_description">
+      <visible>false</visible>
+    </text>
+    <datetime name="md_releasedate, md_lastplayed">
+      <visible>false</visible>
+    </datetime>
+    <rating name="md_rating">
+      <visible>false</visible>
+    </rating>
+    <image name="md_image, md_marquee, md_thumbnail">
+      <visible>false</visible>
+    </image>
+    <video name="md_video">
+      <visible>false</visible>
+    </video>
+  </view>
+</theme>
