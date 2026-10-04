@@ -22,6 +22,7 @@ Rules for this register:
 | CR-0005 | 2026-10-04 | 0.1.2 | Standard change | Pointer hand follows the highlighted grid tile | `release/v0.1.2` | Submitted for approval |
 | CR-0006 | 2026-10-04 | 0.1.3 | Standard change | RetroAchievements integration replaces the SD card icon | `release/v0.1.3` | Submitted for approval |
 | CR-0007 | 2026-10-04 | 0.1.4 | Standard change | Click actions for the house and envelope buttons | `release/v0.1.4` | Submitted for approval |
+| CR-0008 | 2026-10-04 | 0.1.5 | Corrective change | On-device test fixes: coloured logos, tile labels, clipping, menu button | `release/v0.1.5` | Submitted for approval |
 
 ---
 
@@ -539,3 +540,84 @@ Install the `v0.1.3` folder or zip. In the repository, revert the merge of
 ### Post-implementation review
 
 To be completed after on-device testing.
+
+---
+
+## CR-0008 - On-device test fixes: coloured logos, tile labels, clipping, menu button
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0008 |
+| Date raised | 2026-10-04 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.5 (folder `v0.1.5/BatWiiCera`, zip `v0.1.5/BatWiiCera-v0.1.5.zip`) |
+| Previous version | 0.1.4 (folder `v0.1.4`, left unchanged) |
+| Change type | Corrective change (defects found in the first on-device test) |
+| Branch | `release/v0.1.5` (branched from `release/v0.1.4`) |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+The author installed the theme on a Batocera device (photos supplied) and
+reported five defects. The test also confirmed that the console grid, bottom
+bar, clock, pop-up menus and help prompts render as designed.
+
+| Defect | Cause | Fix |
+| --- | --- | --- |
+| Console logos are grey, not colour | Art Book Next logos are white masks tinted grey | Logo set replaced by the full-colour Carbon set (609 files); Art Book Next kept only as fallback, recoloured white to dark grey; all tints removed from `gridtile` and `logo` elements; svg then png path fallback |
+| System name text renders across the logo | The grid tile label is drawn over the tile centre; author does not want it | Label hidden (`visible` false, size 0 0); tile padding made symmetrical |
+| Selected tile's border clipped on the bottom row and right column | Selected tile zooms 6 percent and the grid clips at its own edge | Inner `padding` 0.015 on both grids and zoom reduced to 1.05 |
+| Pop-up menu button is grey | `menuButton` used the grey pill | Blue pill, darker blue when pressed (`pill-blue-dark.png` added) |
+| Active-controller icon overlaps the help prompts | `controllerActivity` placed at the bottom right, inside the help prompt row on wider prompt sets | Moved to the top right corner (x 0.80-0.92, y 0.028), left of the network icon |
+
+Also recorded: hiding the built-in Screenshots (image viewer) system is a
+Batocera setting (Game Collection Settings > Systems displayed), outside the
+theme's control; documented in the README.
+
+`v0.1.5/` created as a full copy of `v0.1.4/` (zip excluded and rebuilt);
+theme `README.md`, `LICENSE` (Carbon credit and recolour notice), repository
+`README.md`, previews and this register updated.
+
+### Reason for change
+
+Defects reported from on-device testing of the release candidate.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| A Carbon logo designed for a dark background is hard to read on white | Low-Medium | Cosmetic for a few systems | 36 common systems checked on white tiles; the white "-w" variants were excluded |
+| Repository and zip grow with the larger logo set | Certain | Theme folder grows from 4 MB to about 25 MB | PNG logos downscaled to at most 640 px wide and stripped; two SVGs with embedded bitmaps replaced by the lighter recoloured fallbacks; remaining size accepted as normal for a full logo set |
+| Padding value leaves the zoomed tile still clipped on some resolutions | Low | Cosmetic | Values are normalised; re-check on device |
+
+Overall risk rating: **Low**.
+
+### Impact
+
+New version folder only; earlier versions untouched. Visual change on every
+console tile.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| XML well-formedness of all `v0.1.5` XML files | Pass |
+| Asset path check | Pass |
+| 36 common Carbon logos rendered on white tiles in headless Chromium and reviewed | Pass (visual) |
+| Mock-ups re-rendered with coloured logos, no labels and blue menu button | Pass (visual) |
+| Zip integrity and extracted contents identical to the folder | Pass |
+| Re-test on the Batocera device | **Not performed** - required before approval |
+
+### Rollback plan
+
+Install the `v0.1.4` folder or zip. In the repository, revert the merge of
+`release/v0.1.5`.
+
+### Post-implementation review
+
+To be completed after the device re-test.
