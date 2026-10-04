@@ -22,14 +22,19 @@ will be added after on-device testing.
 
 Each release of the theme is kept in its own folder named after the version, so
 every version stays available and installable. Pick the folder you want and copy
-the `BatWiiCera` theme folder inside it to `/userdata/themes/` on your device.
+the `BatWiiCera` theme folder inside it to `/userdata/themes/` on your device,
+or download that version's zip and extract it there. The zip contains the
+`BatWiiCera` folder at its root, so extracting it into `/userdata/themes/`
+puts everything in the right place.
+
+**Latest download:** [`BatWiiCera-v0.1.1.zip`](v0.1.1/BatWiiCera-v0.1.1.zip)
 
 ## Versions
 
-| Version | Folder | Date | Status | Summary |
-| --- | --- | --- | --- | --- |
-| 0.1.1 | [`v0.1.1/BatWiiCera`](v0.1.1/BatWiiCera) | 2026-10-04 | Release candidate, awaiting on-device sign-off | Adds a bundled quiet background music loop, music option on by default |
-| 0.1.0 | [`v0.1.0/BatWiiCera`](v0.1.0/BatWiiCera) | 2026-10-04 | Superseded by 0.1.1 | Initial release: console channel grid, game list with video preview, game grid, menus, two colour sets, 16:9 and 4:3 layouts |
+| Version | Folder | Zip | Date | Status | Summary |
+| --- | --- | --- | --- | --- | --- |
+| 0.1.1 | [`v0.1.1/BatWiiCera`](v0.1.1/BatWiiCera) | [`BatWiiCera-v0.1.1.zip`](v0.1.1/BatWiiCera-v0.1.1.zip) | 2026-10-04 | Release candidate, awaiting on-device sign-off | Adds a bundled quiet background music loop, music option on by default |
+| 0.1.0 | [`v0.1.0/BatWiiCera`](v0.1.0/BatWiiCera) | none | 2026-10-04 | Superseded by 0.1.1 | Initial release: console channel grid, game list with video preview, game grid, menus, two colour sets, 16:9 and 4:3 layouts |
 
 Full details for each version are in that version's own `README.md`.
 Every change is also logged in [`CHANGE_CONTROL.md`](CHANGE_CONTROL.md).
@@ -42,6 +47,7 @@ CHANGE_CONTROL.md       change register, one entry per change, never deleted
 v0.1.0/BatWiiCera/      version 0.1.0 of the theme (installable folder)
 v0.1.0/previews/        layout mock-ups for version 0.1.0
 v0.1.1/BatWiiCera/      version 0.1.1 of the theme (installable folder)
+v0.1.1/BatWiiCera-v0.1.1.zip  the same folder packaged for download
 v0.1.1/previews/        layout mock-ups (unchanged from 0.1.0)
 *.jpg                   reference screenshots of the original console menu
 ```

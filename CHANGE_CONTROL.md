@@ -18,6 +18,7 @@ Rules for this register:
 | CR-0001 | 2026-10-04 | 0.1.0 | New release | Initial creation of the BatWiiCera theme | `release/v0.1.0` | Submitted for approval |
 | CR-0002 | 2026-10-04 | 0.1.1 | Standard change | Bundle quiet background music loop, music on by default | `release/v0.1.1` | Submitted for approval |
 | CR-0003 | 2026-10-04 | 0.1.1 (docs only) | Documentation change | Embed layout mock-up screenshots in the repository README | `release/v0.1.1` | Submitted for approval |
+| CR-0004 | 2026-10-04 | 0.1.1 (packaging) | Packaging change | Add installable zip of version 0.1.1 | `release/v0.1.1` | Submitted for approval |
 
 ---
 
@@ -238,3 +239,59 @@ folder was created.
 ### Rollback plan
 
 Revert the single documentation commit.
+
+---
+
+## CR-0004 - Add installable zip of version 0.1.1
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0004 |
+| Date raised | 2026-10-04 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | None - packaging of existing 0.1.1; theme files unchanged |
+| Previous version | 0.1.1 (folder `v0.1.1/BatWiiCera`, unchanged) |
+| Change type | Packaging change |
+| Branch | `release/v0.1.1` |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+Add `v0.1.1/BatWiiCera-v0.1.1.zip`, a zip archive of the `v0.1.1/BatWiiCera`
+folder with `BatWiiCera/` as the archive root, so extracting it into
+`/userdata/themes/` installs the theme directly. Repository `README.md` gains
+a download link and a Zip column in the version table.
+
+### Reason for change
+
+Author request for a single downloadable installer alongside the release.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Zip drifts from the folder after later edits | Medium | Users install stale files | Rule: any change to a version folder is a new version with its own freshly built zip; the zip was built from the committed folder and verified identical |
+| Wrong folder structure causes install errors | Low | Theme not found | Archive root verified as `BatWiiCera/theme.xml` |
+
+Overall risk rating: **Negligible**.
+
+### Impact
+
+Adds one 1.7 MB binary file to the repository. No theme files changed.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| Archive integrity (`unzip -t`) | Pass, 377 files, no errors |
+| Extracted archive compared with `v0.1.1/BatWiiCera` (`diff -rq`) | Identical |
+| Archive root is the `BatWiiCera` folder | Pass |
+
+### Rollback plan
+
+Delete the zip and revert the README change; the version folder is unaffected.
