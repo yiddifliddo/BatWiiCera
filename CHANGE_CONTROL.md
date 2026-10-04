@@ -27,6 +27,7 @@ Rules for this register:
 | CR-0010 | 2026-10-04 | 0.1.7 | Standard change | Console logos grey until highlighted, then full colour | `release/v0.1.7` | Submitted for approval |
 | CR-0011 | 2026-10-04 | 0.1.8 | Standard change | Dark grey colour set (dark mode) | `release/v0.1.8` | Submitted for approval |
 | CR-0012 | 2026-10-04 | 0.1.9 | Corrective change | Pointer hand removed completely | `release/v0.1.9` | Submitted for approval |
+| CR-0013 | 2026-10-04 | 0.1.10 | Corrective change | Logos stuck grey; dark menus unreadable | `release/v0.1.10` | Submitted for approval |
 
 ---
 
@@ -919,3 +920,71 @@ Install the `v0.1.8` folder or zip. In the repository, revert the merge of
 ### Post-implementation review
 
 To be completed after the device test.
+
+---
+
+## CR-0013 - Logos stuck grey; dark menus unreadable
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0013 |
+| Date raised | 2026-10-04 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.10 (folder `v0.1.10/BatWiiCera`, zip `v0.1.10/BatWiiCera-v0.1.10.zip`) |
+| Previous version | 0.1.9 (folder `v0.1.9`, left unchanged) |
+| Change type | Corrective change (third device test, Batocera 43.1) |
+| Branch | `release/v0.1.10` (branched from `release/v0.1.9`) |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+| Defect | Root cause (from source) | Fix |
+| --- | --- | --- |
+| Console logos grey even when highlighted (photo supplied) | `GridTileComponent::handleStoryBoard` dispatches activate/deactivate storyboards only to `enumerateExtraChildrens()`; the built-in tile image is a BUILTIN child, so the CR-0010 saturation storyboards never ran and the static `saturation` 0 left all logos grey | Saturation and storyboards removed. `gridtile.image` colour `FFFFFF66` (40 percent) and `gridtile.image:selected` colour `FFFFFFFF`, which the engine interpolates per state. Logos are washed-out until highlighted. A true greyscale fade is recorded as not achievable on built-in tile images |
+| Dark grey menus hard to read (photo: light frame, pale items) | Dark frame depended on tinting the light `menu-frame.png`; the engine also caches the menu theme until the theme is reloaded | New `menu-frame-dark.png`; colour sets define `menuFrameImage` (light sets keep `menu-frame.png`); `menuBackground` colour reset to white so no tint is involved. README now says to restart EmulationStation after changing colour set |
+
+`v0.1.10/` created as a full copy of `v0.1.9/` (zip excluded and rebuilt);
+theme `README.md`, `LICENSE`, repository `README.md`, previews and this
+register updated.
+
+### Reason for change
+
+Defects reported from the third device test.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Washed-out logos judged too faint or not faint enough | Medium | Cosmetic | Single alpha value `66`; easy to tune in a follow-up |
+| Dark menu still light if the menu theme cache is not rebuilt | Low | Readability | Restart instruction documented; genuine dark image removes the tint dependency |
+
+Overall risk rating: **Low**.
+
+### Impact
+
+New version folder only; earlier versions untouched.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| XML well-formedness of all `v0.1.10` XML files | Pass |
+| Asset path check; every `${variable}` defined in all three colour sets | Pass |
+| Root causes confirmed in `GridTileComponent.cpp` (storyboard dispatch) and `ThemeData.cpp` (menu theme cache and background parsing) | Pass |
+| Mock-ups re-rendered (light and dark) | Pass (visual) |
+| Zip integrity and extracted contents identical to the folder | Pass |
+| Re-test on the Batocera 43.1 device | **Not performed** - required before approval |
+
+### Rollback plan
+
+Install the `v0.1.9` folder or zip. In the repository, revert the merge of
+`release/v0.1.10`.
+
+### Post-implementation review
+
+To be completed after the device re-test.

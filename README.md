@@ -3,7 +3,7 @@
 A retro console "channel menu" theme for Batocera's EmulationStation.
 
 **Author:** Dan Lee (personal project)
-**Current version:** 0.1.9
+**Current version:** 0.1.10
 **Licence:** Creative Commons BY-NC-SA 4.0
 
 ## Screenshots
@@ -12,19 +12,19 @@ Layout mock-ups rendered from the theme's own assets, fonts and coordinates at
 1280 x 720. They show the intended layout; captures from a real Batocera device
 will be added after on-device testing.
 
-**Console channel grid (system view)** - logos grey until highlighted, RetroAchievements avatar and user name left of the clock
+**Console channel grid (system view)** - logos washed-out until highlighted, RetroAchievements avatar and user name left of the clock
 
-![Console channel grid mock-up](v0.1.9/previews/mockup-console-grid.png)
+![Console channel grid mock-up](v0.1.10/previews/mockup-console-grid.png)
 
 **Game list with live preview (detailed view, default)** - gold trophy marks a game with achievements, compact disc marks save states
 
-![Game list with preview mock-up](v0.1.9/previews/mockup-game-list.png)
+![Game list with preview mock-up](v0.1.10/previews/mockup-game-list.png)
 
 **Dark grey colour set**
 
-![Console grid, dark mode](v0.1.9/previews/mockup-console-grid-dark.png)
+![Console grid, dark mode](v0.1.10/previews/mockup-console-grid-dark.png)
 
-![Game list, dark mode](v0.1.9/previews/mockup-game-list-dark.png)
+![Game list, dark mode](v0.1.10/previews/mockup-game-list-dark.png)
 
 Each release of the theme is kept in its own folder named after the version, so
 every version stays available and installable. Pick the folder you want and copy
@@ -33,13 +33,14 @@ or download that version's zip and extract it there. The zip contains the
 `BatWiiCera` folder at its root, so extracting it into `/userdata/themes/`
 puts everything in the right place.
 
-**Latest download:** [`BatWiiCera-v0.1.9.zip`](v0.1.9/BatWiiCera-v0.1.9.zip)
+**Latest download:** [`BatWiiCera-v0.1.10.zip`](v0.1.10/BatWiiCera-v0.1.10.zip)
 
 ## Versions
 
 | Version | Folder | Zip | Date | Status | Summary |
 | --- | --- | --- | --- | --- | --- |
-| 0.1.9 | [`v0.1.9/BatWiiCera`](v0.1.9/BatWiiCera) | [`BatWiiCera-v0.1.9.zip`](v0.1.9/BatWiiCera-v0.1.9.zip) | 2026-10-04 | Release candidate, awaiting on-device sign-off | Pointer hand removed completely |
+| 0.1.10 | [`v0.1.10/BatWiiCera`](v0.1.10/BatWiiCera) | [`BatWiiCera-v0.1.10.zip`](v0.1.10/BatWiiCera-v0.1.10.zip) | 2026-10-04 | Release candidate, awaiting on-device sign-off | Logos no longer stuck grey (washed-out until highlighted); readable dark menus |
+| 0.1.9 | [`v0.1.9/BatWiiCera`](v0.1.9/BatWiiCera) | [`BatWiiCera-v0.1.9.zip`](v0.1.9/BatWiiCera-v0.1.9.zip) | 2026-10-04 | Superseded by 0.1.10 | Pointer hand removed completely |
 | 0.1.8 | [`v0.1.8/BatWiiCera`](v0.1.8/BatWiiCera) | [`BatWiiCera-v0.1.8.zip`](v0.1.8/BatWiiCera-v0.1.8.zip) | 2026-10-04 | Superseded by 0.1.9 | Dark grey colour set (dark mode) |
 | 0.1.7 | [`v0.1.7/BatWiiCera`](v0.1.7/BatWiiCera) | [`BatWiiCera-v0.1.7.zip`](v0.1.7/BatWiiCera-v0.1.7.zip) | 2026-10-04 | Superseded by 0.1.8 | Console logos grey until highlighted, then full colour |
 | 0.1.6 | [`v0.1.6/BatWiiCera`](v0.1.6/BatWiiCera) | [`BatWiiCera-v0.1.6.zip`](v0.1.6/BatWiiCera-v0.1.6.zip) | 2026-10-04 | Superseded by 0.1.7 | Readable menu buttons, Menu/Start pills removed, save-state disc indicator |
@@ -83,7 +84,7 @@ v0.1.7/BatWiiCera-v0.1.7.zip  the same folder packaged for download
 v0.1.7/previews/        layout mock-ups for version 0.1.7
 v0.1.8/BatWiiCera/      version 0.1.8 of the theme (installable folder)
 v0.1.8/BatWiiCera-v0.1.8.zip  the same folder packaged for download
-v0.1.9/previews/        layout mock-ups for version 0.1.8 (light and dark)
+v0.1.10/previews/        layout mock-ups for version 0.1.8 (light and dark)
 *.jpg                   reference screenshots of the original console menu
 ```
 
@@ -106,7 +107,7 @@ Built with reference to, and reusing assets under CC-BY-NC-SA from,
 Carbon (Rookervik, Nils Bonenberger, Fabrice Caruso), Art Book Next
 (Anthony Caccese), es-theme-minimal (lilbud, Fabrice Caruso) and
 PlayStation-X (pajarorrojo). Fonts: Varela Round (Apache 2.0) and
-Nunito (SIL OFL 1.1). See `v0.1.9/BatWiiCera/LICENSE` for the full notices.
+Nunito (SIL OFL 1.1). See `v0.1.10/BatWiiCera/LICENSE` for the full notices.
 
 This is a fan-made tribute and is not affiliated with or endorsed by any
 console manufacturer. No original console artwork, fonts or audio are included; the bundled music loop was supplied by the author.
