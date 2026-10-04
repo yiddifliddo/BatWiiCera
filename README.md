@@ -59,34 +59,14 @@ Every change is also logged in [`CHANGE_CONTROL.md`](CHANGE_CONTROL.md).
 ```
 README.md               this file (version index)
 CHANGE_CONTROL.md       change register, one entry per change, never deleted
-v0.1.0/BatWiiCera/      version 0.1.0 of the theme (installable folder)
-v0.1.0/previews/        layout mock-ups for version 0.1.0
-v0.1.1/BatWiiCera/      version 0.1.1 of the theme (installable folder)
-v0.1.1/BatWiiCera-v0.1.1.zip  the same folder packaged for download
-v0.1.1/previews/        layout mock-ups (unchanged from 0.1.0)
-v0.1.2/BatWiiCera/      version 0.1.2 of the theme (installable folder)
-v0.1.2/BatWiiCera-v0.1.2.zip  the same folder packaged for download
-v0.1.2/previews/        layout mock-ups for version 0.1.2
-v0.1.3/BatWiiCera/      version 0.1.3 of the theme (installable folder)
-v0.1.3/BatWiiCera-v0.1.3.zip  the same folder packaged for download
-v0.1.3/previews/        layout mock-ups for version 0.1.3
-v0.1.4/BatWiiCera/      version 0.1.4 of the theme (installable folder)
-v0.1.4/BatWiiCera-v0.1.4.zip  the same folder packaged for download
-v0.1.4/previews/        layout mock-ups (unchanged from 0.1.3)
-v0.1.5/BatWiiCera/      version 0.1.5 of the theme (installable folder)
-v0.1.5/BatWiiCera-v0.1.5.zip  the same folder packaged for download
-v0.1.5/previews/        layout mock-ups for version 0.1.5
-v0.1.6/BatWiiCera/      version 0.1.6 of the theme (installable folder)
-v0.1.6/BatWiiCera-v0.1.6.zip  the same folder packaged for download
-v0.1.6/previews/        layout mock-ups for version 0.1.6
-v0.1.7/BatWiiCera/      version 0.1.7 of the theme (installable folder)
-v0.1.7/BatWiiCera-v0.1.7.zip  the same folder packaged for download
-v0.1.7/previews/        layout mock-ups for version 0.1.7
-v0.1.8/BatWiiCera/      version 0.1.8 of the theme (installable folder)
-v0.1.8/BatWiiCera-v0.1.8.zip  the same folder packaged for download
-v0.1.10/previews/        layout mock-ups for version 0.1.8 (light and dark)
-*.jpg                   reference screenshots of the original console menu
+.gitignore              keeps reference screenshots out of the repository
+vX.Y.Z/BatWiiCera/      that version of the theme (installable folder)
+vX.Y.Z/BatWiiCera-vX.Y.Z.zip  the same folder packaged for download (0.1.1 onwards)
+vX.Y.Z/previews/        layout mock-ups for that version (light and dark from 0.1.8)
 ```
+
+One `vX.Y.Z/` folder exists per released version, 0.1.0 to 0.1.10; see the
+table above.
 
 ## Change control
 

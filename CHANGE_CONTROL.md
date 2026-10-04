@@ -28,6 +28,7 @@ Rules for this register:
 | CR-0011 | 2026-10-04 | 0.1.8 | Standard change | Dark grey colour set (dark mode) | `release/v0.1.8` | Submitted for approval |
 | CR-0012 | 2026-10-04 | 0.1.9 | Corrective change | Pointer hand removed completely | `release/v0.1.9` | Submitted for approval |
 | CR-0013 | 2026-10-04 | 0.1.10 | Corrective change | Logos stuck grey; dark menus unreadable | `release/v0.1.10` | Submitted for approval |
+| CR-0014 | 2026-10-04 | 0.1.10 (repo only) | Repository change | Remove reference screenshots from the repository | `release/v0.1.10` | Submitted for approval |
 
 ---
 
@@ -53,7 +54,7 @@ Rules for this register:
 
 Create a new Batocera EmulationStation theme that reproduces the look of a
 classic motion-controlled console's home menu, based on two reference
-screenshots held in the repository root. Navigation is console first, then
+screenshots supplied by the author (removed from the repository under CR-0014). Navigation is console first, then
 game, with a live video or screenshot preview of the highlighted game.
 
 Scope delivered:
@@ -988,3 +989,60 @@ Install the `v0.1.9` folder or zip. In the repository, revert the merge of
 ### Post-implementation review
 
 To be completed after the device re-test.
+
+---
+
+## CR-0014 - Remove reference screenshots from the repository
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0014 |
+| Date raised | 2026-10-04 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera repository |
+| Version produced | None - repository content only; theme version remains 0.1.10 |
+| Change type | Repository change |
+| Branch | `release/v0.1.10` |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+The two reference photographs of the original console menu that were
+uploaded to the repository root at the start of the project are removed from
+the working tree, a `.gitignore` is added so they (and any other image at the
+repository root) cannot be committed again, and the repository README and the
+CR-0001 record no longer refer to them. The repository README layout block
+was also corrected (it had mislabelled the 0.1.8 and 0.1.9 preview folders).
+
+### Reason for change
+
+Author instruction that these files must never be shown. They are also
+third-party screenshots, so keeping them out of a public repository is the
+correct position under the theme's licence.
+
+### Limitations
+
+The files remain in the `main` branch (original upload commit) and in the
+history of every branch until `main` is updated and history is rewritten.
+Rewriting history requires a force push, which is outside this change; it is
+left for the author to authorise separately.
+
+### Risk assessment
+
+Removal only. Risk rating: **Negligible**.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| Files absent from the branch working tree and index | Pass |
+| `.gitignore` blocks the two filenames and root-level images | Pass |
+| No remaining reference to the files in README or registers | Pass |
+
+### Rollback plan
+
+Revert the single commit.
