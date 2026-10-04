@@ -3,7 +3,7 @@
 A retro console "channel menu" theme for Batocera's EmulationStation.
 
 **Author:** Dan Lee (personal project)
-**Current version:** 0.1.7
+**Current version:** 0.1.8
 **Licence:** Creative Commons BY-NC-SA 4.0
 
 ## Screenshots
@@ -14,11 +14,17 @@ will be added after on-device testing.
 
 **Console channel grid (system view)** - logos grey until highlighted, pointer hand on the highlighted tile, RetroAchievements avatar and user name left of the clock
 
-![Console channel grid mock-up](v0.1.7/previews/mockup-console-grid.png)
+![Console channel grid mock-up](v0.1.8/previews/mockup-console-grid.png)
 
 **Game list with live preview (detailed view, default)** - gold trophy marks a game with achievements, compact disc marks save states
 
-![Game list with preview mock-up](v0.1.7/previews/mockup-game-list.png)
+![Game list with preview mock-up](v0.1.8/previews/mockup-game-list.png)
+
+**Dark grey colour set**
+
+![Console grid, dark mode](v0.1.8/previews/mockup-console-grid-dark.png)
+
+![Game list, dark mode](v0.1.8/previews/mockup-game-list-dark.png)
 
 Each release of the theme is kept in its own folder named after the version, so
 every version stays available and installable. Pick the folder you want and copy
@@ -27,13 +33,14 @@ or download that version's zip and extract it there. The zip contains the
 `BatWiiCera` folder at its root, so extracting it into `/userdata/themes/`
 puts everything in the right place.
 
-**Latest download:** [`BatWiiCera-v0.1.7.zip`](v0.1.7/BatWiiCera-v0.1.7.zip)
+**Latest download:** [`BatWiiCera-v0.1.8.zip`](v0.1.8/BatWiiCera-v0.1.8.zip)
 
 ## Versions
 
 | Version | Folder | Zip | Date | Status | Summary |
 | --- | --- | --- | --- | --- | --- |
-| 0.1.7 | [`v0.1.7/BatWiiCera`](v0.1.7/BatWiiCera) | [`BatWiiCera-v0.1.7.zip`](v0.1.7/BatWiiCera-v0.1.7.zip) | 2026-10-04 | Release candidate, awaiting on-device sign-off | Console logos grey until highlighted, then full colour |
+| 0.1.8 | [`v0.1.8/BatWiiCera`](v0.1.8/BatWiiCera) | [`BatWiiCera-v0.1.8.zip`](v0.1.8/BatWiiCera-v0.1.8.zip) | 2026-10-04 | Release candidate, awaiting on-device sign-off | Dark grey colour set (dark mode) |
+| 0.1.7 | [`v0.1.7/BatWiiCera`](v0.1.7/BatWiiCera) | [`BatWiiCera-v0.1.7.zip`](v0.1.7/BatWiiCera-v0.1.7.zip) | 2026-10-04 | Superseded by 0.1.8 | Console logos grey until highlighted, then full colour |
 | 0.1.6 | [`v0.1.6/BatWiiCera`](v0.1.6/BatWiiCera) | [`BatWiiCera-v0.1.6.zip`](v0.1.6/BatWiiCera-v0.1.6.zip) | 2026-10-04 | Superseded by 0.1.7 | Readable menu buttons, Menu/Start pills removed, save-state disc indicator |
 | 0.1.5 | [`v0.1.5/BatWiiCera`](v0.1.5/BatWiiCera) | [`BatWiiCera-v0.1.5.zip`](v0.1.5/BatWiiCera-v0.1.5.zip) | 2026-10-04 | Superseded by 0.1.6 | On-device fixes: coloured logos, no tile labels, no clipped selection, blue menu button |
 | 0.1.4 | [`v0.1.4/BatWiiCera`](v0.1.4/BatWiiCera) | [`BatWiiCera-v0.1.4.zip`](v0.1.4/BatWiiCera-v0.1.4.zip) | 2026-10-04 | Superseded by 0.1.5 | House and envelope buttons get click actions (search, Netplay, back, game options) |
@@ -73,6 +80,9 @@ v0.1.6/previews/        layout mock-ups for version 0.1.6
 v0.1.7/BatWiiCera/      version 0.1.7 of the theme (installable folder)
 v0.1.7/BatWiiCera-v0.1.7.zip  the same folder packaged for download
 v0.1.7/previews/        layout mock-ups for version 0.1.7
+v0.1.8/BatWiiCera/      version 0.1.8 of the theme (installable folder)
+v0.1.8/BatWiiCera-v0.1.8.zip  the same folder packaged for download
+v0.1.8/previews/        layout mock-ups for version 0.1.8 (light and dark)
 *.jpg                   reference screenshots of the original console menu
 ```
 
@@ -95,7 +105,7 @@ Built with reference to, and reusing assets under CC-BY-NC-SA from,
 Carbon (Rookervik, Nils Bonenberger, Fabrice Caruso), Art Book Next
 (Anthony Caccese), es-theme-minimal (lilbud, Fabrice Caruso) and
 PlayStation-X (pajarorrojo). Fonts: Varela Round (Apache 2.0) and
-Nunito (SIL OFL 1.1). See `v0.1.7/BatWiiCera/LICENSE` for the full notices.
+Nunito (SIL OFL 1.1). See `v0.1.8/BatWiiCera/LICENSE` for the full notices.
 
 This is a fan-made tribute and is not affiliated with or endorsed by any
 console manufacturer. No original console artwork, fonts or audio are included; the bundled music loop was supplied by the author.

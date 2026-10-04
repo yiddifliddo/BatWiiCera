@@ -25,6 +25,7 @@ Rules for this register:
 | CR-0008 | 2026-10-04 | 0.1.5 | Corrective change | On-device test fixes: coloured logos, tile labels, clipping, menu button | `release/v0.1.5` | Submitted for approval |
 | CR-0009 | 2026-10-04 | 0.1.6 | Corrective change | Readable menu buttons, Menu/Start pills removed, save-state indicator | `release/v0.1.6` | Submitted for approval |
 | CR-0010 | 2026-10-04 | 0.1.7 | Standard change | Console logos grey until highlighted, then full colour | `release/v0.1.7` | Submitted for approval |
+| CR-0011 | 2026-10-04 | 0.1.8 | Standard change | Dark grey colour set (dark mode) | `release/v0.1.8` | Submitted for approval |
 
 ---
 
@@ -761,6 +762,90 @@ console grid only; the game grid is unchanged.
 
 Install the `v0.1.6` folder or zip. In the repository, revert the merge of
 `release/v0.1.7`.
+
+### Post-implementation review
+
+To be completed after the device test.
+
+---
+
+## CR-0011 - Dark grey colour set (dark mode)
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0011 |
+| Date raised | 2026-10-04 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.8 (folder `v0.1.8/BatWiiCera`, zip `v0.1.8/BatWiiCera-v0.1.8.zip`) |
+| Previous version | 0.1.7 (folder `v0.1.7`, left unchanged) |
+| Change type | Standard change (new option, low risk) |
+| Branch | `release/v0.1.8` (branched from `release/v0.1.7`) |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+Author request for a dark mode in which everything is a darker grey, with
+text colours adjusted and console logos kept readable.
+
+* New colour set `_inc/colors/dark.xml` ("Dark grey") added to the
+  `colorset` option. Light text (E6E6E6 / B8B8B8 / 8E8E8E), lighter blue for
+  metadata text, dark separators, dark panel tint.
+* The artwork and tints that differ between light and dark are now variables
+  defined in every colour set (bar image, home and mail buttons, no-preview
+  card, tile tint, menu frame tint, menu group background, grid label
+  backgrounds). `theme.xml` references the variables instead of fixed paths.
+* New dark artwork: `bg-stripes-dark.png`, `no-preview-dark.png`,
+  `bottom-bar-dark.svg`, `btn-round-dark.svg`, `btn-mail-dark.svg`.
+* Console tiles deliberately stay light grey (white when highlighted) in dark
+  mode because many Carbon logos use black lettering that would disappear on
+  dark tiles. For the same reason a light plate (`logo-plate`, dark set only)
+  sits behind the console logo above the game list.
+* Pop-up menus: frame tinted dark, group headers on a dark band; the outline
+  menu button inherits the light text colour so it stays readable.
+
+`v0.1.8/` created as a full copy of `v0.1.7/` (zip excluded and rebuilt);
+theme `README.md`, `LICENSE`, repository `README.md`, previews (light and
+dark) and this register updated.
+
+### Reason for change
+
+Author request.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| A colour-set variable missing from one set leaves a path unresolved | Low | Missing artwork in that set | Script-checked: every variable used in `theme.xml` is defined in all three sets |
+| Scraped artwork (marquees drawn for dark backgrounds) now sits on dark panels | None | Improves | n/a |
+| Users expect dark tiles too | Medium | Preference | Documented reasoning; a dark-tile variant with white logos could follow if wanted |
+
+Overall risk rating: **Low**.
+
+### Impact
+
+New version folder only; earlier versions untouched. Light sets render as
+before (same values moved into variables).
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| XML well-formedness of all `v0.1.8` XML files | Pass |
+| Asset path check | Pass |
+| Every `${variable}` used in `theme.xml` defined in classic, sky and dark sets | Pass |
+| Dark mock-ups of the console grid and game list rendered and reviewed | Pass (visual) |
+| Zip integrity and extracted contents identical to the folder | Pass |
+| Dark grey set on the Batocera device | **Not performed** - required before approval |
+
+### Rollback plan
+
+Select the Classic grey colour set, or install the `v0.1.7` folder or zip.
+In the repository, revert the merge of `release/v0.1.8`.
 
 ### Post-implementation review
 
