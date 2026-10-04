@@ -23,6 +23,7 @@ Rules for this register:
 | CR-0006 | 2026-10-04 | 0.1.3 | Standard change | RetroAchievements integration replaces the SD card icon | `release/v0.1.3` | Submitted for approval |
 | CR-0007 | 2026-10-04 | 0.1.4 | Standard change | Click actions for the house and envelope buttons | `release/v0.1.4` | Submitted for approval |
 | CR-0008 | 2026-10-04 | 0.1.5 | Corrective change | On-device test fixes: coloured logos, tile labels, clipping, menu button | `release/v0.1.5` | Submitted for approval |
+| CR-0009 | 2026-10-04 | 0.1.6 | Corrective change | Readable menu buttons, Menu/Start pills removed, save-state indicator | `release/v0.1.6` | Submitted for approval |
 
 ---
 
@@ -617,6 +618,75 @@ console tile.
 
 Install the `v0.1.4` folder or zip. In the repository, revert the merge of
 `release/v0.1.5`.
+
+### Post-implementation review
+
+To be completed after the device re-test.
+
+---
+
+## CR-0009 - Readable menu buttons, Menu/Start pills removed, save-state indicator
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0009 |
+| Date raised | 2026-10-04 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.6 (folder `v0.1.6/BatWiiCera`, zip `v0.1.6/BatWiiCera-v0.1.6.zip`) |
+| Previous version | 0.1.5 (folder `v0.1.5`, left unchanged) |
+| Change type | Corrective change (second on-device test) plus one small feature |
+| Branch | `release/v0.1.6` (branched from `release/v0.1.5`) |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+| Item | Cause / reason | Change |
+| --- | --- | --- |
+| Pop-up menu button dark and unreadable (photos supplied) | `ButtonComponent.cpp` multiplies the button image by `menuText` `color` (normal) and `selectorColor` (focused); with the theme's dark grey text colour any pill artwork renders dark, hiding the dark text | `menuButton` now uses a white outline-only pill for the normal state (renders as a grey outline with dark text on the white menu) and a white solid pill for the focused state (renders as a blue pill with white text). New `pill-outline.png` and `pill-solid.png` |
+| Menu and Start pills in the game views do nothing | Decorative, carried over from the original console's preview screen | Both pills and their labels removed from `basic`/`detailed` |
+| Author wants save states visible with a compact disc icon | EmulationStation exposes `{game:savestate}` (`FileData.cpp`) and the `savestates` click action opens the save manager (`ISimpleGameListView.cpp`) | New original `compact-disc.svg` shown bottom right of the info strip only when the game has save states, `onclick="savestates"`; description width reduced from 0.345 to 0.305 (0.31 on 4:3); 4:3 override added |
+
+`v0.1.6/` created as a full copy of `v0.1.5/` (zip excluded and rebuilt);
+theme `README.md` (new "Save states" section), `LICENSE`, repository
+`README.md`, previews and this register updated.
+
+### Reason for change
+
+Defects and a feature request from the author's second device test.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Save-state property not evaluated on older EmulationStation builds | Low | Disc never shows, or always shows | Property name taken from the current source; verify on device |
+| Outline pill looks different from other themes' buttons | Low | Cosmetic | Matches the theme's light style; focused state is clearly blue |
+
+Overall risk rating: **Low**.
+
+### Impact
+
+New version folder only; earlier versions untouched.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| XML well-formedness of all `v0.1.6` XML files | Pass |
+| Asset path check; no remaining Menu/Start pill elements | Pass |
+| Button tint behaviour confirmed in `ButtonComponent.cpp`; `{game:savestate}` and `savestates` action confirmed in source | Pass |
+| Game list mock-up re-rendered | Pass (visual) |
+| Zip integrity and extracted contents identical to the folder | Pass |
+| Re-test on the Batocera device (menu button, disc icon on a game with saves) | **Not performed** - required before approval |
+
+### Rollback plan
+
+Install the `v0.1.5` folder or zip. In the repository, revert the merge of
+`release/v0.1.6`.
 
 ### Post-implementation review
 

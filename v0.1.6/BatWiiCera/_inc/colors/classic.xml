@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+BatWiiCera - colour set: Classic (light grey console menu)
+Author: Dan Lee
+-->
+<theme>
+  <formatVersion>7</formatVersion>
+  <variables>
+    <bgImage>./_inc/images/bg-stripes.png</bgImage>
+    <textPrimary>4A4A4AFF</textPrimary>
+    <textSecondary>7A7A7AFF</textSecondary>
+    <textMuted>9A9A9AFF</textMuted>
+    <textOnAccent>FFFFFFFF</textOnAccent>
+    <accent>4FB8F4FF</accent>
+    <accentLight>7CCDF8FF</accentLight>
+    <accentDark>2E95D8FF</accentDark>
+    <folderColor>3F8FCBFF</folderColor>
+    <separator>DEDEDEFF</separator>
+    <panelTint>FFFFFFFF</panelTint>
+  </variables>
+</theme>
