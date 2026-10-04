@@ -19,6 +19,7 @@ Rules for this register:
 | CR-0002 | 2026-10-04 | 0.1.1 | Standard change | Bundle quiet background music loop, music on by default | `release/v0.1.1` | Submitted for approval |
 | CR-0003 | 2026-10-04 | 0.1.1 (docs only) | Documentation change | Embed layout mock-up screenshots in the repository README | `release/v0.1.1` | Submitted for approval |
 | CR-0004 | 2026-10-04 | 0.1.1 (packaging) | Packaging change | Add installable zip of version 0.1.1 | `release/v0.1.1` | Submitted for approval |
+| CR-0005 | 2026-10-04 | 0.1.2 | Standard change | Pointer hand follows the highlighted grid tile | `release/v0.1.2` | Submitted for approval |
 
 ---
 
@@ -295,3 +296,79 @@ Adds one 1.7 MB binary file to the repository. No theme files changed.
 ### Rollback plan
 
 Delete the zip and revert the README change; the version folder is unaffected.
+
+---
+
+## CR-0005 - Pointer hand follows the highlighted grid tile
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0005 |
+| Date raised | 2026-10-04 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.2 (folder `v0.1.2/BatWiiCera`, zip `v0.1.2/BatWiiCera-v0.1.2.zip`) |
+| Previous version | 0.1.1 (folder `v0.1.1`, left unchanged) |
+| Change type | Standard change (planned, low risk) |
+| Branch | `release/v0.1.2` (branched from `release/v0.1.1`) |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+The author asked whether the pointer hand moves with the controller. In 0.1.1
+it was a fixed image in the bottom bar. In 0.1.2 the hand is defined as a grid
+tile overlay (`gridtile.overlay`) that is fully transparent on normal tiles
+and opaque on the selected tile (`gridtile.overlay:selected`), so it appears on
+whichever tile is highlighted and animates with the selection in both the
+console grid and the game grid. The static hand was removed, so the list view
+shows no hand. The theme option was renamed to "Pointer hand on highlighted
+tile" and still turns the overlay off.
+
+* `v0.1.2/` created as a full copy of `v0.1.1/` (zip excluded and rebuilt).
+* `theme.xml`: version 0.1.2; static `pointer-hand` extra removed; overlay
+  elements added to the `system` and `grid` views; subset display name updated.
+* Theme `README.md`, `LICENSE`, repository `README.md`, previews and this
+  register updated. New zip built and verified.
+
+### Reason for change
+
+Author request following a question about pointer behaviour; brings the
+theme closer to the original console's pointer feel.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Overlay position or size differs from the mock-up on the device | Medium | Cosmetic | Positions are tile-relative; adjust in a follow-up version after on-device check |
+| Older EmulationStation builds ignore `gridtile.overlay` | Low | No hand shown | Degrades silently; everything else unchanged |
+| Overlay drawn under the tile background | Low | Hand hidden | Overlay given z-index 30, above the tile image |
+
+Overall risk rating: **Low**.
+
+### Impact
+
+New version folder only; `v0.1.0` and `v0.1.1` untouched. Users who liked the
+static hand in the list view lose it.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| XML well-formedness of all `v0.1.2` XML files | Pass |
+| Overlay element and `:selected` state names cross-checked against `GridTileComponent.cpp` (per-state pos, size, origin and colour supported; states are interpolated) | Pass |
+| Mock-up of the console grid re-rendered with the hand on the selected tile | Pass (visual) |
+| Zip integrity and extracted contents identical to the folder | Pass |
+| Behaviour on a Batocera device | **Not performed** - required before approval |
+
+### Rollback plan
+
+Install the `v0.1.1` folder or zip, or set *Pointer hand on highlighted tile*
+to No. In the repository, revert the merge of `release/v0.1.2`.
+
+### Post-implementation review
+
+To be completed after on-device testing.
