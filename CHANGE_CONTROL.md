@@ -17,6 +17,7 @@ Rules for this register:
 | --- | --- | --- | --- | --- | --- | --- |
 | CR-0001 | 2026-10-04 | 0.1.0 | New release | Initial creation of the BatWiiCera theme | `release/v0.1.0` | Submitted for approval |
 | CR-0002 | 2026-10-04 | 0.1.1 | Standard change | Bundle quiet background music loop, music on by default | `release/v0.1.1` | Submitted for approval |
+| CR-0003 | 2026-10-04 | 0.1.1 (docs only) | Documentation change | Embed layout mock-up screenshots in the repository README | `release/v0.1.1` | Submitted for approval |
 
 ---
 
@@ -185,3 +186,55 @@ folder instead. In the repository, revert the merge of `release/v0.1.1`.
 ### Post-implementation review
 
 To be completed after on-device testing.
+
+---
+
+## CR-0003 - Embed layout mock-up screenshots in the repository README
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0003 |
+| Date raised | 2026-10-04 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | None - documentation only; theme version remains 0.1.1 |
+| Previous version | 0.1.1 (folder `v0.1.1`, unchanged) |
+| Change type | Documentation change (no code or asset change) |
+| Branch | `release/v0.1.1` |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+Add a "Screenshots" section to the repository `README.md` that embeds the two
+existing layout mock-ups from `v0.1.1/previews/` (console channel grid and
+game list with preview), with a note that they are mock-ups rendered from the
+theme's assets rather than captures from a device.
+
+### Reason for change
+
+Author request, so the README shows the theme's look at a glance.
+
+### Risk assessment
+
+No theme files changed. Risk rating: **Negligible**. The only risk is the
+mock-ups differing slightly from the on-device render, which the caption states.
+
+### Impact
+
+Repository `README.md` only. No installable files affected, so no new version
+folder was created.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| Image paths referenced by the README exist in the repository | Pass |
+| No theme files modified (`git diff --stat` limited to README and this register) | Pass |
+
+### Rollback plan
+
+Revert the single documentation commit.

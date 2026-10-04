@@ -6,6 +6,20 @@ A retro console "channel menu" theme for Batocera's EmulationStation.
 **Current version:** 0.1.1
 **Licence:** Creative Commons BY-NC-SA 4.0
 
+## Screenshots
+
+Layout mock-ups rendered from the theme's own assets, fonts and coordinates at
+1280 x 720. They show the intended layout; captures from a real Batocera device
+will be added after on-device testing.
+
+**Console channel grid (system view)**
+
+![Console channel grid mock-up](v0.1.1/previews/mockup-console-grid.png)
+
+**Game list with live preview (detailed view, default)**
+
+![Game list with preview mock-up](v0.1.1/previews/mockup-game-list.png)
+
 Each release of the theme is kept in its own folder named after the version, so
 every version stays available and installable. Pick the folder you want and copy
 the `BatWiiCera` theme folder inside it to `/userdata/themes/` on your device.
