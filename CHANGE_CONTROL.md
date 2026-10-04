@@ -24,6 +24,7 @@ Rules for this register:
 | CR-0007 | 2026-10-04 | 0.1.4 | Standard change | Click actions for the house and envelope buttons | `release/v0.1.4` | Submitted for approval |
 | CR-0008 | 2026-10-04 | 0.1.5 | Corrective change | On-device test fixes: coloured logos, tile labels, clipping, menu button | `release/v0.1.5` | Submitted for approval |
 | CR-0009 | 2026-10-04 | 0.1.6 | Corrective change | Readable menu buttons, Menu/Start pills removed, save-state indicator | `release/v0.1.6` | Submitted for approval |
+| CR-0010 | 2026-10-04 | 0.1.7 | Standard change | Console logos grey until highlighted, then full colour | `release/v0.1.7` | Submitted for approval |
 
 ---
 
@@ -691,3 +692,76 @@ Install the `v0.1.5` folder or zip. In the repository, revert the merge of
 ### Post-implementation review
 
 To be completed after the device re-test.
+
+---
+
+## CR-0010 - Console logos grey until highlighted, then full colour
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0010 |
+| Date raised | 2026-10-04 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.7 (folder `v0.1.7/BatWiiCera`, zip `v0.1.7/BatWiiCera-v0.1.7.zip`) |
+| Previous version | 0.1.6 (folder `v0.1.6`, left unchanged) |
+| Change type | Standard change (planned, low risk) |
+| Branch | `release/v0.1.7` (branched from `release/v0.1.6`) |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+The author asked for console tiles to stay grey when not selected and go full
+colour when selected. The grid tile's per-state properties do not include
+saturation, but `GridTileComponent.cpp` fires `activate` and `deactivate`
+storyboards on the tile and its children when the selection changes, and
+`ImageComponent.cpp` exposes `saturation` as an animatable property. The
+console grid's `gridtile.image` therefore now has `saturation` 0 plus an
+`activate` storyboard animating saturation 0 to 1 over 250 ms and a
+`deactivate` storyboard animating it back. No new image files.
+
+`v0.1.7/` created as a full copy of `v0.1.6/` (zip excluded and rebuilt);
+theme `README.md`, `LICENSE`, repository `README.md`, previews and this
+register updated.
+
+### Reason for change
+
+Author request; makes the highlighted console stand out and matches the
+"channel lighting up" feel.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Initially highlighted tile stays grey until the highlight moves | Medium | Cosmetic on first display | Documented as a known limitation; can be revisited after the device test |
+| Older EmulationStation builds ignore storyboards on tile images | Low | All logos grey | Degrades to a consistent greyscale look |
+
+Overall risk rating: **Low**.
+
+### Impact
+
+New version folder only; earlier versions untouched. Visual change on the
+console grid only; the game grid is unchanged.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| XML well-formedness of all `v0.1.7` XML files | Pass |
+| Storyboard events and animatable saturation confirmed in `GridTileComponent.cpp` and `ImageComponent.cpp` | Pass |
+| Console grid mock-up re-rendered (grey logos, colour selected logo) | Pass (visual) |
+| Zip integrity and extracted contents identical to the folder | Pass |
+| Behaviour on the Batocera device | **Not performed** - required before approval |
+
+### Rollback plan
+
+Install the `v0.1.6` folder or zip. In the repository, revert the merge of
+`release/v0.1.7`.
+
+### Post-implementation review
+
+To be completed after the device test.
