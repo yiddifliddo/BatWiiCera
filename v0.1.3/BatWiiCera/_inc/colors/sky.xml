@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+BatWiiCera - colour set: Sky (pale blue stripes)
+Author: Dan Lee
+-->
+<theme>
+  <formatVersion>7</formatVersion>
+  <variables>
+    <bgImage>./_inc/images/bg-stripes-blue.png</bgImage>
+    <textPrimary>3C4C58FF</textPrimary>
+    <textSecondary>66788AFF</textSecondary>
+    <textMuted>8A9BAAFF</textMuted>
+    <textOnAccent>FFFFFFFF</textOnAccent>
+    <accent>3FA9EEFF</accent>
+    <accentLight>6EC4F6FF</accentLight>
+    <accentDark>2178B5FF</accentDark>
+    <folderColor>2178B5FF</folderColor>
+    <separator>CFDFEAFF</separator>
+    <panelTint>FFFFFFFF</panelTint>
+  </variables>
+</theme>

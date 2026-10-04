@@ -20,6 +20,7 @@ Rules for this register:
 | CR-0003 | 2026-10-04 | 0.1.1 (docs only) | Documentation change | Embed layout mock-up screenshots in the repository README | `release/v0.1.1` | Submitted for approval |
 | CR-0004 | 2026-10-04 | 0.1.1 (packaging) | Packaging change | Add installable zip of version 0.1.1 | `release/v0.1.1` | Submitted for approval |
 | CR-0005 | 2026-10-04 | 0.1.2 | Standard change | Pointer hand follows the highlighted grid tile | `release/v0.1.2` | Submitted for approval |
+| CR-0006 | 2026-10-04 | 0.1.3 | Standard change | RetroAchievements integration replaces the SD card icon | `release/v0.1.3` | Submitted for approval |
 
 ---
 
@@ -368,6 +369,88 @@ static hand in the list view lose it.
 
 Install the `v0.1.1` folder or zip, or set *Pointer hand on highlighted tile*
 to No. In the repository, revert the merge of `release/v0.1.2`.
+
+### Post-implementation review
+
+To be completed after on-device testing.
+
+---
+
+## CR-0006 - RetroAchievements integration replaces the SD card icon
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0006 |
+| Date raised | 2026-10-04 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.3 (folder `v0.1.3/BatWiiCera`, zip `v0.1.3/BatWiiCera-v0.1.3.zip`) |
+| Previous version | 0.1.2 (folder `v0.1.2`, left unchanged) |
+| Change type | Standard change (planned, low risk) |
+| Branch | `release/v0.1.3` (branched from `release/v0.1.2`) |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+The author asked for the SD card icon to be removed and RetroAchievements
+integrated in its place, as other community themes do. Implemented following
+the pattern used by PlayStation-X and the EmulationStation source:
+
+* Bottom bar, all browsing views: `sd-card` extra removed. Added a
+  `webimage` showing the player's avatar from
+  `https://media.retroachievements.org/UserPic/<username>.png` and a text
+  showing the user name when `{global.cheevos}` is true; a grey trophy and the
+  label "RetroAchievements" when false. All three carry `onclick="cheevos"`,
+  which EmulationStation maps to opening the RetroAchievements panel.
+* Detailed view: gold trophy beside the game name, visible when
+  `{game:cheevos}` is true and RetroAchievements is enabled; game name field
+  narrowed from 0.345 to 0.31 of screen width.
+* Grid view: `gridtile.cheevos` badge (gold trophy) on tiles whose game has
+  achievements.
+* New original `_inc/images/trophy.svg`; `_inc/images/sd-card.svg` deleted
+  from this version.
+* `v0.1.3/` created as a full copy of `v0.1.2/` (zip excluded and rebuilt).
+  Theme `README.md` (new RetroAchievements section), `LICENSE`, repository
+  `README.md`, previews and this register updated.
+
+### Reason for change
+
+Author request for feature parity with other Batocera themes.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Avatar download fails (offline device or user has no avatar) | Medium | Empty space where the avatar goes; name still shown | Only shown when RetroAchievements is enabled; label falls back to user name |
+| `webimage` or `onclick` unsupported on older EmulationStation builds | Low | Element ignored | Degrades silently |
+| Trophy badge overlaps tile art | Low | Cosmetic | Placed in the top right corner with a small size; adjust after on-device check |
+
+Overall risk rating: **Low**.
+
+### Impact
+
+New version folder only; earlier versions untouched. Users lose the
+decorative SD card icon.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| XML well-formedness of all `v0.1.3` XML files | Pass |
+| Asset path check (no remaining reference to `sd-card.svg`) | Pass |
+| `onclick="cheevos"` confirmed as a handled action in `SystemView.cpp`; `{global.cheevos}`, `{global.cheevos.username}` and `{game:cheevos}` confirmed in `SystemData.cpp` and `FileData.cpp`; `gridtile.cheevos` confirmed in `GridTileComponent.cpp` | Pass |
+| Mock-ups re-rendered with the RetroAchievements block and trophy | Pass (visual) |
+| Zip integrity and extracted contents identical to the folder | Pass |
+| Behaviour on a Batocera device with RetroAchievements signed in | **Not performed** - required before approval |
+
+### Rollback plan
+
+Install the `v0.1.2` folder or zip. In the repository, revert the merge of
+`release/v0.1.3`.
 
 ### Post-implementation review
 
