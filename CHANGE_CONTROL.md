@@ -21,6 +21,7 @@ Rules for this register:
 | CR-0004 | 2026-10-04 | 0.1.1 (packaging) | Packaging change | Add installable zip of version 0.1.1 | `release/v0.1.1` | Submitted for approval |
 | CR-0005 | 2026-10-04 | 0.1.2 | Standard change | Pointer hand follows the highlighted grid tile | `release/v0.1.2` | Submitted for approval |
 | CR-0006 | 2026-10-04 | 0.1.3 | Standard change | RetroAchievements integration replaces the SD card icon | `release/v0.1.3` | Submitted for approval |
+| CR-0007 | 2026-10-04 | 0.1.4 | Standard change | Click actions for the house and envelope buttons | `release/v0.1.4` | Submitted for approval |
 
 ---
 
@@ -459,6 +460,81 @@ decorative SD card icon.
 
 Install the `v0.1.2` folder or zip. In the repository, revert the merge of
 `release/v0.1.3`.
+
+### Post-implementation review
+
+To be completed after on-device testing.
+
+---
+
+## CR-0007 - Click actions for the house and envelope buttons
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0007 |
+| Date raised | 2026-10-04 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.4 (folder `v0.1.4/BatWiiCera`, zip `v0.1.4/BatWiiCera-v0.1.4.zip`) |
+| Previous version | 0.1.3 (folder `v0.1.3`, left unchanged) |
+| Change type | Standard change (planned, low risk) |
+| Branch | `release/v0.1.4` (branched from `release/v0.1.3`) |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+The author asked what the envelope button does. It and the house button were
+decorative. Both now carry EmulationStation click actions (`onclick`), which
+fire on mouse click or touchscreen tap:
+
+| Button | System view | basic, detailed and grid views |
+| --- | --- | --- |
+| House | `search` (game search) | `back` (return to the console grid) |
+| Envelope | `netplay` (Netplay lobby) | `gameoptions` (selected game's options) |
+
+To allow a different action per view the two images were moved out of the
+shared view block and defined once in the `system` view and once in the
+`basic, detailed, grid` block, with identical positions and artwork.
+`v0.1.4/` created as a full copy of `v0.1.3/` (zip excluded and rebuilt);
+theme `README.md` gains a "Bottom bar buttons" section; `LICENSE`,
+repository `README.md` and this register updated. Previews unchanged.
+
+### Reason for change
+
+Author request so the two prominent buttons do something useful.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Users expect controller input to trigger the buttons | Medium | Confusion | Mouse/touch limitation documented in the README |
+| An action name is not handled on an older EmulationStation build | Low | Click does nothing | Degrades silently; names verified against current source |
+| 4:3 override of the button size no longer applies | Low | Cosmetic | Override targets the same element names in the `system` view and still merges |
+
+Overall risk rating: **Low**.
+
+### Impact
+
+New version folder only; earlier versions untouched.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| XML well-formedness of all `v0.1.4` XML files | Pass |
+| Asset path check | Pass |
+| Action names `search`, `netplay`, `back`, `gameoptions` confirmed in `SystemView.cpp` and `ISimpleGameListView.cpp` `onAction` handlers | Pass |
+| Zip integrity and extracted contents identical to the folder | Pass |
+| Click behaviour on a Batocera device with mouse or touch | **Not performed** - required before approval |
+
+### Rollback plan
+
+Install the `v0.1.3` folder or zip. In the repository, revert the merge of
+`release/v0.1.4`.
 
 ### Post-implementation review
 
