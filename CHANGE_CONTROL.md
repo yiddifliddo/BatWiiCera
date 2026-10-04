@@ -447,6 +447,14 @@ decorative SD card icon.
 | Zip integrity and extracted contents identical to the folder | Pass |
 | Behaviour on a Batocera device with RetroAchievements signed in | **Not performed** - required before approval |
 
+### Amendments
+
+* 2026-10-04 - The first preview image committed for 0.1.3 drew the avatar
+  placeholder above the bottom bar, which did not match the theme coordinates
+  (avatar centred level with the home button). The two preview images in
+  `v0.1.3/previews/` were re-rendered in a follow-up commit. No theme files
+  or zip changed.
+
 ### Rollback plan
 
 Install the `v0.1.2` folder or zip. In the repository, revert the merge of
