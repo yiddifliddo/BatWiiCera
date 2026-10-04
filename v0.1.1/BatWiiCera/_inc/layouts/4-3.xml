@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+BatWiiCera - 4:3 layout overrides
+Author: Dan Lee
+
+Only the values that differ from the default 16:9 layout are listed here.
+-->
+<theme>
+  <formatVersion>7</formatVersion>
+
+  <!-- Console channel grid: three columns instead of four -->
+  <view name="system">
+    <imagegrid name="imagegrid">
+      <pos>0.07 0.06</pos>
+      <size>0.86 0.62</size>
+      <autoLayout>3 3</autoLayout>
+      <margin>0.02 0.03</margin>
+    </imagegrid>
+    <image name="home-button">
+      <maxSize>0.09 0.12</maxSize>
+    </image>
+    <image name="mail-button">
+      <maxSize>0.09 0.12</maxSize>
+    </image>
+  </view>
+
+  <!-- Game list: narrower list panel, preview keeps its aspect -->
+  <view name="detailed">
+    <ninepatch name="list-panel">
+      <pos>0.03 0.06</pos>
+      <size>0.36 0.64</size>
+    </ninepatch>
+    <image name="logo">
+      <pos>0.21 0.115</pos>
+      <maxSize>0.28 0.08</maxSize>
+    </image>
+    <text name="logoText">
+      <pos>0.21 0.115</pos>
+      <size>0.30 0.08</size>
+    </text>
+    <textlist name="gamelist">
+      <pos>0.045 0.17</pos>
+      <size>0.33 0.51</size>
+      <fontSize>0.028</fontSize>
+    </textlist>
+    <ninepatch name="screen-panel">
+      <pos>0.42 0.06</pos>
+      <size>0.55 0.42</size>
+    </ninepatch>
+    <video name="md_video">
+      <pos>0.695 0.27</pos>
+      <maxSize>0.51 0.36</maxSize>
+    </video>
+    <ninepatch name="info-panel">
+      <pos>0.42 0.50</pos>
+      <size>0.55 0.20</size>
+    </ninepatch>
+    <image name="md_marquee">
+      <pos>0.44 0.60</pos>
+      <maxSize>0.15 0.14</maxSize>
+    </image>
+    <text name="md_name">
+      <pos>0.605 0.515</pos>
+      <size>0.35 0.04</size>
+    </text>
+    <datetime name="md_releasedate">
+      <pos>0.605 0.558</pos>
+    </datetime>
+    <text name="md_players">
+      <pos>0.665 0.558</pos>
+    </text>
+    <text name="md_genre">
+      <pos>0.745 0.558</pos>
+      <size>0.21 0.03</size>
+    </text>
+    <text name="md_description">
+      <pos>0.605 0.595</pos>
+      <size>0.35 0.095</size>
+    </text>
+    <rating name="md_rating">
+      <pos>0.44 0.675</pos>
+    </rating>
+  </view>
+
+  <!-- Game grid: four columns instead of five -->
+  <view name="grid">
+    <imagegrid name="gamegrid">
+      <autoLayout>4 3</autoLayout>
+    </imagegrid>
+  </view>
+</theme>

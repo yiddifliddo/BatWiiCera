@@ -16,6 +16,7 @@ Rules for this register:
 | Change ID | Date | Version | Type | Title | Branch | Status |
 | --- | --- | --- | --- | --- | --- | --- |
 | CR-0001 | 2026-10-04 | 0.1.0 | New release | Initial creation of the BatWiiCera theme | `release/v0.1.0` | Submitted for approval |
+| CR-0002 | 2026-10-04 | 0.1.1 | Standard change | Bundle quiet background music loop, music on by default | `release/v0.1.1` | Submitted for approval |
 
 ---
 
@@ -108,3 +109,79 @@ a different theme set. In the repository, revert the merge of
 
 To be completed after on-device testing. Record any layout corrections as a
 new change record producing version 0.1.1.
+
+---
+
+## CR-0002 - Bundle quiet background music loop, music on by default
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0002 |
+| Date raised | 2026-10-04 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.1 (folder `v0.1.1/BatWiiCera`) |
+| Previous version | 0.1.0 (folder `v0.1.0`, left unchanged) |
+| Change type | Standard change (planned, low risk) |
+| Branch | `release/v0.1.1` (branched from `release/v0.1.0`) |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+Add a background music loop to the theme so the menu plays quiet music by
+default, as requested by the author, who supplied the source audio
+(30-second bass loop, 130 BPM, F minor, MP3).
+
+* `v0.1.1/` created as a full copy of `v0.1.0/`.
+* Source audio trimmed to 16 bars (29.54 s) for a cleaner repeat, gain lowered
+  by 14 dB (mean level -29 dB, peak -16 dB), 20 ms fades added at both ends,
+  encoded as OGG Vorbis quality 3 (383 KB) and stored as
+  `_music/batwiicera-menu-loop.ogg`.
+* `theme.xml`: version header 0.1.1; `music` subset reordered so **On** is the
+  default.
+* `_inc/music.xml` comment, `_music/README.md`, theme `README.md`, `LICENSE`,
+  repository `README.md` and this register updated.
+
+### Reason for change
+
+Author request: ambient music that loops quietly while browsing, without the
+user having to add files by hand.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Music too loud or unwanted for some users | Low | Annoyance | Gain reduced 14 dB; option can be set to Off; device Music volume setting documented |
+| Rights to the supplied audio | Low | Legal | Audio supplied by the author for this theme; recorded in LICENSE. Author to confirm they hold the rights before public release |
+| Audible gap or click on repeat | Medium | Cosmetic | Trimmed to a bar boundary with short fades; EmulationStation's own track gap remains |
+| Repo size growth | Low | None | 383 KB OGG instead of the 1 MB MP3 |
+
+Overall risk rating: **Low**.
+
+### Impact
+
+* New version folder only; `v0.1.0` untouched.
+* Users upgrading from 0.1.0 will hear music by default until they switch the
+  option off.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| XML well-formedness of all `v0.1.1` XML files (`xmllint --noout`) | Pass |
+| Asset path check for all referenced files in `v0.1.1` | Pass |
+| OGG decodes; duration 29.54 s; mean -29.1 dB, peak -15.7 dB (`ffmpeg volumedetect`) | Pass |
+| Playback test on a Batocera device | **Not performed** - required before approval |
+
+### Rollback plan
+
+Set the theme option *Background music* to Off, or install the `v0.1.0`
+folder instead. In the repository, revert the merge of `release/v0.1.1`.
+
+### Post-implementation review
+
+To be completed after on-device testing.
