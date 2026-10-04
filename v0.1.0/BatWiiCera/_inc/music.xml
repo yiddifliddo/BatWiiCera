@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+BatWiiCera - background music include
+Author: Dan Lee
+
+Plays any audio files placed in the theme's _music folder while browsing.
+Enabled from the theme's "Background music" option in UI Settings > Theme Configuration.
+No music is shipped with the theme; see _music/README.md.
+-->
+<theme>
+  <formatVersion>7</formatVersion>
+  <view name="system">
+    <sound name="directory">
+      <path>./_music/</path>
+    </sound>
+  </view>
+</theme>
