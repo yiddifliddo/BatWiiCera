@@ -31,6 +31,7 @@ Rules for this register:
 | CR-0014 | 2026-10-04 | 0.1.10 (repo only) | Repository change | Remove reference screenshots from the repository | `release/v0.1.10` | Submitted for approval |
 | CR-0016 | 2026-10-05 | 0.1.11 | Standard change | Bundle the Plaza channel logo | `release/v0.1.11` | Submitted for approval |
 | CR-0017 | 2026-10-05 | repo only | Documentation / tooling | Batocera Themes Downloader submission kit | `release/v0.1.11` | Submitted for approval |
+| CR-0018 | 2026-10-05 | 0.1.12 | Standard change | Embed the Plaza (0.1.1) in the theme package with installer and VPS guide | `release/v0.1.12` | Submitted for approval |
 
 ---
 
@@ -1147,3 +1148,69 @@ Risk rating: **Negligible**.
 ### Rollback plan
 
 Revert the commit.
+
+---
+
+## CR-0018 - Embed the Plaza in the theme package
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0018 |
+| Date raised | 2026-10-05 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.12 (folder `v0.1.12/BatWiiCera`, zip `v0.1.12/BatWiiCera-v0.1.12.zip`) |
+| Previous version | 0.1.11 (folder `v0.1.11`, left unchanged) |
+| Change type | Standard change (packaging and documentation) |
+| Branch | `release/v0.1.12` (branched from `release/v0.1.11`) |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+The author asked for the Plaza to be embedded in the theme and for a
+walkthrough of adding the server to a WordPress server.
+
+* New `_plaza/` folder inside the theme, built from Plaza 0.1.1
+  (`release/plaza-v0.1.1`): `dist/BatWiiCera-Plaza.love`, `hook/`,
+  `installer/` (installer, system definition, logo), `server.tar.gz`,
+  `LICENSE` (MIT), `PLAZA-README.md`, a `README.md` for the embedded copy and
+  `install-plaza.sh`, a wrapper so the whole set-up on a Batocera machine is
+  one command run from the theme folder.
+* `_plaza/SERVER-SETUP.md`: step-by-step guide for a WordPress VPS: check or
+  install Node.js, copy the package, test by hand, open ports 7777 and 7778
+  in the OS and provider firewalls, run as a hardened systemd service, point
+  the Batocera machines at it, optional reverse proxy for the stats page,
+  updating, troubleshooting. States that shared hosting without SSH cannot
+  run it.
+* Theme README "Plaza channel" section rewritten; version bumped.
+
+A theme cannot start programs, so the one-time install command remains;
+this change removes the separate download. Theme zip grows from 13.47 MB to
+13.52 MB.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| EmulationStation parses files inside `_plaza/` | None observed | n/a | Theme files are loaded only through includes; the folder holds no theme XML |
+| Embedded Plaza copy drifts from the Plaza source | Medium | Stale client in the theme | Each Plaza release triggers a theme release that re-embeds it (recorded here) |
+| Users run the installer without a server | Medium | Plaza shows "Set the server address first" | Documented order of steps |
+
+Overall risk rating: **Low**.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| Embedded files extracted from `release/plaza-v0.1.1` unchanged (built client, hook, installer, logo, server package) | Pass |
+| `bash -n` on the wrapper; `theme.xml` well-formed | Pass |
+| Zip integrity and extracted contents identical to the folder | Pass |
+| Install from the embedded folder on a Batocera device; server set-up following the guide on the author's VPS | **Not performed** - required before approval |
+
+### Rollback plan
+
+Install `v0.1.11`. In the repository, revert the merge of `release/v0.1.12`.
