@@ -15,7 +15,8 @@ record carries author, company, risk, test evidence and rollback.
 | PCR-0004 | 2026-10-05 | 0.1.3 | Standard change | Terminal-free install from the client; presence URL from the server | `release/plaza-v0.1.3` | Submitted for approval |
 | PCR-0005 | 2026-10-05 | 0.1.4 | Standard change | Public server built in, one-file Ports installer, automatic EmulationStation restart, author credit | `release/plaza-v0.1.4`, merged to `main` | Approved by author instruction, implemented |
 | PCR-0006 | 2026-10-05 | 0.1.5 | Emergency change | Server crashed on Railway: PORT equals the TCP proxy port | `release/plaza-v0.1.5`, merged to `main` | Approved by author instruction (error report), implemented |
-| PCR-0007 | 2026-10-05 | 0.1.6 | Corrective change | Channel did not start on Batocera (no LÖVE engine): bundled runtime, one launcher, game-screen artwork | `release/plaza-v0.1.6`, merged to `main` | Approved by author ("go"), implemented |
+| PCR-0007 | 2026-10-05 | 0.1.6 | Corrective change | Channel did not start on Batocera (no LÖVE engine): bundled runtime, one launcher, game-screen artwork | `release/plaza-v0.1.6`, merged to `main` | Implemented; device test passed (author, "The plaza works") |
+| PCR-0008 | 2026-10-05 | 0.1.7 | Standard change | Football stadium with goals, new avatar renderer and movement, smooth remote players, generated names | `release/plaza-v0.1.7`, merged to `main` | Approved by author ("build the stadium and look"), implemented |
 
 ---
 
@@ -545,10 +546,75 @@ Overall risk rating: **Medium** until the device test passes.
 | Runtime download verified by SHA-256; runs the unchanged client under a virtual display | Pass |
 | Dry run in a temporary `/userdata` tree: `Plaza.sh` over a 0.1.4 layout reinstalled everything, unpacked the runtime for x86_64, wrote artwork and both launchers; second run started the client, which ran until stopped after 6 s | Pass |
 | Artwork rendered and inspected | Pass |
-| On a Batocera device: channel starts, controller works, room reachable | **Not performed** - required |
+| On a Batocera device: channel starts, controller works, room reachable | **Pass** - author, 2026-10-05: "The plaza works" (first successful end-to-end run; recorded here after the fact) |
 
 ### Rollback plan
 
 None useful: 0.1.5 and earlier cannot start on Batocera. Removing the
 channel is `Plaza.sh`'s uninstall counterpart in the client menu, or
 deleting `roms/plaza`, `roms/ports/Plaza.sh`, the system file and the hook.
+
+---
+
+## PCR-0008 - Football stadium, new avatar renderer and movement, generated names
+
+| Field | Value |
+| --- | --- |
+| Change ID | PCR-0008 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo ("It looks so so basic. The arena needs to be bigger ... a giant football stadium ... name the player with a random name ... make the player movement look better ... more professional") |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera Plaza |
+| Version produced | 0.1.7 (folder `plaza/v0.1.7`) |
+| Previous version | 0.1.6 (folder `plaza/v0.1.6`, left unchanged) |
+| Change type | Standard change |
+| Branch | `release/plaza-v0.1.7`, merged to `main` |
+| Status | Approved by author ("build the stadium and look"), implemented |
+| Approver | yiddifliddo |
+| Approval date | 2026-10-05 |
+
+### Description of change
+
+See "Changes in this version" in `v0.1.7/README.md` for the player-facing
+list. In summary: the room is a football stadium three times the old area
+with goals that score; movement gained acceleration, braking, skids,
+eight-way facing and impact squash; other players are interpolated between
+velocity-bearing snapshots with a 100 ms render delay; the avatar renderer
+was rewritten around a jointed body; names are generated from the install
+token plus a seed by identical code on client (`client/src/names.lua`) and
+server (`server/names.js`), the server ignoring any other name.
+
+Files: `client/src/plaza.lua` (rewritten), `client/src/avatar.lua`
+(renderer rewritten, data unchanged), `client/src/names.lua` (new),
+`client/src/config.lua`, `client/src/editor.lua`, `client/src/menu.lua`,
+`client/src/ui.lua` (stadium palette, outlined text, light prompts),
+`client/main.lua` (hello/update carry the seed; demo adds a wide stadium
+view and an avatar sheet), `server/index.js`, `server/names.js` (new),
+both test suites, `previews/`.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Rendering load on weaker x86 boxes (stands as a sprite batch, particles capped at 320) | Low | Frame drops | Sprite batch is static; particle cap; device test |
+| 0.1.6 clients against the 0.1.7 server read facings as degrees | Certain until the theme embed is installed | Mirrored figures for old clients | Theme 0.1.19 ships 0.1.7; only one device exists today |
+| Generated-name collisions | Low (60 x 60 x 99 combinations, per token) | Two players share a name | Cosmetic; ids differ |
+| Camera look-ahead or dead zone feels wrong on a pad | Medium | Tuning | Constants at the top of `plaza.lua`; device feedback |
+
+Overall risk rating: **Low**.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| Client self-test, 86 checks (physics, facing, skid, interpolation, extrapolation, camera, goals, names, config seed) | Pass |
+| Server smoke test (names, snapshots, clamping to stands, slap cone, goal-line bounce, goal and reset, update by seed) | Pass |
+| Name generator cross-check: Lua and JavaScript produce identical names for the same inputs | Pass |
+| Rendering under the bundled LÖVE 11.5 on a virtual framebuffer, light and dark: play view, wide stadium view, editor, menu, avatar sheet; inspected | Pass |
+| On a Batocera device: look, feel and performance of the stadium, movement and names | **Not performed** - required |
+
+### Rollback plan
+
+Install the theme 0.1.18 package (Plaza 0.1.6) and start `plaza/v0.1.6/server`
+on Railway; the 0.1.6 server and client interoperate.
