@@ -44,6 +44,7 @@ Rules for this register:
 | CR-0027 | 2026-10-05 | 0.1.15 (distribution) | Distribution record | Listing request posted to the Batocera team | none | Posted, awaiting the Batocera team |
 | CR-0028 | 2026-10-05 | 0.1.16 | Standard change | Second music track (menu theme) and a four-way Background music choice | `release/v0.1.16`, merged to `main` | Approved by author instruction, implemented |
 | CR-0029 | 2026-10-05 | 0.1.17 | Corrective change | Plaza channel could not start on Batocera: embed Plaza 0.1.6 with bundled runtime, launcher and artwork | `release/v0.1.17`, merged to `main` | Approved by author ("go"), implemented |
+| CR-0030 | 2026-10-05 | 0.1.18 | Corrective change | Menu button textures broken at real button height; RetroAchievements avatar address missing the username | `release/v0.1.18`, merged to `main` | Approved by author ("Fix it"), implemented |
 
 ---
 
@@ -1819,3 +1820,71 @@ Overall risk rating: **Medium** until the device test passes.
 ### Rollback plan
 
 Install `v0.1.16` (theme without a working Plaza). In the repository, revert the merge.
+
+---
+
+## CR-0030 - Menu buttons broken at real height; avatar address missing the username
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0030 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo (device photos; "Buttons on the menus no longer look pill shaped. Fix it. My avatar from retroachievements is not showing") |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.18 (folder `v0.1.18/BatWiiCera`, zips `BatWiiCera-v0.1.18.zip`, `BatWiiCera-full-v0.1.18.zip`) |
+| Previous version | 0.1.17 (folder `v0.1.17`, left unchanged) |
+| Change type | Corrective change |
+| Branch | `release/v0.1.18`, merged to `main` |
+| Status | Approved by author ("Fix it"), implemented |
+| Approver | yiddifliddo |
+| Approval date | 2026-10-05 |
+
+### Root causes
+
+1. **Buttons.** `NinePatchComponent` takes `cornerSize` in screen pixels
+   and `ButtonComponent` sizes a button to its text, roughly 40 px at 1080p
+   with the theme's 0.032 menu font. The 0.1.6 textures (160x80, corners 40)
+   therefore had corners twice the button height; the middle slice went
+   negative and the caps drew inverted. The HTML mock-ups used for earlier
+   sign-off did not model this, which is why it was not caught.
+2. **Avatar.** The web image address used the static variable form
+   `${global.cheevos.username}`. On the device the engine left it empty in
+   the image address (it works inside `<text>`), so RetroAchievements
+   served its generic "unknown user" joystick. Batocera's Carbon theme uses
+   the binding form `{global:cheevosUser}` in the same address.
+
+### Description of change
+
+* `_inc/images/pill-outline.png` and `pill-solid.png` redrawn as 36x36
+  textures (2 px white outline, and white fill, radius 12);
+  `menuButton` `cornerSize` 12 12. Tinting by the engine unchanged.
+* `webimage ra-avatar` path changed to
+  `https://media.retroachievements.org/UserPic/{global:cheevosUser}.png`.
+* Version bumped to 0.1.18 in `theme.xml`, `README.md`, `LICENSE`; root
+  README and `package.json` version updated. Plaza embed unchanged (0.1.6).
+* Not pushed to the distribution repository (team reviewing 0.1.15).
+
+### Not addressed in this record
+
+RetroAchievements points next to the avatar on the console grid: the
+engine exposes only the on/off flag and the username to themes
+(`global.cheevos`, `cheevosUser`); points are fetched only when the
+RetroAchievements panel opens. A separate proposal (badge image rendered by
+the Plaza server from the RetroAchievements web API) is with the author.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `xmllint` on `theme.xml` | Pass |
+| Engine source read: `NinePatchComponent::buildVertices`, `ButtonComponent::setText/onSizeChanged`, `BindingManager` global properties, `ThemeData` path parsing, Carbon theme reference | Done |
+| RetroAchievements address check: `UserPic/MonsterGeeza.png` returns the author's picture; `UserPic/.png` returns the generic joystick seen on the device | Pass |
+| New textures inspected at 4x | Pass |
+| Both zips pass integrity checks; theme zip byte-identical to the folder | Pass |
+| On the device: pill buttons in menus, avatar picture on the console grid | **Not performed** - required |
+
+### Rollback plan
+
+Install `v0.1.17`. In the repository, revert the merge.
