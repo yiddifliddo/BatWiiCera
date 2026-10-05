@@ -14,6 +14,7 @@ record carries author, company, risk, test evidence and rollback.
 | PCR-0003 | 2026-10-05 | 0.1.2 | Standard change | Railway hosting support (PORT, presence URL, host:port) | `release/plaza-v0.1.2` | Submitted for approval |
 | PCR-0004 | 2026-10-05 | 0.1.3 | Standard change | Terminal-free install from the client; presence URL from the server | `release/plaza-v0.1.3` | Submitted for approval |
 | PCR-0005 | 2026-10-05 | 0.1.4 | Standard change | Public server built in, one-file Ports installer, automatic EmulationStation restart, author credit | `release/plaza-v0.1.4`, merged to `main` | Approved by author instruction, implemented |
+| PCR-0006 | 2026-10-05 | 0.1.5 | Emergency change | Server crashed on Railway: PORT equals the TCP proxy port | `release/plaza-v0.1.5`, merged to `main` | Approved by author instruction (error report), implemented |
 
 ---
 
@@ -405,3 +406,67 @@ Overall risk rating: **Low**.
 Install from `plaza/v0.1.3` (CR-0022 theme package) instead. On Railway
 revert the merge on `main`; the server protocol is unchanged, so 0.1.3 and
 0.1.4 clients and servers interoperate.
+
+---
+
+## PCR-0006 - Server crashed on Railway: PORT equals the TCP proxy port
+
+| Field | Value |
+| --- | --- |
+| Change ID | PCR-0006 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo (pasted the Railway deploy log) |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera Plaza (server) |
+| Version produced | 0.1.5 (folder `plaza/v0.1.5`) |
+| Previous version | 0.1.4 (folder `plaza/v0.1.4`, left unchanged) |
+| Change type | Emergency change (public service down) |
+| Branch | `release/plaza-v0.1.5`, merged to `main` |
+| Status | Approved by author instruction (error report), implemented |
+| Approver | yiddifliddo |
+| Approval date | 2026-10-05 |
+
+### Incident
+
+After PCR-0005 merged, Railway rebuilt the service. Its deploy log showed
+`[plaza] game port 0.0.0.0:7777` followed by `EADDRINUSE 0.0.0.0:7777` and a
+restart loop. Cause: once a TCP proxy exists Railway injects `PORT=7777`
+(the proxy's port), and the server used `PORT` for its HTTP listener, so both
+listeners wanted 7777. The crash loop also took the previous deployment
+down: `/health` on the public domain timed out from about 12:47 UTC.
+
+### Description of change
+
+* `server/index.js`: `resolvePorts(env)` - explicit `PLAZA_*_PORT` values
+  always win; otherwise HTTP takes `PORT`; if that equals the game port the
+  HTTP side moves to `PLAZA_HTTP_FALLBACK_PORT` (default 8080, the port the
+  public domain targets) and logs why. Listen errors print one line and exit
+  1 instead of an unhandled exception.
+* `server/test/smoke.js`: five port-resolution cases.
+* Version 0.1.5 everywhere; packages rebuilt. Client code unchanged.
+* Root `package.json` and `railway.json` start `plaza/v0.1.5/server`
+  (theme CR-0025). Theme 0.1.15 keeps the embedded 0.1.4 copy: its client is
+  identical and the bug only affects hosts that inject `PORT`.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Domain generated on a port other than 8080 | Low for the public server | Health check fails, deploy rolls back | `PLAZA_HTTP_PORT` or `PLAZA_HTTP_FALLBACK_PORT` variable |
+
+Overall risk rating: **Low**.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| Smoke test incl. port resolution; `node --check` | Pass |
+| Live simulation: `PORT` equal to the game port, HTTP answered on the fallback port, both listeners up | Pass |
+| Client self-test | Pass, 67 checks |
+| Public server `/health` reports 0.1.5 after Railway redeploys | Recorded in the summary below once confirmed |
+
+### Rollback plan
+
+Set `PLAZA_HTTP_PORT=8080` in Railway and start `plaza/v0.1.4/server`; or
+revert the merge.

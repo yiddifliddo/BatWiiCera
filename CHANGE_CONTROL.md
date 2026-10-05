@@ -39,6 +39,7 @@ Rules for this register:
 | CR-0022 | 2026-10-05 | 0.1.14 | Standard change | Embedded Plaza updated to 0.1.3 (terminal-free install) | `release/v0.1.14`, merged to `main` | Approved by author instruction, implemented |
 | CR-0023 | 2026-10-05 | none (record) | Deployment record | Plaza server deployed on Railway; public addresses recorded | `main` | Approved, implemented |
 | CR-0024 | 2026-10-05 | 0.1.15 | Standard change | Plaza install automated (Plaza 0.1.4), full-install zip, author credit yiddifliddo | `release/v0.1.15`, merged to `main` | Approved by author instruction, implemented |
+| CR-0025 | 2026-10-05 | repo | Emergency release | Root start scripts moved to Plaza 0.1.5 (PCR-0006, Railway port clash) | `main` | Approved by author instruction, implemented |
 
 ---
 
@@ -1575,3 +1576,33 @@ Overall risk rating: **Low**.
 
 Install `v0.1.14`. In the repository, revert the merge; Railway then
 redeploys the 0.1.3 server, which 0.1.4 clients can still use.
+
+---
+
+## CR-0025 - Root start scripts moved to Plaza 0.1.5
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0025 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo (Railway error report) |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera repository (Railway deployment files) |
+| Version produced | None for the theme; Plaza 0.1.5 (PCR-0006) |
+| Change type | Emergency release |
+| Branch | `release/plaza-v0.1.5`, merged to `main` |
+| Status | Approved by author instruction, implemented |
+| Approver | yiddifliddo |
+| Approval date | 2026-10-05 |
+
+### Description of change
+
+`package.json` and `railway.json` start `plaza/v0.1.5/server/index.js`, the
+server that survives Railway setting `PORT` to the TCP proxy port. Details,
+incident and tests in `plaza/CHANGE_CONTROL.md`, PCR-0006. Theme 0.1.15 is
+unchanged.
+
+### Rollback plan
+
+Point the two files back at `plaza/v0.1.4/server` and set `PLAZA_HTTP_PORT=8080` in Railway.
