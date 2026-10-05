@@ -37,6 +37,8 @@ Rules for this register:
 | CR-0020 | 2026-10-05 | repo | Release / deployment | Merge all release branches to `main`; make the repository root deploy the Plaza server on Railway | `main` | Approved by author instruction, implemented |
 | CR-0021 | 2026-10-05 | repo | Release | Merge Plaza 0.1.3 (PCR-0004) to `main`; root start script now runs Plaza 0.1.3 | `main` | Approved by author instruction, implemented |
 | CR-0022 | 2026-10-05 | 0.1.14 | Standard change | Embedded Plaza updated to 0.1.3 (terminal-free install) | `release/v0.1.14`, merged to `main` | Approved by author instruction, implemented |
+| CR-0023 | 2026-10-05 | none (record) | Deployment record | Plaza server deployed on Railway; public addresses recorded | `main` | Approved, implemented |
+| CR-0024 | 2026-10-05 | 0.1.15 | Standard change | Plaza install automated (Plaza 0.1.4), full-install zip, author credit yiddifliddo | `release/v0.1.15`, merged to `main` | Approved by author instruction, implemented |
 
 ---
 
@@ -1501,3 +1503,75 @@ to the client by the server on connect.
 Delete the domain and TCP proxy in Railway, Settings > Networking, or stop
 the service. Nothing in the repository needs reverting; this record stays
 as history.
+
+---
+
+## CR-0024 - Plaza install automated, full-install zip, author credit
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0024 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo ("this needs to be automated"; "make the author for all of this yiddifliddo") |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.15 (folder `v0.1.15/BatWiiCera`, zips `v0.1.15/BatWiiCera-v0.1.15.zip` and `v0.1.15/BatWiiCera-full-v0.1.15.zip`) |
+| Previous version | 0.1.14 (folder `v0.1.14`, left unchanged) |
+| Change type | Standard change (packaging, documentation, attribution) |
+| Branch | `release/v0.1.15`, merged to `main` under the standing instruction to keep `main` deployable |
+| Status | Approved by author instruction, implemented |
+| Approver | yiddifliddo |
+| Approval date | 2026-10-05 |
+
+### Description of change
+
+* Embeds Plaza 0.1.4 (PCR-0005): built-in public server, the one-file Ports
+  entry `_plaza/installer/Plaza.sh`, automatic EmulationStation restart, hook
+  fallback, launch command that restores the hook's permissions. `_plaza/`
+  READMEs, the wrapper `install-plaza.sh` and the server guides rewritten
+  around the three no-typing routes (full zip, Ports file, client menu).
+* New **full-install zip** `BatWiiCera-full-v0.1.15.zip` laid out for the
+  Batocera share: `themes/BatWiiCera/`, `roms/ports/Plaza.sh`,
+  `roms/plaza/Plaza.love` and `gamelist.xml`,
+  `system/configs/emulationstation/es_systems_plaza.cfg`,
+  `system/scripts/batwiicera-plaza-presence.sh` (executable bits stored) and
+  a short `README-FULL-INSTALL.txt`. The theme-only zip keeps its form for
+  Batocera's Themes Downloader.
+* **Attribution**: author changed from Dan Lee to yiddifliddo in
+  `theme.xml`, every include header, `README.md`, `LICENSE`,
+  `_music/README.md`, the root `README.md`, `package.json`,
+  `docs/SUBMISSION.md`, `tools/make-dist.sh`, `plaza/README.md` and
+  `plaza/LICENSE`. Version folders 0.1.0 to 0.1.14 and Plaza 0.1.0 to 0.1.3
+  are released artefacts and keep their original credit; earlier change
+  records are history and are not edited. Git history is not rewritten
+  (author's decision); commits from this record on are authored as
+  yiddifliddo.
+* Root `package.json` and `railway.json` now start `plaza/v0.1.4/server`, so
+  the public server redeploys as 0.1.4 on merge.
+* Theme views, colours and assets are unchanged; previews unchanged.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Full zip extracted somewhere other than the share root | Medium (user error) | Files land in the wrong folders | `README-FULL-INSTALL.txt` inside the zip shows the layout; Ports and client routes remain |
+| Executable bit lost on the hook when extracted from Windows | High | "Now playing" labels missing until the Plaza is opened once | Channel launch command restores the bit; Ports entry does too |
+| Railway redeploy of 0.1.4 server | Low | Short outage during deploy | Protocol unchanged; health check gates the switch |
+
+Overall risk rating: **Low**.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `xmllint` on `theme.xml`, colour sets, layout and music includes | Pass |
+| Embedded client reports version 0.1.4; both zips pass integrity checks; theme zip and the theme part of the full zip are byte-identical to the folder; executable bits present in the full zip | Pass |
+| No remaining "Dan Lee" in `v0.1.15`, root documents or `plaza/` index files; no forbidden tool name anywhere in the repository | Pass |
+| Plaza 0.1.4 tests (PCR-0005) | Pass |
+| Install on a device by each route; EmulationStation restart; theme views | **Not performed** - required before sign-off |
+
+### Rollback plan
+
+Install `v0.1.14`. In the repository, revert the merge; Railway then
+redeploys the 0.1.3 server, which 0.1.4 clients can still use.

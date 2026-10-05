@@ -1,6 +1,6 @@
 # Getting BatWiiCera into Batocera's Themes Downloader
 
-Author: Dan Lee. Status: prepared, not yet submitted.
+Author: yiddifliddo. Status: prepared, not yet submitted.
 
 ## How the downloader works
 
@@ -60,7 +60,7 @@ root `theme.xml`. The fix is a second, public, distribution-only repository.
 > Hi, I'd like to request that my theme is added to the Themes Downloader.
 >
 > * Name: BatWiiCera
-> * Author: Dan Lee
+> * Author: yiddifliddo
 > * Repository (theme.xml at root): https://github.com/yiddifliddo/BatWiiCera-theme
 > * Source and version history: https://github.com/yiddifliddo/BatWiiCera
 > * Licence: CC BY-NC-SA 4.0 (reuses logo assets from Carbon and Art Book Next under the same licence, credited in LICENSE)

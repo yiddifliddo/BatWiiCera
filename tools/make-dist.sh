@@ -1,6 +1,6 @@
 #!/bin/bash
 # BatWiiCera - build the distribution layout for Batocera's theme downloader
-# Author: Dan Lee
+# Author: yiddifliddo
 #
 # Batocera's Themes Downloader installs a theme by fetching a GitHub
 # repository's default branch and expects theme.xml at the repository root.
@@ -33,7 +33,7 @@ Downloader: theme.xml is at the root of this repository.
 Source, version history and change control live in
 https://github.com/yiddifliddo/BatWiiCera (folder v$VER).
 
-Author: Dan Lee. Licence: CC BY-NC-SA 4.0 (see LICENSE).
+Author: yiddifliddo. Licence: CC BY-NC-SA 4.0 (see LICENSE).
 EOF
 echo "distribution layout for $VER written to $DEST"
 ls "$DEST" | head
