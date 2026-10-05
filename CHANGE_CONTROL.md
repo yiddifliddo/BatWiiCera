@@ -29,6 +29,8 @@ Rules for this register:
 | CR-0012 | 2026-10-04 | 0.1.9 | Corrective change | Pointer hand removed completely | `release/v0.1.9` | Submitted for approval |
 | CR-0013 | 2026-10-04 | 0.1.10 | Corrective change | Logos stuck grey; dark menus unreadable | `release/v0.1.10` | Submitted for approval |
 | CR-0014 | 2026-10-04 | 0.1.10 (repo only) | Repository change | Remove reference screenshots from the repository | `release/v0.1.10` | Submitted for approval |
+| CR-0016 | 2026-10-05 | 0.1.11 | Standard change | Bundle the Plaza channel logo | `release/v0.1.11` | Submitted for approval |
+| CR-0017 | 2026-10-05 | repo only | Documentation / tooling | Batocera Themes Downloader submission kit | `release/v0.1.11` | Submitted for approval |
 
 ---
 
@@ -1046,3 +1048,102 @@ Removal only. Risk rating: **Negligible**.
 ### Rollback plan
 
 Revert the single commit.
+
+---
+
+## CR-0016 - Bundle the Plaza channel logo
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0016 |
+| Date raised | 2026-10-05 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.11 (folder `v0.1.11/BatWiiCera`, zip `v0.1.11/BatWiiCera-v0.1.11.zip`) |
+| Previous version | 0.1.10 (folder `v0.1.10`, left unchanged) |
+| Change type | Standard change (low risk) |
+| Branch | `release/v0.1.11` (branched from `release/v0.1.10`) |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+Adds `_inc/systems/logos/plaza.svg`, the channel logo for the BatWiiCera
+Plaza (see CR-0015 / PCR-0001), so the Plaza tile renders with the theme's
+own logo set and the Plaza installer no longer needs to copy a file into an
+installed theme. README gains a "Plaza channel" section. No layout changes.
+
+### Risk assessment
+
+Additive file only. Risk rating: **Negligible**.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| XML well-formedness of `theme.xml` and the logo SVG | Pass |
+| Zip integrity and extracted contents identical to the folder | Pass |
+| Tile appearance on a device | **Not performed** |
+
+### Rollback plan
+
+Install `v0.1.10`. In the repository, revert the merge of `release/v0.1.11`.
+
+---
+
+## CR-0017 - Batocera Themes Downloader submission kit
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0017 |
+| Date raised | 2026-10-05 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera repository |
+| Version produced | None - documentation and tooling only |
+| Change type | Documentation / tooling |
+| Branch | `release/v0.1.11` |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+The author asked how to get the theme included with Batocera. Findings:
+Batocera's Themes Downloader reads a team-curated JSON feed
+(`batocera.org/upgrades/themes.json`, 97 entries when checked) of GitHub
+repositories, downloads a repository's default branch and expects
+`theme.xml` at its root; new entries are added by the team on request
+(Discord themes channel or forum). This versioned repository cannot be
+listed directly, so:
+
+* `tools/make-dist.sh <version> <path>` mirrors an approved version to the
+  root of a separate, public distribution repository and adds a preview and
+  README pointing back here.
+* `docs/SUBMISSION.md` documents the mechanism, the steps, a checklist and
+  the ready-to-post request text.
+
+Submitting is a manual step for the author: creating the public
+`BatWiiCera-theme` repository (tooling cannot create repositories), taking a
+device screenshot, and posting the request. The outcome is to be recorded as
+a further change record.
+
+### Risk assessment
+
+Documentation and a script that only writes into the path it is given.
+Risk rating: **Negligible**.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `bash -n tools/make-dist.sh` | Pass |
+| Dry run of `make-dist.sh` into a temporary folder: root `theme.xml`, `preview.png` and README produced | Pass |
+
+### Rollback plan
+
+Revert the commit.
