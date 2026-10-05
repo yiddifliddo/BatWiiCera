@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+BatWiiCera - colour set: Dark grey
+Author: Dan Lee
+
+Dark striped backdrop, dark bar, panels and menus with light text.
+Console tiles stay light grey so logos with black lettering remain readable;
+the highlighted tile turns white.
+-->
+<theme>
+  <formatVersion>7</formatVersion>
+  <variables>
+    <bgImage>./_inc/images/bg-stripes-dark.png</bgImage>
+    <textPrimary>E6E6E6FF</textPrimary>
+    <textSecondary>B8B8B8FF</textSecondary>
+    <textMuted>8E8E8EFF</textMuted>
+    <textOnAccent>FFFFFFFF</textOnAccent>
+    <accent>4FB8F4FF</accent>
+    <accentLight>7CCDF8FF</accentLight>
+    <accentDark>6EC4F6FF</accentDark>
+    <folderColor>7CCDF8FF</folderColor>
+    <separator>474747FF</separator>
+    <panelTint>3A3A3AFF</panelTint>
+    <!-- artwork and tints that differ in dark mode -->
+    <barImage>./_inc/images/bottom-bar-dark.svg</barImage>
+    <homeButtonImage>./_inc/images/btn-round-dark.svg</homeButtonImage>
+    <mailButtonImage>./_inc/images/btn-mail-dark.svg</mailButtonImage>
+    <noPreviewImage>./_inc/images/no-preview-dark.png</noPreviewImage>
+    <tileTint>D2D2D2FF</tileTint>
+    <menuFrameImage>./_inc/images/menu-frame-dark.png</menuFrameImage>
+    <menuGroupBg>2C2C2CFF</menuGroupBg>
+    <labelBg>2A2A2AD0</labelBg>
+    <labelBgSelected>2A2A2AF0</labelBgSelected>
+  </variables>
+</theme>

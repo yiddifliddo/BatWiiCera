@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<gameList>
+  <game>
+    <path>./Plaza.love</path>
+    <name>Enter the Plaza</name>
+    <desc>Meet everyone running BatWiiCera. Walk around, jump, slap, kick the ball and see what people are playing.</desc>
+    <developer>Dan Lee</developer>
+    <genre>Social</genre>
+  </game>
+</gameList>

@@ -1,0 +1,66 @@
+#!/bin/bash
+# BatWiiCera Plaza - installer for Batocera
+# Version 0.1.3 | Author: Dan Lee | Licence: MIT
+#
+# Run this ON the Batocera machine (SSH in as root, or from a terminal):
+#
+#   bash install-batocera.sh <game-host> [game-port] [presence]
+#
+#   VPS:      bash install-batocera.sh 203.0.113.5
+#   Railway:  bash install-batocera.sh shuttle.proxy.rlwy.net 15140 https://plaza-production.up.railway.app
+#
+#   <game-host>  host of the raw game connection (VPS IP, or Railway's TCP proxy host)
+#   [game-port]  default 7777 (Railway: the proxy port it shows you)
+#   [presence]   a port number (VPS, default 7778) or a full URL (Railway's public domain)
+#
+# It installs, from the folder this script lives in:
+#   dist/BatWiiCera-Plaza.love        -> /userdata/roms/plaza/
+#   installer/es_systems_plaza.cfg    -> /userdata/system/configs/emulationstation/
+#   hook/batwiicera-plaza-presence.sh -> /userdata/system/scripts/
+#   installer/plaza.svg               -> the BatWiiCera theme logo folders, if the theme is installed
+# and writes the server address to the Plaza config so the client and the
+# presence hook know where to connect. Re-run it to update any part.
+
+set -e
+
+HOST="$1"; TCP="${2:-7777}"; PRES="${3:-7778}"
+if [ -z "$HOST" ]; then
+  echo "usage: $0 <game-host> [game-port] [presence-port-or-url]"; exit 1
+fi
+case "$PRES" in
+  http://*|https://*) HTTP=7778; PRESENCE_URL="${PRES%/}" ;;
+  *) HTTP="$PRES"; PRESENCE_URL="" ;;
+esac
+
+HERE="$(cd "$(dirname "$0")/.." && pwd)"
+LOVE_FILE="$HERE/dist/BatWiiCera-Plaza.love"
+[ -f "$LOVE_FILE" ] || { echo "missing $LOVE_FILE (run build.sh first)"; exit 1; }
+
+ROMS=/userdata/roms/plaza
+ES_CFG_DIR=/userdata/system/configs/emulationstation
+SCRIPTS=/userdata/system/scripts
+SAVE_DIR="${PLAZA_SAVE_DIR:-/userdata/system/.local/share/love/batwiicera-plaza}"
+
+mkdir -p "$ROMS" "$ES_CFG_DIR" "$SCRIPTS" "$SAVE_DIR"
+
+cp "$LOVE_FILE" "$ROMS/Plaza.love"
+cp "$HERE/installer/es_systems_plaza.cfg" "$ES_CFG_DIR/es_systems_plaza.cfg"
+cp "$HERE/hook/batwiicera-plaza-presence.sh" "$SCRIPTS/batwiicera-plaza-presence.sh"
+chmod +x "$SCRIPTS/batwiicera-plaza-presence.sh"
+
+# Server address for the client and the hook (keeps an existing profile intact).
+printf '{"host":"%s","tcpPort":%s,"httpPort":%s,"presenceUrl":"%s"}\n' "$HOST" "$TCP" "$HTTP" "$PRESENCE_URL" > "$SAVE_DIR/config.json"
+
+# Channel logo for any installed BatWiiCera theme version.
+for logos in /userdata/themes/BatWiiCera/_inc/systems/logos /userdata/themes/BatWiiCera*/_inc/systems/logos; do
+  [ -d "$logos" ] && cp "$HERE/installer/plaza.svg" "$logos/plaza.svg"
+done
+
+# Friendly name in the game list.
+cp "$HERE/installer/gamelist.xml" "$ROMS/gamelist.xml"
+
+echo "Plaza installed."
+echo "  client : $ROMS/Plaza.love"
+echo "  server : $HOST:$TCP (game), presence ${PRESENCE_URL:-http://$HOST:$HTTP}"
+echo "  hook   : $SCRIPTS/batwiicera-plaza-presence.sh"
+echo "Restart EmulationStation (Main Menu > Quit > Restart) to see the Plaza channel."

@@ -3,7 +3,7 @@
 A retro console "channel menu" theme for Batocera's EmulationStation.
 
 **Author:** Dan Lee (personal project)
-**Current version:** 0.1.13
+**Current version:** 0.1.14
 **Licence:** Creative Commons BY-NC-SA 4.0
 
 ## Screenshots
@@ -14,17 +14,17 @@ will be added after on-device testing.
 
 **Console channel grid (system view)** - logos washed-out until highlighted, RetroAchievements avatar and user name left of the clock
 
-![Console channel grid mock-up](v0.1.13/previews/mockup-console-grid.png)
+![Console channel grid mock-up](v0.1.14/previews/mockup-console-grid.png)
 
 **Game list with live preview (detailed view, default)** - gold trophy marks a game with achievements, compact disc marks save states
 
-![Game list with preview mock-up](v0.1.13/previews/mockup-game-list.png)
+![Game list with preview mock-up](v0.1.14/previews/mockup-game-list.png)
 
 **Dark grey colour set**
 
-![Console grid, dark mode](v0.1.13/previews/mockup-console-grid-dark.png)
+![Console grid, dark mode](v0.1.14/previews/mockup-console-grid-dark.png)
 
-![Game list, dark mode](v0.1.13/previews/mockup-game-list-dark.png)
+![Game list, dark mode](v0.1.14/previews/mockup-game-list-dark.png)
 
 Each release of the theme is kept in its own folder named after the version, so
 every version stays available and installable. Pick the folder you want and copy
@@ -33,7 +33,7 @@ or download that version's zip and extract it there. The zip contains the
 `BatWiiCera` folder at its root, so extracting it into `/userdata/themes/`
 puts everything in the right place.
 
-**Latest download:** [`BatWiiCera-v0.1.13.zip`](v0.1.13/BatWiiCera-v0.1.13.zip) (theme and embedded Plaza)
+**Latest download:** [`BatWiiCera-v0.1.14.zip`](v0.1.14/BatWiiCera-v0.1.14.zip) (theme and embedded Plaza)
 
 ## Plaza channel
 
@@ -46,7 +46,8 @@ It has its own README, licence (MIT) and change register.
 
 | Version | Folder | Zip | Date | Status | Summary |
 | --- | --- | --- | --- | --- | --- |
-| 0.1.13 | [`v0.1.13/BatWiiCera`](v0.1.13/BatWiiCera) | [`BatWiiCera-v0.1.13.zip`](v0.1.13/BatWiiCera-v0.1.13.zip) | 2026-10-05 | Release candidate, awaiting on-device sign-off | Embedded Plaza updated to 0.1.2 (Railway support and guide) |
+| 0.1.14 | [`v0.1.14/BatWiiCera`](v0.1.14/BatWiiCera) | [`BatWiiCera-v0.1.14.zip`](v0.1.14/BatWiiCera-v0.1.14.zip) | 2026-10-05 | Release candidate, awaiting on-device sign-off | Embedded Plaza updated to 0.1.3 (terminal-free install) |
+| 0.1.13 | [`v0.1.13/BatWiiCera`](v0.1.13/BatWiiCera) | [`BatWiiCera-v0.1.13.zip`](v0.1.13/BatWiiCera-v0.1.13.zip) | 2026-10-05 | Superseded by 0.1.14 | Embedded Plaza updated to 0.1.2 (Railway support and guide) |
 | 0.1.12 | [`v0.1.12/BatWiiCera`](v0.1.12/BatWiiCera) | [`BatWiiCera-v0.1.12.zip`](v0.1.12/BatWiiCera-v0.1.12.zip) | 2026-10-05 | Superseded by 0.1.13 | Plaza 0.1.1 embedded in the theme (`_plaza/`) with installer and VPS guide |
 | 0.1.11 | [`v0.1.11/BatWiiCera`](v0.1.11/BatWiiCera) | [`BatWiiCera-v0.1.11.zip`](v0.1.11/BatWiiCera-v0.1.11.zip) | 2026-10-05 | Superseded by 0.1.12 | Bundles the Plaza channel logo |
 | 0.1.10 | [`v0.1.10/BatWiiCera`](v0.1.10/BatWiiCera) | [`BatWiiCera-v0.1.10.zip`](v0.1.10/BatWiiCera-v0.1.10.zip) | 2026-10-04 | Superseded by 0.1.11 | Logos no longer stuck grey (washed-out until highlighted); readable dark menus |
@@ -79,7 +80,7 @@ plaza/                  the Plaza channel source (server, client, installer), ow
 package.json, railway.json, .railwayignore   let Railway run the Plaza server from the repository root
 ```
 
-One `vX.Y.Z/` folder exists per released version, 0.1.0 to 0.1.13; see the
+One `vX.Y.Z/` folder exists per released version, 0.1.0 to 0.1.14; see the
 table above. From 0.1.12 the theme folder also carries the Plaza channel in
 `_plaza/` (client, hook, installer, server package and guides).
 
@@ -110,7 +111,7 @@ Built with reference to, and reusing assets under CC-BY-NC-SA from,
 Carbon (Rookervik, Nils Bonenberger, Fabrice Caruso), Art Book Next
 (Anthony Caccese), es-theme-minimal (lilbud, Fabrice Caruso) and
 PlayStation-X (pajarorrojo). Fonts: Varela Round (Apache 2.0) and
-Nunito (SIL OFL 1.1). See `v0.1.13/BatWiiCera/LICENSE` for the full notices.
+Nunito (SIL OFL 1.1). See `v0.1.14/BatWiiCera/LICENSE` for the full notices.
 
 This is a fan-made tribute and is not affiliated with or endorsed by any
 console manufacturer. No original console artwork, fonts or audio are included; the bundled music loop was supplied by the author.

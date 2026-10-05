@@ -36,6 +36,7 @@ Rules for this register:
 | CR-0019 | 2026-10-05 | 0.1.13 | Standard change | Embedded Plaza updated to 0.1.2 (Railway support) | `release/v0.1.13` | Submitted for approval |
 | CR-0020 | 2026-10-05 | repo | Release / deployment | Merge all release branches to `main`; make the repository root deploy the Plaza server on Railway | `main` | Approved by author instruction, implemented |
 | CR-0021 | 2026-10-05 | repo | Release | Merge Plaza 0.1.3 (PCR-0004) to `main`; root start script now runs Plaza 0.1.3 | `main` | Approved by author instruction, implemented |
+| CR-0022 | 2026-10-05 | 0.1.14 | Standard change | Embedded Plaza updated to 0.1.3 (terminal-free install) | `release/v0.1.14`, merged to `main` | Approved by author instruction, implemented |
 
 ---
 
@@ -1410,3 +1411,42 @@ Root start of `plaza/v0.1.3/server/index.js` with `PORT` set: health answers.
 ### Rollback plan
 
 Point the root start scripts back at `plaza/v0.1.2/server` and push.
+
+---
+
+## CR-0022 - Embedded Plaza updated to 0.1.3
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0022 |
+| Date raised | 2026-10-05 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.14 (folder `v0.1.14/BatWiiCera`, zip `v0.1.14/BatWiiCera-v0.1.14.zip`) |
+| Previous version | 0.1.13 (folder `v0.1.13`, left unchanged) |
+| Change type | Standard change (packaging and documentation) |
+| Branch | `release/v0.1.14`, merged to `main` under the standing instruction to keep `main` deployable |
+| Status | Approved by author instruction, implemented |
+| Approver | Dan Lee |
+| Approval date | 2026-10-05 |
+
+### Description of change
+
+Re-embeds Plaza 0.1.3 (PCR-0004) in the theme: the client that installs
+itself from its menu, the hook, installer, server package and guides. Theme
+and embedded READMEs now lead with the terminal-free procedure (copy the
+`.love` to `roms/love` over the share, start it, choose Install, set the
+server address, restart EmulationStation).
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| Embedded client reports version 0.1.3; zip integrity and folder identity | Pass |
+| Terminal-free install on a device | **Not performed** - required |
+
+### Rollback plan
+
+Install `v0.1.13`. In the repository, revert the merge.
