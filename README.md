@@ -35,6 +35,13 @@ puts everything in the right place.
 
 **Latest download:** [`BatWiiCera-v0.1.13.zip`](v0.1.13/BatWiiCera-v0.1.13.zip) (theme and embedded Plaza)
 
+## Plaza channel
+
+The [`plaza/`](plaza) folder holds the **BatWiiCera Plaza**, a companion
+channel: one shared online room where players meet as original cartoon
+avatars, see what everyone is playing, run around, hop, slap and kick a ball.
+It has its own README, licence (MIT) and change register.
+
 ## Versions
 
 | Version | Folder | Zip | Date | Status | Summary |
@@ -68,6 +75,7 @@ vX.Y.Z/BatWiiCera-vX.Y.Z.zip  the same folder packaged for download (0.1.1 onwar
 vX.Y.Z/previews/        layout mock-ups for that version (light and dark from 0.1.8)
 tools/make-dist.sh      builds the root-layout copy for Batocera's Themes Downloader
 docs/SUBMISSION.md      how the theme gets listed in Batocera's downloader, with the request text
+plaza/                  the Plaza channel source (server, client, installer), own README and register
 ```
 
 One `vX.Y.Z/` folder exists per released version, 0.1.0 to 0.1.13; see the
