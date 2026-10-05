@@ -42,6 +42,7 @@ Rules for this register:
 | CR-0025 | 2026-10-05 | repo | Emergency release | Root start scripts moved to Plaza 0.1.5 (PCR-0006, Railway port clash) | `main` | Approved by author instruction, implemented |
 | CR-0026 | 2026-10-05 | 0.1.15 (distribution) | Release / distribution | Public distribution repository `BatWiiCera-theme` filled with 0.1.15 for Batocera's Themes Downloader | `main` of `BatWiiCera-theme` | Approved by author instruction, implemented |
 | CR-0027 | 2026-10-05 | 0.1.15 (distribution) | Distribution record | Listing request posted to the Batocera team | none | Posted, awaiting the Batocera team |
+| CR-0028 | 2026-10-05 | 0.1.16 | Standard change | Second music track (menu theme) and a four-way Background music choice | `release/v0.1.16`, merged to `main` | Approved by author instruction, implemented |
 
 ---
 
@@ -1684,3 +1685,69 @@ new records. Acceptance, when it happens, gets its own record.
 * Distribution rights for the bundled music loop under CC BY-NC-SA: not
   confirmed to the register.
 * First device test of the Plaza connection (CR-0024, PCR-0005).
+
+---
+
+## CR-0028 - Second music track and a four-way Background music choice
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0028 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo ("use this audio"; "add both, let people choose") |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.16 (folder `v0.1.16/BatWiiCera`, zips `BatWiiCera-v0.1.16.zip`, `BatWiiCera-full-v0.1.16.zip`) |
+| Previous version | 0.1.15 (folder `v0.1.15`, left unchanged) |
+| Change type | Standard change (content and option) |
+| Branch | `release/v0.1.16`, merged to `main` |
+| Status | Approved by author instruction, implemented |
+| Approver | yiddifliddo |
+| Approval date | 2026-10-05 |
+
+### Description of change
+
+* New track `_music/batwiicera-menu-theme.ogg` (2 min 54 s, Ogg Vorbis,
+  stereo 48 kHz, 0.75 MB) from the file `Menu_1.ogg` supplied by the author,
+  re-encoded 12 dB quieter (mean -29.5 dB, peak -16.4 dB, matching the
+  bundled loop) with metadata stripped. The author states it is not a
+  Nintendo recording; the rights question raised before inclusion was
+  answered by the author and the file is distributed under the theme licence
+  on that basis.
+* The **Background music** subset now has four includes: `menu` (default,
+  `_inc/music-menu.xml`, `bgsound` element, loops the menu theme), `loop`
+  (`_inc/music-loop.xml`, loops the bass loop), `all` (`_inc/music.xml`,
+  `directory` element, shuffles the folder) and `off`. EmulationStation's
+  audio manager replays a `bgsound` track when it ends, so single-track
+  choices loop. Saved settings of the former `on` include fall back to the
+  default.
+* `LICENSE`, `_music/README.md`, theme `README.md` (option table, install
+  step, folder layout, change list) updated. Version 0.1.16 in `theme.xml`,
+  `README.md`, `LICENSE`; root README and `package.json` version updated.
+* Not pushed to the distribution repository: the Batocera team is reviewing
+  0.1.15 (CR-0027). To be pushed on the author's instruction.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Track rights challenged | Low per author's statement | Takedown; listing refused | Author's statement recorded here; track removable in a new version |
+| `bgsound` unsupported on an older EmulationStation | Low | Silence for the single-track choices | Shuffle choice still uses `directory` |
+| Larger package (+0.75 MB) | Certain | Negligible | None needed |
+
+Overall risk rating: **Low**.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `xmllint` on `theme.xml` and the three music includes | Pass |
+| Loudness of the new track measured after re-encoding (mean -29.5 dB, peak -16.4 dB versus loop -29.1 / -15.7) | Pass |
+| Both zips pass integrity checks; theme zip byte-identical to the folder | Pass |
+| Audio manager source confirms `directory` shuffles the folder recursively and `bgsound` loops a single file | Pass |
+| Option visible and each choice audible on a device | **Not performed** - required before sign-off |
+
+### Rollback plan
+
+Install `v0.1.15`. In the repository, revert the merge.

@@ -3,7 +3,7 @@
 A retro console "channel menu" theme for Batocera's EmulationStation.
 
 **Author:** yiddifliddo (personal project)
-**Current version:** 0.1.15
+**Current version:** 0.1.16
 **Licence:** Creative Commons BY-NC-SA 4.0
 
 ## Screenshots
@@ -53,7 +53,8 @@ client's own install item. Details in the theme README and
 
 | Version | Folder | Zip | Date | Status | Summary |
 | --- | --- | --- | --- | --- | --- |
-| 0.1.15 | [`v0.1.15/BatWiiCera`](v0.1.15/BatWiiCera) | [`BatWiiCera-v0.1.15.zip`](v0.1.15/BatWiiCera-v0.1.15.zip), [`BatWiiCera-full-v0.1.15.zip`](v0.1.15/BatWiiCera-full-v0.1.15.zip) | 2026-10-05 | Release candidate, awaiting on-device sign-off | Plaza install automated (built-in server, Ports entry, auto restart, full-install zip); author credit yiddifliddo |
+| 0.1.16 | [`v0.1.16/BatWiiCera`](v0.1.16/BatWiiCera) | [`BatWiiCera-v0.1.16.zip`](v0.1.16/BatWiiCera-v0.1.16.zip), [`BatWiiCera-full-v0.1.16.zip`](v0.1.16/BatWiiCera-full-v0.1.16.zip) | 2026-10-05 | Release candidate, awaiting on-device sign-off | Second music track (menu theme) and a four-way Background music choice |
+| 0.1.15 | [`v0.1.15/BatWiiCera`](v0.1.15/BatWiiCera) | [`BatWiiCera-v0.1.15.zip`](v0.1.15/BatWiiCera-v0.1.15.zip), [`BatWiiCera-full-v0.1.15.zip`](v0.1.15/BatWiiCera-full-v0.1.15.zip) | 2026-10-05 | Superseded by 0.1.16; published to the distribution repository | Plaza install automated (built-in server, Ports entry, auto restart, full-install zip); author credit yiddifliddo |
 | 0.1.14 | [`v0.1.14/BatWiiCera`](v0.1.14/BatWiiCera) | [`BatWiiCera-v0.1.14.zip`](v0.1.14/BatWiiCera-v0.1.14.zip) | 2026-10-05 | Superseded by 0.1.15 | Embedded Plaza updated to 0.1.3 (terminal-free install) |
 | 0.1.13 | [`v0.1.13/BatWiiCera`](v0.1.13/BatWiiCera) | [`BatWiiCera-v0.1.13.zip`](v0.1.13/BatWiiCera-v0.1.13.zip) | 2026-10-05 | Superseded by 0.1.14 | Embedded Plaza updated to 0.1.2 (Railway support and guide) |
 | 0.1.12 | [`v0.1.12/BatWiiCera`](v0.1.12/BatWiiCera) | [`BatWiiCera-v0.1.12.zip`](v0.1.12/BatWiiCera-v0.1.12.zip) | 2026-10-05 | Superseded by 0.1.13 | Plaza 0.1.1 embedded in the theme (`_plaza/`) with installer and VPS guide |
