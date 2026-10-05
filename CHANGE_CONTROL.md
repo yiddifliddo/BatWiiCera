@@ -29,6 +29,7 @@ Rules for this register:
 | CR-0012 | 2026-10-04 | 0.1.9 | Corrective change | Pointer hand removed completely | `release/v0.1.9` | Submitted for approval |
 | CR-0013 | 2026-10-04 | 0.1.10 | Corrective change | Logos stuck grey; dark menus unreadable | `release/v0.1.10` | Submitted for approval |
 | CR-0014 | 2026-10-04 | 0.1.10 (repo only) | Repository change | Remove reference screenshots from the repository | `release/v0.1.10` | Submitted for approval |
+| CR-0015 | 2026-10-05 | Plaza 0.1.0 | New product area | Add the Plaza channel (own register in `plaza/CHANGE_CONTROL.md`) | `release/plaza-v0.1.0` | Submitted for approval |
 
 ---
 
@@ -1046,3 +1047,48 @@ Removal only. Risk rating: **Negligible**.
 ### Rollback plan
 
 Revert the single commit.
+
+---
+
+## CR-0015 - Add the Plaza channel to the repository
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0015 |
+| Date raised | 2026-10-05 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera Plaza (companion to the theme) |
+| Version produced | Plaza 0.1.0 in `plaza/v0.1.0/`; theme version unchanged (0.1.10) |
+| Change type | New product area |
+| Branch | `release/plaza-v0.1.0` (branched from `release/v0.1.10`) |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+Adds the Plaza channel as a separate product area under `plaza/`, with its own
+`README.md`, MIT `LICENSE` and change register (`plaza/CHANGE_CONTROL.md`,
+record PCR-0001) that describes the server, client, presence hook,
+installer, design decisions, risks and test evidence in full. A separate
+repository was the author's first choice but the tooling could not create
+one; the author then asked for it to be added here.
+
+No theme files change. A later theme version will bundle the Plaza channel
+logo (`plaza.svg`); until then the Plaza installer copies the logo into an
+installed theme folder.
+
+### Risk assessment
+
+See PCR-0001. For this repository: none beyond repository size (about 0.2 MB).
+
+### Testing and verification performed
+
+See PCR-0001 (server smoke test, client self-test, rendering on a virtual
+framebuffer, hook end to end, package builds). No Batocera device test yet.
+
+### Rollback plan
+
+Revert the merge of `release/plaza-v0.1.0`; delete the `plaza/` folder.
