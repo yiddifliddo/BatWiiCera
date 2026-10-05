@@ -43,6 +43,7 @@ Rules for this register:
 | CR-0026 | 2026-10-05 | 0.1.15 (distribution) | Release / distribution | Public distribution repository `BatWiiCera-theme` filled with 0.1.15 for Batocera's Themes Downloader | `main` of `BatWiiCera-theme` | Approved by author instruction, implemented |
 | CR-0027 | 2026-10-05 | 0.1.15 (distribution) | Distribution record | Listing request posted to the Batocera team | none | Posted, awaiting the Batocera team |
 | CR-0028 | 2026-10-05 | 0.1.16 | Standard change | Second music track (menu theme) and a four-way Background music choice | `release/v0.1.16`, merged to `main` | Approved by author instruction, implemented |
+| CR-0029 | 2026-10-05 | 0.1.17 | Corrective change | Plaza channel could not start on Batocera: embed Plaza 0.1.6 with bundled runtime, launcher and artwork | `release/v0.1.17`, merged to `main` | Approved by author ("go"), implemented |
 
 ---
 
@@ -1751,3 +1752,70 @@ Overall risk rating: **Low**.
 ### Rollback plan
 
 Install `v0.1.15`. In the repository, revert the merge.
+
+---
+
+## CR-0029 - Plaza channel could not start: embed Plaza 0.1.6 with bundled runtime
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0029 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo (device photos; "the Plaza doesn't start, it just closes immediately"; approved the proposal with "go") |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.17 (folder `v0.1.17/BatWiiCera`, zips `BatWiiCera-v0.1.17.zip` 19 MB and `BatWiiCera-full-v0.1.17.zip` 24 MB) |
+| Previous version | 0.1.16 (folder `v0.1.16`, left unchanged) |
+| Change type | Corrective change |
+| Branch | `release/v0.1.17`, merged to `main` |
+| Status | Approved by author ("go"), implemented |
+| Approver | yiddifliddo |
+| Approval date | 2026-10-05 |
+
+### Description of change
+
+First device test of the Plaza channel (theme 0.1.16 / Plaza 0.1.5): the
+game screen showed placeholder metadata and "No preview available",
+Batocera's launch splash showed its stock logo, and the channel closed at
+once. Root cause and fix are in Plaza PCR-0007: Batocera ships no LÖVE
+engine, so the Plaza now bundles the official LÖVE 11.5 Linux build and
+starts through one launcher script.
+
+* `_plaza/` refreshed to Plaza 0.1.6: `runtime/` (5 MB, zlib licence),
+  `installer/Plaza.sh`, new system file (`.sh` entry, `bash %ROM%`), game
+  list with artwork in `installer/images/`, updated installer, hook, client,
+  server package, guides and licence.
+* Full-install zip adds `roms/plaza/Plaza.sh`, `roms/plaza/images/` and
+  `roms/plaza/runtime/` (unpacked on first launch); executable bits stored.
+* `LICENSE` lists the bundled runtime under its zlib licence. Theme README
+  and `_plaza/README.md` explain the runtime and the x86_64 limit.
+* Root `package.json` and `railway.json` start `plaza/v0.1.6/server`
+  (version string only; redeploys as 0.1.6). `.railwayignore` excludes
+  `plaza/*/runtime/`.
+* Theme views, colours and music unchanged. Not pushed to the distribution
+  repository until the author says so (the team is reviewing 0.1.15).
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Runtime does not start under Batocera's display stack | Medium until tested | Channel still fails | `plaza.log` records the step reached; device test is the next action |
+| Theme package size for the downloader listing (about 32 MB unpacked) | Certain | Team may question size | Documented in the submission notes; runtime could move to a separate download later |
+| ARM devices | Certain | No Plaza there yet | Logged message; runtime for ARM can be added |
+
+Overall risk rating: **Medium** until the device test passes.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `xmllint` on `theme.xml` | Pass |
+| Both zips pass integrity checks; theme zip byte-identical to the folder; executable bits on launcher, hook and runtime in the full zip | Pass |
+| Plaza 0.1.6 tests and dry run (PCR-0007), including a launch through the bundled runtime | Pass |
+| No forbidden tool name; no superseded author credit in new folders | Pass |
+| On the device: channel tile opens the Plaza, game screen shows artwork and metadata, launch splash shows the Plaza logo | **Not performed** - required |
+
+### Rollback plan
+
+Install `v0.1.16` (theme without a working Plaza). In the repository, revert the merge.

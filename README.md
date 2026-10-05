@@ -3,7 +3,7 @@
 A retro console "channel menu" theme for Batocera's EmulationStation.
 
 **Author:** yiddifliddo (personal project)
-**Current version:** 0.1.16
+**Current version:** 0.1.17
 **Licence:** Creative Commons BY-NC-SA 4.0
 
 ## Screenshots
@@ -43,7 +43,8 @@ avatars, see what everyone is playing, run around, hop, slap and kick a ball.
 It has its own README, licence (MIT) and change register.
 
 The public Plaza server runs on Railway from this repository's `main` branch
-and is built into the client, so players type nothing. Installing the channel
+and is built into the client, so players type nothing. Batocera has no LÖVE
+engine, so the Plaza bundles its own runtime (x86_64 for now). Installing the channel
 on a Batocera box is one of: extract the full-install zip onto the share and
 reboot; drop `Plaza.sh` into `roms/ports` and start it once; or use the
 client's own install item. Details in the theme README and
@@ -53,7 +54,8 @@ client's own install item. Details in the theme README and
 
 | Version | Folder | Zip | Date | Status | Summary |
 | --- | --- | --- | --- | --- | --- |
-| 0.1.16 | [`v0.1.16/BatWiiCera`](v0.1.16/BatWiiCera) | [`BatWiiCera-v0.1.16.zip`](v0.1.16/BatWiiCera-v0.1.16.zip), [`BatWiiCera-full-v0.1.16.zip`](v0.1.16/BatWiiCera-full-v0.1.16.zip) | 2026-10-05 | Release candidate, awaiting on-device sign-off | Second music track (menu theme) and a four-way Background music choice |
+| 0.1.17 | [`v0.1.17/BatWiiCera`](v0.1.17/BatWiiCera) | [`BatWiiCera-v0.1.17.zip`](v0.1.17/BatWiiCera-v0.1.17.zip), [`BatWiiCera-full-v0.1.17.zip`](v0.1.17/BatWiiCera-full-v0.1.17.zip) | 2026-10-05 | Release candidate, awaiting on-device sign-off | Plaza channel starts: bundled LÖVE runtime (Plaza 0.1.6), one launcher, game-screen artwork |
+| 0.1.16 | [`v0.1.16/BatWiiCera`](v0.1.16/BatWiiCera) | [`BatWiiCera-v0.1.16.zip`](v0.1.16/BatWiiCera-v0.1.16.zip), [`BatWiiCera-full-v0.1.16.zip`](v0.1.16/BatWiiCera-full-v0.1.16.zip) | 2026-10-05 | Superseded by 0.1.17 (Plaza channel could not start) | Second music track (menu theme) and a four-way Background music choice |
 | 0.1.15 | [`v0.1.15/BatWiiCera`](v0.1.15/BatWiiCera) | [`BatWiiCera-v0.1.15.zip`](v0.1.15/BatWiiCera-v0.1.15.zip), [`BatWiiCera-full-v0.1.15.zip`](v0.1.15/BatWiiCera-full-v0.1.15.zip) | 2026-10-05 | Superseded by 0.1.16; published to the distribution repository | Plaza install automated (built-in server, Ports entry, auto restart, full-install zip); author credit yiddifliddo |
 | 0.1.14 | [`v0.1.14/BatWiiCera`](v0.1.14/BatWiiCera) | [`BatWiiCera-v0.1.14.zip`](v0.1.14/BatWiiCera-v0.1.14.zip) | 2026-10-05 | Superseded by 0.1.15 | Embedded Plaza updated to 0.1.3 (terminal-free install) |
 | 0.1.13 | [`v0.1.13/BatWiiCera`](v0.1.13/BatWiiCera) | [`BatWiiCera-v0.1.13.zip`](v0.1.13/BatWiiCera-v0.1.13.zip) | 2026-10-05 | Superseded by 0.1.14 | Embedded Plaza updated to 0.1.2 (Railway support and guide) |
