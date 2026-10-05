@@ -464,7 +464,7 @@ Overall risk rating: **Low**.
 | Smoke test incl. port resolution; `node --check` | Pass |
 | Live simulation: `PORT` equal to the game port, HTTP answered on the fallback port, both listeners up | Pass |
 | Client self-test | Pass, 67 checks |
-| Public server `/health` reports 0.1.5 after Railway redeploys | Recorded in the summary below once confirmed |
+| Public server `/health` reports 0.1.5 after Railway redeploys | Pass - `{"ok":true,"players":0,"version":"0.1.5"}` at 12:53 UTC, about 6 minutes after the outage began; `/stats` answering |
 
 ### Rollback plan
 
