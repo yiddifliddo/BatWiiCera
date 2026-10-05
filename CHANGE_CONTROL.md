@@ -32,6 +32,7 @@ Rules for this register:
 | CR-0016 | 2026-10-05 | 0.1.11 | Standard change | Bundle the Plaza channel logo | `release/v0.1.11` | Submitted for approval |
 | CR-0017 | 2026-10-05 | repo only | Documentation / tooling | Batocera Themes Downloader submission kit | `release/v0.1.11` | Submitted for approval |
 | CR-0018 | 2026-10-05 | 0.1.12 | Standard change | Embed the Plaza (0.1.1) in the theme package with installer and VPS guide | `release/v0.1.12` | Submitted for approval |
+| CR-0019 | 2026-10-05 | 0.1.13 | Standard change | Embedded Plaza updated to 0.1.2 (Railway support) | `release/v0.1.13` | Submitted for approval |
 
 ---
 
@@ -1214,3 +1215,46 @@ Overall risk rating: **Low**.
 ### Rollback plan
 
 Install `v0.1.11`. In the repository, revert the merge of `release/v0.1.12`.
+
+---
+
+## CR-0019 - Embedded Plaza updated to 0.1.2
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0019 |
+| Date raised | 2026-10-05 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.13 (folder `v0.1.13/BatWiiCera`, zip `v0.1.13/BatWiiCera-v0.1.13.zip`) |
+| Previous version | 0.1.12 (folder `v0.1.12`, left unchanged) |
+| Change type | Standard change (packaging) |
+| Branch | `release/v0.1.13` (branched from `release/v0.1.12`) |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+Re-embeds the Plaza from `release/plaza-v0.1.2` (PCR-0003): client,
+hook, installer, server package, Plaza README, licence and the new
+`RAILWAY-SETUP.md`; the embedded README and installer wrapper mention the
+Railway form of the install command. Theme layout untouched.
+
+### Risk assessment
+
+Packaging only. Risk rating: **Negligible**.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| Embedded files extracted from `release/plaza-v0.1.2` unchanged; server package reports version 0.1.2 | Pass |
+| Zip integrity and extracted contents identical to the folder | Pass |
+| Device and Railway test | **Not performed** |
+
+### Rollback plan
+
+Install `v0.1.12`. In the repository, revert the merge of `release/v0.1.13`.

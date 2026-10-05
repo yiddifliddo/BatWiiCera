@@ -1,0 +1,71 @@
+BatWiiCera - EmulationStation theme for Batocera
+Version 0.1.13
+Copyright (c) 2026 Dan Lee
+
+This theme is licensed under the Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International licence (CC BY-NC-SA 4.0).
+
+You are free to:
+  - Share: copy and redistribute the material in any medium or format.
+  - Adapt: remix, transform and build upon the material.
+
+Under the following terms:
+  - Attribution: you must give appropriate credit to Dan Lee and to the
+    third-party authors listed below, provide a link to the licence, and
+    indicate if changes were made.
+  - NonCommercial: you may not use the material for commercial purposes.
+  - ShareAlike: if you remix, transform or build upon the material, you must
+    distribute your contributions under the same licence.
+
+Full legal text: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+
+---------------------------------------------------------------------------
+Third-party material included in this theme
+---------------------------------------------------------------------------
+
+1. Coloured system logos (_inc/systems/logos/, most files)
+   From the "Carbon" theme by Rookervik, based on "Simple" by Nils Bonenberger,
+   Batocera edition maintained by Fabrice Caruso
+   https://github.com/fabricecaruso/es-theme-carbon
+   Licence: Creative Commons BY-NC-SA 2.0
+   Changes: copied unmodified; the white "-w" variants were not included.
+
+1b. Fallback system logos (_inc/systems/logos/, systems Carbon does not
+   cover) and help-prompt icons (_inc/images/help-*.svg)
+   From "Art Book Next" by Anthony Caccese
+   https://github.com/anthonycaccese/art-book-next-es
+   Licence: Creative Commons BY-NC-SA
+   Changes: the white fills and strokes of the fallback logos were recoloured
+   to dark grey (#4A4A4A) so they show on white tiles.
+
+2. Gamepad activity icon (_inc/images/gamepad.svg)
+   From "es-theme-minimal" by lilbud and Fabrice Caruso
+   https://github.com/fabricecaruso/es-theme-minimal
+   Licence: Creative Commons BY-NC-SA
+
+3. Fonts
+   - Varela Round (_inc/fonts/VarelaRound-Regular.ttf)
+     Copyright Joe Prince. Licence: Apache License 2.0
+     https://www.apache.org/licenses/LICENSE-2.0
+   - Nunito (_inc/fonts/Nunito-Regular.ttf, Nunito-Bold.ttf)
+     Copyright The Nunito Project Authors. Licence: SIL Open Font License 1.1
+     https://openfontlicense.org
+
+Structural ideas were also taken from "PlayStation-X" by pajarorrojo
+(https://github.com/pajarorrojo/es-theme-PlayStation-X, CC BY-NC-SA); no files
+from that theme are included.
+
+All other artwork in _inc/images was created for this theme by Dan Lee.
+
+4. Background music loop (_music/batwiicera-menu-loop.ogg)
+   Supplied by Dan Lee for this theme and distributed under the theme licence
+   (CC BY-NC-SA 4.0).
+
+---------------------------------------------------------------------------
+Trademarks
+---------------------------------------------------------------------------
+
+This is a fan-made tribute theme. It is not affiliated with, sponsored by or
+endorsed by any console manufacturer. No original console system artwork,
+fonts or audio are included. Console and game names in the system logos are
+the trademarks of their respective owners.
