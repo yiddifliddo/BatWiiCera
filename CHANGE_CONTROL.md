@@ -41,6 +41,7 @@ Rules for this register:
 | CR-0024 | 2026-10-05 | 0.1.15 | Standard change | Plaza install automated (Plaza 0.1.4), full-install zip, author credit yiddifliddo | `release/v0.1.15`, merged to `main` | Approved by author instruction, implemented |
 | CR-0025 | 2026-10-05 | repo | Emergency release | Root start scripts moved to Plaza 0.1.5 (PCR-0006, Railway port clash) | `main` | Approved by author instruction, implemented |
 | CR-0026 | 2026-10-05 | 0.1.15 (distribution) | Release / distribution | Public distribution repository `BatWiiCera-theme` filled with 0.1.15 for Batocera's Themes Downloader | `main` of `BatWiiCera-theme` | Approved by author instruction, implemented |
+| CR-0027 | 2026-10-05 | 0.1.15 (distribution) | Distribution record | Listing request posted to the Batocera team | none | Posted, awaiting the Batocera team |
 
 ---
 
@@ -1650,3 +1651,36 @@ distribution copy, as the script has always done. Pushed as yiddifliddo.
 ### Rollback plan
 
 Delete the repository, or push an earlier version with `tools/make-dist.sh`.
+
+---
+
+## CR-0027 - Listing request posted to the Batocera team
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0027 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera - listing in Batocera's Themes Downloader |
+| Version produced | None; concerns the 0.1.15 distribution copy (CR-0026) |
+| Change type | Distribution record |
+| Status | Posted, awaiting the Batocera team |
+| Approver | yiddifliddo |
+
+### Description
+
+The author took a screenshot on the device and posted the request text from
+`docs/SUBMISSION.md` to the Batocera team (Discord themes channel or forum),
+pointing at https://github.com/yiddifliddo/BatWiiCera-theme. Listing is at
+the team's discretion; any questions or requested changes will be handled as
+new records. Acceptance, when it happens, gets its own record.
+
+### Open items carried forward
+
+* Install test of the downloader zip on a device: not confirmed to the
+  register.
+* Distribution rights for the bundled music loop under CC BY-NC-SA: not
+  confirmed to the register.
+* First device test of the Plaza connection (CR-0024, PCR-0005).

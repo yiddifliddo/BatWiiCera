@@ -1,6 +1,6 @@
 # Getting BatWiiCera into Batocera's Themes Downloader
 
-Author: yiddifliddo. Status: distribution repository filled with 0.1.15 (CR-0026); listing request not yet posted.
+Author: yiddifliddo. Status: listing request posted 2026-10-05 (CR-0027); awaiting the Batocera team.
 
 ## How the downloader works
 
@@ -81,5 +81,6 @@ root `theme.xml`. The fix is a second, public, distribution-only repository.
 - [x] Distribution repository created, public, `theme.xml` at root
 - [x] `tools/make-dist.sh` run for the approved version and pushed (0.1.15)
 - [ ] Theme installs from a zip of that repository on a device and selects cleanly
-- [ ] Screenshot taken on a device
-- [ ] Request posted; record added to `CHANGE_CONTROL.md`
+- [x] Screenshot taken on a device
+- [x] Request posted; record added to `CHANGE_CONTROL.md` (CR-0027)
+- [ ] Listing accepted (record to follow)
