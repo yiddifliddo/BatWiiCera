@@ -3,6 +3,7 @@ v0.*/
 plaza/*/dist/
 plaza/*/previews/
 plaza/*/client/
+plaza/*/runtime/
 docs/
 tools/
 *.zip

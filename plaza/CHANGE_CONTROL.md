@@ -15,6 +15,7 @@ record carries author, company, risk, test evidence and rollback.
 | PCR-0004 | 2026-10-05 | 0.1.3 | Standard change | Terminal-free install from the client; presence URL from the server | `release/plaza-v0.1.3` | Submitted for approval |
 | PCR-0005 | 2026-10-05 | 0.1.4 | Standard change | Public server built in, one-file Ports installer, automatic EmulationStation restart, author credit | `release/plaza-v0.1.4`, merged to `main` | Approved by author instruction, implemented |
 | PCR-0006 | 2026-10-05 | 0.1.5 | Emergency change | Server crashed on Railway: PORT equals the TCP proxy port | `release/plaza-v0.1.5`, merged to `main` | Approved by author instruction (error report), implemented |
+| PCR-0007 | 2026-10-05 | 0.1.6 | Corrective change | Channel did not start on Batocera (no LÖVE engine): bundled runtime, one launcher, game-screen artwork | `release/plaza-v0.1.6`, merged to `main` | Approved by author ("go"), implemented |
 
 ---
 
@@ -470,3 +471,84 @@ Overall risk rating: **Low**.
 
 Set `PLAZA_HTTP_PORT=8080` in Railway and start `plaza/v0.1.4/server`; or
 revert the merge.
+
+---
+
+## PCR-0007 - Channel did not start on Batocera: bundled runtime, one launcher, artwork
+
+| Field | Value |
+| --- | --- |
+| Change ID | PCR-0007 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo (device photos: placeholder game screen, stock launch splash, "closes immediately") |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera Plaza |
+| Version produced | 0.1.6 (folder `plaza/v0.1.6`) |
+| Previous version | 0.1.5 (folder `plaza/v0.1.5`, left unchanged) |
+| Change type | Corrective change |
+| Branch | `release/plaza-v0.1.6`, merged to `main` |
+| Status | Approved by author ("go"), implemented |
+| Approver | yiddifliddo |
+| Approval date | 2026-10-05 |
+
+### Root cause
+
+Every Plaza version to date assumed Batocera ships the LÖVE engine as its
+`love` system. It does not: Batocera 42's system list and package tree have
+no `love` system and no LÖVE package (checked in the batocera.linux
+repository, branch `batocera-42`). The channel's command therefore failed at
+once and EmulationStation returned to the menu. The assumption was never
+verified before the first device test; that is the process failure behind
+this record.
+
+### Description of change
+
+* `runtime/love-11.5-x86_64.AppImage`: the official LÖVE 11.5 Linux build
+  (zlib licence, `runtime/LICENSE-love.txt`, SHA-256 recorded in
+  `runtime/README.md`). The installer copies it to `roms/plaza/runtime/`
+  and unpacks it once (`--appimage-extract`, no FUSE). x86_64 only for now;
+  the launcher selects by `uname -m` and reports clearly otherwise.
+* `installer/Plaza.sh`: one script that installs (when nothing is in place,
+  from the newest theme copy with a `_plaza` folder, then restarts
+  EmulationStation) or launches (`runtime/<arch>/AppRun Plaza.love`). It is
+  the channel's single entry in `roms/plaza` and the Ports entry.
+* `installer/es_systems_plaza.cfg`: extension `.sh`, command
+  `chmod +x <hook>; bash %ROM%`; no emulator block. `installer/gamelist.xml`:
+  name "Plaza", artwork (`installer/images/plaza-preview.png`, the 1280x720
+  plaza render; `plaza-logo.png`, 600x240 from `plaza.svg`), developer,
+  publisher, release date, players 1-200, genre, rating.
+* `installer/install-batocera.sh`: copies and unpacks the runtime, the
+  artwork and the launcher to both places. `client/src/setup.lua`: status
+  includes launcher and runtime; copies runtime and artwork from the theme
+  folder. `client/conf.lua`: LÖVE 11.5. Self-test updated.
+* Version 0.1.6 everywhere; packages rebuilt. Server unchanged except the
+  version string.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Runtime fails to start under Batocera's display stack (Wayland/KMS, Mesa) | Medium until tested | Channel still does not start | Launch is logged to `plaza.log`; SDL2 in the runtime supports Wayland and X11; device test required |
+| ARM devices | Certain | No Plaza there yet | Clear log message; ARM build can be added to `runtime/` |
+| Package growth (+5 MB) | Certain | Theme zip about 19 MB | Accepted by author |
+| Unpacking fails on a read-only or full `/userdata` | Low | Launch fails with message | Logged; re-run repairs |
+
+Overall risk rating: **Medium** until the device test passes.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| Client self-test (67 checks) and server smoke test | Pass |
+| Shell syntax of `Plaza.sh` and the installer; XML of system file and game list | Pass |
+| Runtime download verified by SHA-256; runs the unchanged client under a virtual display | Pass |
+| Dry run in a temporary `/userdata` tree: `Plaza.sh` over a 0.1.4 layout reinstalled everything, unpacked the runtime for x86_64, wrote artwork and both launchers; second run started the client, which ran until stopped after 6 s | Pass |
+| Artwork rendered and inspected | Pass |
+| On a Batocera device: channel starts, controller works, room reachable | **Not performed** - required |
+
+### Rollback plan
+
+None useful: 0.1.5 and earlier cannot start on Batocera. Removing the
+channel is `Plaza.sh`'s uninstall counterpart in the client menu, or
+deleting `roms/plaza`, `roms/ports/Plaza.sh`, the system file and the hook.
