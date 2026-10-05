@@ -1,6 +1,6 @@
 # Getting BatWiiCera into Batocera's Themes Downloader
 
-Author: yiddifliddo. Status: listing request posted 2026-10-05 (CR-0027); awaiting the Batocera team.
+Author: yiddifliddo. Status: listing request posted 2026-10-05 (CR-0027); team asked for a `master` default branch, done 2026-10-05 with 0.1.20 published (CR-0034); awaiting the team (lbrpdx).
 
 ## How the downloader works
 
@@ -11,8 +11,8 @@ Author: yiddifliddo. Status: listing request posted 2026-10-05 (CR-0027); awaiti
   screenshot path. There were 97 entries when checked.
 * EmulationStation downloads the repository's default branch and installs it
   into `/userdata/themes/<repo-name>`. **`theme.xml` must therefore sit at the
-  root of the repository's default branch.** Every listed theme is laid out
-  that way.
+  root of the repository's default branch, and the team asked for that
+  branch to be called `master`.** Every listed theme is laid out that way.
 * The list itself is not a public file that accepts pull requests. New
   themes are added by the team on request; the usual route is the Batocera
   Discord (themes channel) or the forum, with a link to the repository and a
@@ -35,14 +35,14 @@ root `theme.xml`. The fix is a second, public, distribution-only repository.
    this project does; nothing needs to be installed on a PC):
 
    ```
-   tools/make-dist.sh 0.1.15 ../BatWiiCera-theme
-   cd ../BatWiiCera-theme && git add -A && git commit -m "BatWiiCera 0.1.15" && git push
+   tools/make-dist.sh 0.1.20 ../BatWiiCera-theme
+   cd ../BatWiiCera-theme && git add -A && git commit -m "BatWiiCera 0.1.20" && git push origin master
    ```
 
-   The script mirrors `v0.1.15/BatWiiCera/` to the root, adds `preview.png`
+   The script mirrors the version folder to the root, adds `preview.png`
    and a short README pointing back here. Re-run it for every approved
    release; the downloader then offers the update automatically. Done for
-   0.1.15 (commit `545760f` there).
+   0.1.15 (commit `545760f`) and 0.1.20 (commit `9562280`), on `master`.
 3. **Take a real screenshot** on the device for the request (the team shows
    one image per theme). `preview.png` is a layout mock-up; a photo of the
    console grid on your TV, or a capture through Batocera's screenshot
@@ -79,7 +79,7 @@ root `theme.xml`. The fix is a second, public, distribution-only repository.
 ## Checklist before asking
 
 - [x] Distribution repository created, public, `theme.xml` at root
-- [x] `tools/make-dist.sh` run for the approved version and pushed (0.1.15)
+- [x] `tools/make-dist.sh` run for the approved version and pushed (0.1.20 on `master`, the default branch)
 - [ ] Theme installs from a zip of that repository on a device and selects cleanly
 - [x] Screenshot taken on a device
 - [x] Request posted; record added to `CHANGE_CONTROL.md` (CR-0027)

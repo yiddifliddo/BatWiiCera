@@ -46,6 +46,7 @@ Rules for this register:
 | CR-0029 | 2026-10-05 | 0.1.17 | Corrective change | Plaza channel could not start on Batocera: embed Plaza 0.1.6 with bundled runtime, launcher and artwork | `release/v0.1.17`, merged to `main` | Approved by author ("go"), implemented |
 | CR-0030 | 2026-10-05 | 0.1.18 | Corrective change | Menu button textures broken at real button height; RetroAchievements avatar address missing the username | `release/v0.1.18`, merged to `main` | Approved by author ("Fix it"), implemented |
 | CR-0031 | 2026-10-05 | 0.1.19 | Standard change | Embedded Plaza updated to 0.1.7 (stadium, avatars, movement, generated names); root start scripts to 0.1.7 | `release/v0.1.19`, merged to `main` | Approved by author ("build the stadium and look"), implemented |
+| CR-0034 | 2026-10-05 | 0.1.20 (distribution) | Distribution record | Distribution repository republished at 0.1.20; default branch renamed to `master` at the Batocera team's request | `master` of `BatWiiCera-theme` | Implemented; awaiting the team |
 | CR-0033 | 2026-10-05 | repo | Release | Root start scripts moved to Plaza 0.1.8 (PCR-0009, netplay relay) | `main` | Approved by author instruction, implemented |
 | CR-0032 | 2026-10-05 | 0.1.20 | Corrective change | RetroAchievements avatar stuck on the default picture: web image cache never expires; cache-busting tag added. Corrects the root cause recorded in CR-0030 | `release/v0.1.20`, merged to `main` | Implemented after a repeated report ("I STILL don't have my proper retroachievements avatar") |
 
@@ -2014,3 +2015,38 @@ Install `v0.1.19`.
 `package.json` and `railway.json` start `plaza/v0.1.8/server/index.js`, which
 adds the netplay relay (PCR-0009). Theme unchanged at 0.1.20. Rollback: point
 both files back at `plaza/v0.1.7/server`.
+
+---
+
+## CR-0034 - Distribution repository at 0.1.20 on a `master` default branch
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0034 |
+| Date raised | 2026-10-05 |
+| Requested by | Batocera team via yiddifliddo ("You maybe have to move it to a master branch ... then ask lbrpdx") |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera - distribution copy for Batocera's Themes Downloader |
+| Change type | Distribution record |
+| Status | Implemented; awaiting the Batocera team |
+| Approver | yiddifliddo |
+
+### Description
+
+`tools/make-dist.sh 0.1.20` republished the distribution copy (commit
+`9562280` there, 718 files, about 32 MB) so the team's first look is the
+current build with the working Plaza and the avatar fix. The default
+branch was renamed from `main` to `master` by the author in the GitHub
+settings after a direct switch failed on the mobile site; verified from
+here: `HEAD -> refs/heads/master`, `theme.xml` at the root reports 0.1.20.
+A leftover `masterx` branch (identical content) can be deleted by the author
+at any time. Submission notes and the publishing script now say `master`.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| Remote HEAD points at `master`; raw `theme.xml` on `master` is 0.1.20 | Pass |
+| Branch zip of `master` downloads intact with the Plaza runtime | Pass (checked at publication) |
+| Install from that zip on a device | Not confirmed to the register |

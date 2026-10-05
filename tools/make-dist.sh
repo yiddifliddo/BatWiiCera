@@ -3,7 +3,8 @@
 # Author: yiddifliddo
 #
 # Batocera's Themes Downloader installs a theme by fetching a GitHub
-# repository's default branch and expects theme.xml at the repository root.
+# repository's default branch (the team asks for it to be named "master")
+# and expects theme.xml at the repository root.
 # This repository keeps every version in its own folder, so the published
 # copy lives in a separate public repository that this script fills:
 #
@@ -12,7 +13,8 @@
 #
 # It mirrors v<version>/BatWiiCera/* to the root of that checkout (deleting
 # files that no longer exist), adds a preview image for the downloader and a
-# short README. Commit and push the distribution repository afterwards.
+# short README. Commit and push the distribution repository's master branch
+# afterwards:  git add -A && git commit -m "BatWiiCera <version>" && git push origin master
 set -e
 VER="$1"; DEST="$2"
 [ -n "$VER" ] && [ -n "$DEST" ] || { echo "usage: $0 <version> <distribution-repo-path>"; exit 1; }
