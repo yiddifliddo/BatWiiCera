@@ -46,6 +46,7 @@ Rules for this register:
 | CR-0029 | 2026-10-05 | 0.1.17 | Corrective change | Plaza channel could not start on Batocera: embed Plaza 0.1.6 with bundled runtime, launcher and artwork | `release/v0.1.17`, merged to `main` | Approved by author ("go"), implemented |
 | CR-0030 | 2026-10-05 | 0.1.18 | Corrective change | Menu button textures broken at real button height; RetroAchievements avatar address missing the username | `release/v0.1.18`, merged to `main` | Approved by author ("Fix it"), implemented |
 | CR-0031 | 2026-10-05 | 0.1.19 | Standard change | Embedded Plaza updated to 0.1.7 (stadium, avatars, movement, generated names); root start scripts to 0.1.7 | `release/v0.1.19`, merged to `main` | Approved by author ("build the stadium and look"), implemented |
+| CR-0035 | 2026-10-05 | 0.1.21 | Corrective change | Embedded Plaza updated to 0.1.9 (pitch markings fixed); root start scripts to 0.1.9 | `release/v0.1.21`, merged to `main` | Approved by author, implemented |
 | CR-0034 | 2026-10-05 | 0.1.20 (distribution) | Distribution record | Distribution repository republished at 0.1.20; default branch renamed to `master` at the Batocera team's request | `master` of `BatWiiCera-theme` | Implemented; awaiting the team |
 | CR-0033 | 2026-10-05 | repo | Release | Root start scripts moved to Plaza 0.1.8 (PCR-0009, netplay relay) | `main` | Approved by author instruction, implemented |
 | CR-0032 | 2026-10-05 | 0.1.20 | Corrective change | RetroAchievements avatar stuck on the default picture: web image cache never expires; cache-busting tag added. Corrects the root cause recorded in CR-0030 | `release/v0.1.20`, merged to `main` | Implemented after a repeated report ("I STILL don't have my proper retroachievements avatar") |
@@ -2050,3 +2051,43 @@ at any time. Submission notes and the publishing script now say `master`.
 | Remote HEAD points at `master`; raw `theme.xml` on `master` is 0.1.20 | Pass |
 | Branch zip of `master` downloads intact with the Plaza runtime | Pass (checked at publication) |
 | Install from that zip on a device | Not confirmed to the register |
+
+---
+
+## CR-0035 - Embedded Plaza updated to 0.1.9
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0035 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo ("Can you fix the football pitch") |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.21 (folder `v0.1.21/BatWiiCera`, zips `BatWiiCera-v0.1.21.zip`, `BatWiiCera-full-v0.1.21.zip`) |
+| Previous version | 0.1.20 (folder `v0.1.20`, left unchanged) |
+| Change type | Corrective change (packaging) |
+| Branch | `release/v0.1.21`, merged to `main` |
+| Status | Approved by author, implemented |
+| Approver | yiddifliddo |
+
+### Description of change
+
+`_plaza/` refreshed to Plaza 0.1.9 (PCR-0010; carries the 0.1.8 relay in the
+server package). Avatar address tag `?v=0121`. Root `package.json` and
+`railway.json` start `plaza/v0.1.9/server` (identical to 0.1.8 apart from
+the version string). Theme views unchanged. Not pushed to the distribution
+repository yet (team reviewing 0.1.20); will be published on the author's
+word or with the next release.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `xmllint` on `theme.xml`; both zips pass integrity checks; theme zip byte-identical to the folder | Pass |
+| Plaza 0.1.9 tests and rendered close-up (PCR-0010) | Pass |
+| On the device | **Not performed** - required |
+
+### Rollback plan
+
+Install `v0.1.20`.
