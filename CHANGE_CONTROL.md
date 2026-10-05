@@ -46,6 +46,7 @@ Rules for this register:
 | CR-0029 | 2026-10-05 | 0.1.17 | Corrective change | Plaza channel could not start on Batocera: embed Plaza 0.1.6 with bundled runtime, launcher and artwork | `release/v0.1.17`, merged to `main` | Approved by author ("go"), implemented |
 | CR-0030 | 2026-10-05 | 0.1.18 | Corrective change | Menu button textures broken at real button height; RetroAchievements avatar address missing the username | `release/v0.1.18`, merged to `main` | Approved by author ("Fix it"), implemented |
 | CR-0031 | 2026-10-05 | 0.1.19 | Standard change | Embedded Plaza updated to 0.1.7 (stadium, avatars, movement, generated names); root start scripts to 0.1.7 | `release/v0.1.19`, merged to `main` | Approved by author ("build the stadium and look"), implemented |
+| CR-0037 | 2026-10-05 | 0.1.22 | Corrective change | RetroAchievements avatar and bar buttons faded and reloaded on every console move: marked as static extras | `release/v0.1.22`, merged to `main` | Approved by author (report), implemented |
 | CR-0036 | 2026-10-05 | none (record) | Deployment record | Netplay relay exposed on Railway: `altaria.proxy.rlwy.net:47409` to container port 55435; server 0.1.9 live | `main` | Implemented; first live netplay test pending |
 | CR-0035 | 2026-10-05 | 0.1.21 | Corrective change | Embedded Plaza updated to 0.1.9 (pitch markings fixed); root start scripts to 0.1.9 | `release/v0.1.21`, merged to `main` | Approved by author, implemented |
 | CR-0034 | 2026-10-05 | 0.1.20 (distribution) | Distribution record | Distribution repository republished at 0.1.20; default branch renamed to `master` at the Batocera team's request | `master` of `BatWiiCera-theme` | Implemented; awaiting the team |
@@ -2130,3 +2131,51 @@ the next theme release will.
 | `GET /health` reports version 0.1.9 and `relay.sessions` | Pass |
 | Relay reachable through the proxy from the build environment | Not possible (outbound raw TCP blocked there) |
 | One Batocera hosting through the relay, another joining from the Netplay list | **Not performed** - required |
+
+---
+
+## CR-0037 - Avatar and bar buttons reloaded on every console move
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0037 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo ("The retroachievements avatar keeps reloading really quickly when I change between consoles") |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.22 (folder `v0.1.22/BatWiiCera`, zips `BatWiiCera-v0.1.22.zip`, `BatWiiCera-full-v0.1.22.zip`) |
+| Previous version | 0.1.21 (folder `v0.1.21`, left unchanged) |
+| Change type | Corrective change |
+| Branch | `release/v0.1.22`, merged to `main` |
+| Status | Approved by author, implemented |
+| Approver | yiddifliddo |
+
+### Root cause
+
+`SystemView` keeps one set of extras per system and, on each cursor move,
+fades and slides the new system's extras in (`mExtrasFadeOpacity`,
+`mExtrasFadeMove`), skipping only elements flagged `isStaticExtra()`. The
+avatar, its name and the two bar buttons were ordinary extras
+(`extra="true"`), so they took part in that transition on every move and
+the web image looked as though it was reloading.
+
+### Description of change
+
+`ra-avatar`, `ra-trophy`, `ra-name`, `home-button` and `mail-button` are now
+`extra="static"` (engine value 2), which the view renders without the
+transition. Avatar address tag `?v=0122`. Version 0.1.22 in `theme.xml`,
+`README.md`, `LICENSE`; root README and `package.json`. Plaza embed
+unchanged (0.1.9).
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `xmllint` on `theme.xml`; five elements changed; zips pass integrity checks; theme zip byte-identical to the folder | Pass |
+| Engine source read: static extras skip the fade and slide | Done |
+| On the device | **Not performed** - required |
+
+### Rollback plan
+
+Install `v0.1.21`.

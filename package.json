@@ -1,9 +1,9 @@
 {
   "name": "batwiicera",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "description": "BatWiiCera theme for Batocera and its Plaza channel. This root package exists so hosts such as Railway can run the Plaza server straight from the repository.",
   "author": "yiddifliddo",
-  "license": "SEE LICENSE IN v0.1.21/BatWiiCera/LICENSE and plaza/LICENSE",
+  "license": "SEE LICENSE IN v0.1.22/BatWiiCera/LICENSE and plaza/LICENSE",
   "private": true,
   "engines": { "node": ">=18" },
   "scripts": {
