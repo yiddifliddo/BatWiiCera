@@ -29,10 +29,12 @@ Rules for this register:
 | CR-0012 | 2026-10-04 | 0.1.9 | Corrective change | Pointer hand removed completely | `release/v0.1.9` | Submitted for approval |
 | CR-0013 | 2026-10-04 | 0.1.10 | Corrective change | Logos stuck grey; dark menus unreadable | `release/v0.1.10` | Submitted for approval |
 | CR-0014 | 2026-10-04 | 0.1.10 (repo only) | Repository change | Remove reference screenshots from the repository | `release/v0.1.10` | Submitted for approval |
+| CR-0015 | 2026-10-05 | Plaza 0.1.0 | New product area | Add the Plaza channel (own register in `plaza/CHANGE_CONTROL.md`) | `release/plaza-v0.1.0` | Submitted for approval |
 | CR-0016 | 2026-10-05 | 0.1.11 | Standard change | Bundle the Plaza channel logo | `release/v0.1.11` | Submitted for approval |
 | CR-0017 | 2026-10-05 | repo only | Documentation / tooling | Batocera Themes Downloader submission kit | `release/v0.1.11` | Submitted for approval |
 | CR-0018 | 2026-10-05 | 0.1.12 | Standard change | Embed the Plaza (0.1.1) in the theme package with installer and VPS guide | `release/v0.1.12` | Submitted for approval |
 | CR-0019 | 2026-10-05 | 0.1.13 | Standard change | Embedded Plaza updated to 0.1.2 (Railway support) | `release/v0.1.13` | Submitted for approval |
+| CR-0020 | 2026-10-05 | repo | Release / deployment | Merge all release branches to `main`; make the repository root deploy the Plaza server on Railway | `main` | Approved by author instruction, implemented |
 
 ---
 
@@ -1053,6 +1055,51 @@ Revert the single commit.
 
 ---
 
+## CR-0015 - Add the Plaza channel to the repository
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0015 |
+| Date raised | 2026-10-05 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera Plaza (companion to the theme) |
+| Version produced | Plaza 0.1.0 in `plaza/v0.1.0/`; theme version unchanged (0.1.10) |
+| Change type | New product area |
+| Branch | `release/plaza-v0.1.0` (branched from `release/v0.1.10`) |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+Adds the Plaza channel as a separate product area under `plaza/`, with its own
+`README.md`, MIT `LICENSE` and change register (`plaza/CHANGE_CONTROL.md`,
+record PCR-0001) that describes the server, client, presence hook,
+installer, design decisions, risks and test evidence in full. A separate
+repository was the author's first choice but the tooling could not create
+one; the author then asked for it to be added here.
+
+No theme files change. A later theme version will bundle the Plaza channel
+logo (`plaza.svg`); until then the Plaza installer copies the logo into an
+installed theme folder.
+
+### Risk assessment
+
+See PCR-0001. For this repository: none beyond repository size (about 0.2 MB).
+
+### Testing and verification performed
+
+See PCR-0001 (server smoke test, client self-test, rendering on a virtual
+framebuffer, hook end to end, package builds). No Batocera device test yet.
+
+### Rollback plan
+
+Revert the merge of `release/plaza-v0.1.0`; delete the `plaza/` folder.
+
+---
+
 ## CR-0016 - Bundle the Plaza channel logo
 
 | Field | Value |
@@ -1258,3 +1305,72 @@ Packaging only. Risk rating: **Negligible**.
 ### Rollback plan
 
 Install `v0.1.12`. In the repository, revert the merge of `release/v0.1.13`.
+
+---
+
+## CR-0020 - Merge to main and Railway root deployment
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0020 |
+| Date raised | 2026-10-05 |
+| Requested by | Dan Lee ("push it to Railway, it's connected to the repo") |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera repository (theme and Plaza) |
+| Version produced | None new; `main` now carries theme 0.1.13 and Plaza 0.1.2 |
+| Change type | Release (merge) and deployment configuration |
+| Branch | `release/railway-root`, merged into `main` |
+| Status | Approved by author instruction, implemented |
+| Approver | Dan Lee |
+| Approval date | 2026-10-05 |
+
+### Description of change
+
+The author's Railway service is connected to this repository and follows
+`main`. Its builds failed because `main` held only the original upload and
+the root has no project to build. Under the author's instruction to push to
+Railway:
+
+* `release/v0.1.13` (theme line, CR-0001 to CR-0019 except CR-0015) and
+  `release/plaza-v0.1.2` (Plaza line, CR-0015 and PCR-0001 to PCR-0003) were
+  merged, with the two shared files (README and this register) combined by
+  hand, then merged with `main` (which had the author's own deletions of the
+  two reference photographs).
+* Repository root gains `package.json` (start script running
+  `plaza/v0.1.2/server/index.js`, Node 18 or newer), `railway.json`
+  (start command, `/health` check, restart policy) and `.railwayignore`
+  (keeps the theme version folders and zips out of the build upload). Railway
+  therefore builds from the repository root with no settings changes. The
+  start script is a pointer to the current Plaza version and is updated by
+  the change that releases a new Plaza version.
+* On Railway the author still needs: Public Networking > Generate Domain
+  (presence over HTTPS) and Networking > TCP Proxy on port 7777 (game
+  connection). Both are account-side settings the repository cannot make.
+
+Approval note: the records CR-0001 to CR-0019 and PCR-0001 to PCR-0003 list
+"Submitted for approval"; the author's instruction to deploy is taken as
+approval to merge them to `main`. On-device test evidence is still
+outstanding and remains recorded as such in each record.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Root `package.json` confuses the Batocera Themes Downloader | None | n/a | The downloader uses the separate distribution repository (CR-0017) |
+| Railway build uploads the whole repository | Low | Slow builds | `.railwayignore` excludes version folders, zips and previews |
+| Untested merge combination | Low | Doc inconsistencies only; theme and Plaza files are disjoint | Tree checked: `v0.1.13/BatWiiCera/theme.xml` and `plaza/v0.1.2/server/index.js` present, no reference photographs |
+
+Overall risk rating: **Low**.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| Server started from the repository root via the root start script with `PORT` set; `/health` answers | Pass (version 0.1.2 reported) |
+| No merge conflict markers; register and README contain both lines of records | Pass |
+
+### Rollback plan
+
+Reset `main` to the previous head (`1e00923`) by a revert merge commit;
+delete the root `package.json`, `railway.json` and `.railwayignore`.

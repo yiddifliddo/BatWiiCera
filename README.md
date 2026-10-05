@@ -76,6 +76,7 @@ vX.Y.Z/previews/        layout mock-ups for that version (light and dark from 0.
 tools/make-dist.sh      builds the root-layout copy for Batocera's Themes Downloader
 docs/SUBMISSION.md      how the theme gets listed in Batocera's downloader, with the request text
 plaza/                  the Plaza channel source (server, client, installer), own README and register
+package.json, railway.json, .railwayignore   let Railway run the Plaza server from the repository root
 ```
 
 One `vX.Y.Z/` folder exists per released version, 0.1.0 to 0.1.13; see the

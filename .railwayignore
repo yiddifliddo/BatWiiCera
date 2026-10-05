@@ -1,0 +1,10 @@
+# Keep the Railway build upload small: only the Plaza server is needed.
+v0.*/
+plaza/*/dist/
+plaza/*/previews/
+plaza/*/client/
+docs/
+tools/
+*.zip
+*.png
+*.jpg

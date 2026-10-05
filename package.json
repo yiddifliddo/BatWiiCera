@@ -1,0 +1,13 @@
+{
+  "name": "batwiicera",
+  "version": "0.1.13",
+  "description": "BatWiiCera theme for Batocera and its Plaza channel. This root package exists so hosts such as Railway can run the Plaza server straight from the repository.",
+  "author": "Dan Lee",
+  "license": "SEE LICENSE IN v0.1.13/BatWiiCera/LICENSE and plaza/LICENSE",
+  "private": true,
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node plaza/v0.1.2/server/index.js",
+    "test": "node plaza/v0.1.2/server/test/smoke.js"
+  }
+}
