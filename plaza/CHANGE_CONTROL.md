@@ -17,6 +17,7 @@ record carries author, company, risk, test evidence and rollback.
 | PCR-0006 | 2026-10-05 | 0.1.5 | Emergency change | Server crashed on Railway: PORT equals the TCP proxy port | `release/plaza-v0.1.5`, merged to `main` | Approved by author instruction (error report), implemented |
 | PCR-0007 | 2026-10-05 | 0.1.6 | Corrective change | Channel did not start on Batocera (no LÖVE engine): bundled runtime, one launcher, game-screen artwork | `release/plaza-v0.1.6`, merged to `main` | Implemented; device test passed (author, "The plaza works") |
 | PCR-0008 | 2026-10-05 | 0.1.7 | Standard change | Football stadium with goals, new avatar renderer and movement, smooth remote players, generated names | `release/plaza-v0.1.7`, merged to `main` | Approved by author ("build the stadium and look"), implemented |
+| PCR-0009 | 2026-10-05 | 0.1.8 | Standard change | RetroArch netplay relay built into the server (one port, Railway-friendly) | `release/plaza-v0.1.8`, merged to `main` | Approved by author ("I want netplay server to be added to the railway server"), implemented |
 
 ---
 
@@ -618,3 +619,73 @@ Overall risk rating: **Low**.
 
 Install the theme 0.1.18 package (Plaza 0.1.6) and start `plaza/v0.1.6/server`
 on Railway; the 0.1.6 server and client interoperate.
+
+---
+
+## PCR-0009 - RetroArch netplay relay built into the server
+
+| Field | Value |
+| --- | --- |
+| Change ID | PCR-0009 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo ("I want netplay server to be added to the railway server so I can give to friends") |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera Plaza (server) |
+| Version produced | 0.1.8 (folder `plaza/v0.1.8`) |
+| Previous version | 0.1.7 (folder `plaza/v0.1.7`, left unchanged) |
+| Change type | Standard change |
+| Branch | `release/plaza-v0.1.8`, merged to `main` |
+| Status | Approved by author, implemented |
+| Approver | yiddifliddo |
+| Approval date | 2026-10-05 |
+
+### Background and design decision
+
+libretro's historical `netplay-mitm-server` opens a new TCP port per
+session, which a Railway service cannot expose. Current RetroArch (and so
+Batocera) uses a newer single-port "tunnel" protocol for its relay servers,
+documented only in RetroArch's source (`network/netplay/netplay_frontend.c`,
+`netplay_private.h`: magics RATS/RATL/RATA/RATP, 16-byte ids, 16-byte
+address blocks). That protocol was implemented in Node inside the Plaza
+server, so one more Railway TCP proxy is all that is needed. RetroArch's
+custom relay setting accepts `host:port`, so Railway's assigned proxy port is
+fine, and the host's lobby announcement carries the relay address and
+session id, so joining players need no setting.
+
+### Description of change
+
+* `server/tunnel.js` (new): sessions, link notices, address replies, link
+  pairing with early-byte handling, pings every 20 s with a 15 s deadline,
+  20 s link timeout, caps (`PLAZA_TUNNEL_MAX` sessions, 16 links each).
+* `server/index.js`: starts the relay on `PLAZA_TUNNEL_PORT` (default 55435,
+  0 disables), reports it in `/health` and `/stats`, closes it on shutdown.
+* `server/test/tunnel.js` (new) and `npm test` runs both server tests.
+* Documentation: README "Netplay relay" section, Railway guide step 3b and
+  variables. Version 0.1.8 everywhere; packages rebuilt; client unchanged.
+* Root `package.json` and `railway.json` start `plaza/v0.1.8/server`. The
+  theme embed stays at 0.1.7 (client identical); it will carry 0.1.8 or
+  later with the next theme release.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Protocol detail misread (no public server source to compare) | Medium | Hosting through the relay fails | Test plays both sides from the RetroArch source; first real test is one Batocera hosting and one joining |
+| Relay traffic through Railway's proxy adds latency | Certain | Input lag depends on region | Same as libretro's own relays; VPS option documented |
+| Abuse of an open relay | Low | Bandwidth | Session and link caps; port can be disabled |
+
+Overall risk rating: **Low to Medium** until the first live netplay test.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `node server/test/tunnel.js` (protocol both sides) | Pass |
+| `node server/test/smoke.js` (room unchanged) | Pass |
+| Client self-test (86 checks) | Pass |
+| Two Batocera boxes: host via the custom relay, join from the lobby | **Not performed** - required |
+
+### Rollback plan
+
+Set `PLAZA_TUNNEL_PORT=0` in Railway (relay off, room unaffected), or start `plaza/v0.1.7/server`.

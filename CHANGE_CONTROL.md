@@ -46,6 +46,7 @@ Rules for this register:
 | CR-0029 | 2026-10-05 | 0.1.17 | Corrective change | Plaza channel could not start on Batocera: embed Plaza 0.1.6 with bundled runtime, launcher and artwork | `release/v0.1.17`, merged to `main` | Approved by author ("go"), implemented |
 | CR-0030 | 2026-10-05 | 0.1.18 | Corrective change | Menu button textures broken at real button height; RetroAchievements avatar address missing the username | `release/v0.1.18`, merged to `main` | Approved by author ("Fix it"), implemented |
 | CR-0031 | 2026-10-05 | 0.1.19 | Standard change | Embedded Plaza updated to 0.1.7 (stadium, avatars, movement, generated names); root start scripts to 0.1.7 | `release/v0.1.19`, merged to `main` | Approved by author ("build the stadium and look"), implemented |
+| CR-0033 | 2026-10-05 | repo | Release | Root start scripts moved to Plaza 0.1.8 (PCR-0009, netplay relay) | `main` | Approved by author instruction, implemented |
 | CR-0032 | 2026-10-05 | 0.1.20 | Corrective change | RetroAchievements avatar stuck on the default picture: web image cache never expires; cache-busting tag added. Corrects the root cause recorded in CR-0030 | `release/v0.1.20`, merged to `main` | Implemented after a repeated report ("I STILL don't have my proper retroachievements avatar") |
 
 ---
@@ -1994,3 +1995,22 @@ engine source and the RetroAchievements server:
 ### Rollback plan
 
 Install `v0.1.19`.
+
+---
+
+## CR-0033 - Root start scripts moved to Plaza 0.1.8
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0033 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera repository (Railway deployment files) |
+| Change type | Release |
+| Status | Approved by author instruction, implemented |
+
+`package.json` and `railway.json` start `plaza/v0.1.8/server/index.js`, which
+adds the netplay relay (PCR-0009). Theme unchanged at 0.1.20. Rollback: point
+both files back at `plaza/v0.1.7/server`.
