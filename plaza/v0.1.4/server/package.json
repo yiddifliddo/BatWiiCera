@@ -1,0 +1,17 @@
+{
+  "name": "batwiicera-plaza-server",
+  "version": "0.1.4",
+  "description": "Room server for the BatWiiCera Plaza channel: one shared room where players meet as avatars and see what everyone is playing.",
+  "author": "yiddifliddo",
+  "license": "MIT",
+  "private": true,
+  "main": "index.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test/smoke.js"
+  }
+}

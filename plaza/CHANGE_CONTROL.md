@@ -13,6 +13,7 @@ record carries author, company, risk, test evidence and rollback.
 | PCR-0002 | 2026-10-05 | 0.1.1 | Standard change | Theme palette and automatic light/dark matching | `release/plaza-v0.1.1` | Submitted for approval |
 | PCR-0003 | 2026-10-05 | 0.1.2 | Standard change | Railway hosting support (PORT, presence URL, host:port) | `release/plaza-v0.1.2` | Submitted for approval |
 | PCR-0004 | 2026-10-05 | 0.1.3 | Standard change | Terminal-free install from the client; presence URL from the server | `release/plaza-v0.1.3` | Submitted for approval |
+| PCR-0005 | 2026-10-05 | 0.1.4 | Standard change | Public server built in, one-file Ports installer, automatic EmulationStation restart, author credit | `release/plaza-v0.1.4`, merged to `main` | Approved by author instruction, implemented |
 
 ---
 
@@ -320,3 +321,87 @@ Overall risk rating: **Low**.
 
 Use `plaza/v0.1.2`; the menu item does not appear off Batocera and the
 shell installer still works. In the repository, revert the merge.
+
+---
+
+## PCR-0005 - Public server built in, one-file Ports installer, automatic restart, author credit
+
+| Field | Value |
+| --- | --- |
+| Change ID | PCR-0005 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo ("this needs to be automated"; attribution to the GitHub name) |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera Plaza |
+| Version produced | 0.1.4 (folder `plaza/v0.1.4`) |
+| Previous version | 0.1.3 (folder `plaza/v0.1.3`, left unchanged) |
+| Change type | Standard change |
+| Branch | `release/plaza-v0.1.4`, merged to `main` (Railway follows `main`) |
+| Status | Approved by author instruction, implemented |
+| Approver | yiddifliddo |
+| Approval date | 2026-10-05 |
+
+### Description of change
+
+The install procedure still asked a person to copy a file, start it, type the
+server address and restart EmulationStation. A theme cannot run code, so one
+file must be placed outside the theme folder once; everything after that is
+now automatic.
+
+* **Built-in public server.** `client/src/config.lua` defaults to the public
+  BatWiiCera server (game `maglev.proxy.rlwy.net:28071`, presence
+  `https://batwiicera-production.up.railway.app`, see theme CR-0023). The
+  presence hook falls back to the same values when no `config.json` exists,
+  and the shell installer uses them when called without arguments.
+  **Server address** in the menu still overrides for private servers.
+* **One-file Ports entry** `installer/Plaza.sh`. Placed in
+  `/userdata/roms/ports` it is listed under Ports as "Plaza". If the channel
+  is not installed it finds the newest BatWiiCera theme copy with a `_plaza`
+  folder, runs its installer and lets it restart EmulationStation. Otherwise
+  it restores the hook's executable bit and launches the client through
+  Batocera's emulator launcher (falls back to `love`). Logs to
+  `/userdata/system/logs/plaza-ports.log`. Embedded in the client
+  (`embedded.ports`) and written by both installers.
+* **Automatic EmulationStation restart.** `setup.restartEmulationStation()`
+  runs `batocera-es-swissknife --restart` detached after three seconds; the
+  menu quits the client just before. The shell installer does the same
+  (`--no-restart` skips it).
+* **Channel launch command** in `es_systems_plaza.cfg` first runs `chmod +x`
+  on the hook, so a copy made over a Windows share (which drops the bit)
+  still reports games once the Plaza has been opened.
+* **Author credit** changed from Dan Lee to yiddifliddo in every header,
+  `server/package.json`, `installer/gamelist.xml`, `installer/plaza.svg` and
+  `plaza/LICENSE`. Earlier version folders are left as released.
+* Version 0.1.4 in all headers, `/health` and the welcome message; packages
+  rebuilt. No gameplay or visual changes.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Public server address changes later | Low | Clients built with the old default cannot connect until updated or overridden | Menu override; new release with new default |
+| `batocera-es-swissknife` missing or restart kills the installer early | Low | Channel appears only after a manual restart | Restart is detached and delayed; message says to restart manually when the tool is absent |
+| Ports script run without the theme installed | Medium (user error) | Nothing installed, exit 1 | Message in the log names the cause; the full-install zip avoids the case |
+| `python emulatorlauncher.py` arguments differ on a future Batocera | Low | Ports entry fails to launch after install (channel tile unaffected) | Falls back to `love`; channel tile uses Batocera's own command |
+
+Overall risk rating: **Low**.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| Client self-test (`lua5.1 test/run.lua`): built-in server defaults, embedded Ports script, existing checks | Pass, 67 checks |
+| Server smoke test (`node server/test/smoke.js`) and `node --check` | Pass |
+| Shell syntax of installer, Ports entry and hook; XML of system file and gamelist | Pass |
+| Ports entry dry run against a temporary `/userdata` tree on the build machine: first run installed client, system file, hook (executable), Ports copy, config with the public server, logo; second run restored a removed executable bit and reached the launch step | Pass |
+| Hook with a profile and no config: POSTed `start` with the cleaned game name to the (locally redirected) presence endpoint | Pass |
+| Public server `GET /health` | Pass |
+| TCP proxy reachability from the build machine | **Not possible** (outbound raw TCP blocked there); device test required |
+| On a Batocera device: Ports route, full zip route, client route, automatic restart, controller | **Not performed** - required before sign-off |
+
+### Rollback plan
+
+Install from `plaza/v0.1.3` (CR-0022 theme package) instead. On Railway
+revert the merge on `main`; the server protocol is unchanged, so 0.1.3 and
+0.1.4 clients and servers interoperate.

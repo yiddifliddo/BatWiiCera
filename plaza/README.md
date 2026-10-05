@@ -4,22 +4,23 @@ A social channel for the [BatWiiCera](https://github.com/yiddifliddo/BatWiiCera)
 Batocera theme: one shared online room where players meet as original cartoon
 avatars, see what everyone is playing, run around, hop, slap and kick a ball.
 
-**Author:** Dan Lee (personal project)
-**Current version:** 0.1.3
+**Author:** yiddifliddo (personal project)
+**Current version:** 0.1.4
 **Licence:** MIT
 
 ## Versions
 
 | Version | Folder | Date | Status | Summary |
 | --- | --- | --- | --- | --- |
-| 0.1.3 | [`v0.1.3`](v0.1.3) | 2026-10-05 | Release candidate, awaiting on-device sign-off | Terminal-free install from the client menu; presence URL sent by the server |
+| 0.1.4 | [`v0.1.4`](v0.1.4) | 2026-10-05 | Release candidate, awaiting on-device sign-off | Public server built in, one-file Ports installer, automatic EmulationStation restart; author credit yiddifliddo |
+| 0.1.3 | [`v0.1.3`](v0.1.3) | 2026-10-05 | Superseded by 0.1.4 | Terminal-free install from the client menu; presence URL sent by the server |
 | 0.1.2 | [`v0.1.2`](v0.1.2) | 2026-10-05 | Superseded by 0.1.3 | Railway support: PORT, presence URL, host:port game address, Railway guide |
 | 0.1.1 | [`v0.1.1`](v0.1.1) | 2026-10-05 | Superseded by 0.1.2 | Theme palette, follows the EmulationStation colour set (light/dark) |
 | 0.1.0 | [`v0.1.0`](v0.1.0) | 2026-10-05 | Superseded by 0.1.1 | First release: server, LÖVE client, presence hook, installer, channel tile |
 
-![The plaza](v0.1.3/previews/plaza-plaza.png)
+![The plaza](v0.1.4/previews/plaza-plaza.png)
 
-![The plaza, dark colour set](v0.1.3/previews/plaza-plaza-dark.png)
+![The plaza, dark colour set](v0.1.4/previews/plaza-plaza-dark.png)
 
 Each version lives in its own `vX.Y.Z/` folder with its own `README.md`
 (set-up, controls, what changed) and built packages in `dist/`. Every change
@@ -27,15 +28,22 @@ is logged in [`CHANGE_CONTROL.md`](CHANGE_CONTROL.md).
 
 ## Quick start
 
-1. Host the server: on a VPS, unpack `v0.1.3/dist/BatWiiCera-Plaza-server.tar.gz`
-   and run `node index.js` (or install the systemd unit) with ports 7777 and
-   7778 open; or on Railway, follow `v0.1.3/RAILWAY-SETUP.md`.
-2. On each Batocera box, no terminal: copy `v0.1.3/dist/BatWiiCera-Plaza.love`
-   to the share's `roms\love` folder, start it from the LÖVE system, choose
-   **Install Plaza channel**, set the server address, restart EmulationStation.
-3. Pick the new **Plaza** channel, edit your avatar, enter the plaza.
+The public server is built in, so there is nothing to host and nothing to
+type. On each Batocera box, one of:
 
-Full details in [`v0.1.3/README.md`](v0.1.3/README.md).
+1. Extract the theme's `BatWiiCera-full-vX.Y.Z.zip` onto the share and
+   reboot (theme and Plaza channel together), or
+2. with the theme already installed, copy
+   `v0.1.4/installer/Plaza.sh` into `share\roms\ports` and start **Plaza**
+   from Ports once; it installs the channel and restarts EmulationStation, or
+3. start `v0.1.4/dist/BatWiiCera-Plaza.love` from the LÖVE system and choose
+   **Install Plaza channel**.
+
+Then pick the **Plaza** channel, edit your avatar, enter the plaza.
+
+Running your own server is optional: VPS (`v0.1.4/dist/BatWiiCera-Plaza-server.tar.gz`,
+ports 7777 and 7778) or Railway (`v0.1.4/RAILWAY-SETUP.md`), then **Server
+address** in the Plaza menu. Full details in [`v0.1.4/README.md`](v0.1.4/README.md).
 
 ## Repository layout
 
