@@ -11,6 +11,7 @@ record carries author, company, risk, test evidence and rollback.
 | --- | --- | --- | --- | --- | --- | --- |
 | PCR-0001 | 2026-10-05 | 0.1.0 | New product | Initial creation of the Plaza channel (server, client, hook, installer) | `release/plaza-v0.1.0` (BatWiiCera repository, `plaza/` folder) | Submitted for approval |
 | PCR-0002 | 2026-10-05 | 0.1.1 | Standard change | Theme palette and automatic light/dark matching | `release/plaza-v0.1.1` | Submitted for approval |
+| PCR-0003 | 2026-10-05 | 0.1.2 | Standard change | Railway hosting support (PORT, presence URL, host:port) | `release/plaza-v0.1.2` | Submitted for approval |
 
 ---
 
@@ -184,3 +185,70 @@ Overall risk rating: **Negligible**.
 
 Install `plaza/v0.1.0`. In the repository, revert the merge of
 `release/plaza-v0.1.1`.
+
+---
+
+## PCR-0003 - Railway hosting support
+
+| Field | Value |
+| --- | --- |
+| Change ID | PCR-0003 |
+| Date raised | 2026-10-05 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera Plaza |
+| Version produced | 0.1.2 (folder `plaza/v0.1.2`) |
+| Previous version | 0.1.1 (folder `plaza/v0.1.1`, left unchanged) |
+| Change type | Standard change |
+| Branch | `release/plaza-v0.1.2` (branched from `release/plaza-v0.1.1`) |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+The author attached the repository to a Railway service (first build failed:
+Railway built the repository root of the default branch, where there is no
+Node project). Railway exposes one HTTP listener on `PORT` behind an HTTPS
+domain and raw TCP only through its TCP Proxy, which has a different host and
+port. Changes:
+
+* Server: HTTP listener uses `PORT` when set, else `PLAZA_HTTP_PORT`;
+  `server/railway.json` with start command, `/health` check and restart policy.
+* Client: `config.json` gains `presenceUrl`; `config.parseHostPort()` and
+  `config.presenceBase()`; the menu's Server address accepts `host:port` and
+  the status card shows the port and presence mode.
+* Hook: posts to `presenceUrl` when set (curl `-sL`, HTTPS), else
+  `http://host:httpPort`.
+* Installer: third argument is a port number or a full presence URL; usage
+  examples for VPS and Railway.
+* `RAILWAY-SETUP.md`: root directory, branch, public domain, TCP Proxy,
+  variables, installer command, costs, updating, troubleshooting.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Railway TCP Proxy adds latency or rate limits | Low-Medium | Slightly laggier movement | Snapshots are 15 Hz and interpolated; VPS remains the alternative |
+| Operators give the installer the public domain as the game host | Medium | Client cannot connect | Documented order and examples; status card shows the game address |
+| `PORT` set on a VPS by accident | Low | HTTP side moves port | Documented |
+
+Overall risk rating: **Low**.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| Server smoke test | Pass |
+| Server started with `PORT=17999`: `/health` answered on that port, version 0.1.2 | Pass |
+| Client self-test | Pass, 59 checks |
+| Hook end to end with `presenceUrl` set to a local URL: game applied on next connect | Pass |
+| `bash -n` on hook and installer; `node --check` on the server | Pass |
+| Packages rebuilt | Pass |
+| Deployment on the author's Railway service and a Batocera device | **Not performed** - required before approval |
+
+### Rollback plan
+
+Use `plaza/v0.1.1` on a VPS. In the repository, revert the merge of
+`release/plaza-v0.1.2`.
