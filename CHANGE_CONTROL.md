@@ -2318,3 +2318,10 @@ folder name the downloader uses, `/userdata/themes/BatWiiCera-theme`:
   `BatWiiCera-theme` folder.
 * Root README Install section: same paragraph.
 * Distribution repository republished at 0.1.24 on `master`.
+
+### Correction
+
+The first commit under this record (`a26ecf7`) contained a broken edit of
+`tools/make-dist.sh` (an unquoted here-document), so the publication it
+describes had not happened at that point; the script was repaired and the
+0.1.24 copy pushed in the follow-up commit that carries this note.

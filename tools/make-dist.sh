@@ -26,23 +26,23 @@ command -v rsync >/dev/null 2>&1 && rsync -a --delete --exclude .git "$SRC/" "$D
 # preview image: the downloader shows one screenshot per theme
 PREVIEW="$HERE/v$VER/previews/mockup-console-grid.png"
 [ -f "$PREVIEW" ] && cp "$PREVIEW" "$DEST/preview.png"
-cat > "$DEST/README.md" <<EOF
+cat > "$DEST/README.md" <<'EOF'
 # BatWiiCera (distribution copy)
 
-Version $VER of the BatWiiCera theme for Batocera, laid out for the Themes
+Version @VER@ of the BatWiiCera theme for Batocera, laid out for the Themes
 Downloader: theme.xml is at the root of this repository.
 
 ## Installed from Batocera's Themes Downloader?
 
-The downloader installs the theme only, into \`/userdata/themes/BatWiiCera-theme\`.
+The downloader installs the theme only, into `/userdata/themes/BatWiiCera-theme`.
 Select it under *Main Menu > UI Settings > Theme set*.
 
 To add the **Plaza** channel (the online stadium that comes with the theme),
 copy one file from the installed theme to the Ports folder, over the network
 share:
 
-    \\\\BATOCERA\\share\\themes\\BatWiiCera-theme\\_plaza\\installer\\Plaza.sh
-    ->  \\\\BATOCERA\\share\\roms\\ports\\Plaza.sh
+    \\BATOCERA\share\themes\BatWiiCera-theme\_plaza\installer\Plaza.sh
+    ->  \\BATOCERA\share\roms\ports\Plaza.sh
 
 Then open **Ports** in EmulationStation and start **Plaza** once. It installs
 the channel from the theme folder and restarts EmulationStation by itself.
@@ -52,19 +52,10 @@ Nothing to type: the public server is built in. x86_64 PCs only for now.
 
 Source, version history, the single-zip installer (theme and Plaza together),
 change control and the Plaza documentation live in
-https://github.com/yiddifliddo/BatWiiCera (folder v$VER).
+https://github.com/yiddifliddo/BatWiiCera (folder v@VER@).
 
 Author: yiddifliddo. Licence: CC BY-NC-SA 4.0 (see LICENSE); the Plaza is MIT.
 EOF
-# BatWiiCera (distribution copy)
-
-Version $VER of the BatWiiCera theme for Batocera, laid out for the Themes
-Downloader: theme.xml is at the root of this repository.
-
-Source, version history and change control live in
-https://github.com/yiddifliddo/BatWiiCera (folder v$VER).
-
-Author: yiddifliddo. Licence: CC BY-NC-SA 4.0 (see LICENSE).
-EOF
+sed -i "s/@VER@/$VER/g" "$DEST/README.md"
 echo "distribution layout for $VER written to $DEST"
 ls "$DEST" | head
