@@ -1450,3 +1450,54 @@ server address, restart EmulationStation).
 ### Rollback plan
 
 Install `v0.1.13`. In the repository, revert the merge.
+
+---
+
+## CR-0023 - Plaza server deployed on Railway (public addresses recorded)
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0023 |
+| Date raised | 2026-10-05 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera Plaza - shared online room (server 0.1.3) |
+| Version produced | None - documentation-only record, no theme or Plaza code changed |
+| Change type | Standard change (deployment record) |
+| Branch | `main` (Railway follows `main`; same standing instruction as CR-0020 to CR-0022) |
+| Status | Approved, implemented |
+| Approver | Dan Lee |
+| Approval date | 2026-10-05 |
+
+### Description of change
+
+The Plaza server from `plaza/v0.1.3/server` is running on Railway, built
+from the repository root (`package.json`, `railway.json`, CR-0021). The
+author generated the public addresses in Railway, Settings > Networking:
+
+| Purpose | Address |
+| --- | --- |
+| HTTPS (presence hook, `/health`, `/stats`) | `https://batwiicera-production.up.railway.app` (Railway `PORT` 8080) |
+| Game connection (TCP proxy to container port 7777) | `maglev.proxy.rlwy.net:28071` |
+
+The server reads Railway's `PORT` for its HTTP listener and derives the
+presence URL from `RAILWAY_PUBLIC_DOMAIN`, so no environment variables and
+no volume were added. On Batocera the game address to enter during the
+Plaza install is `maglev.proxy.rlwy.net:28071`; the presence URL is handed
+to the client by the server on connect.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `GET /health` on the HTTPS domain | Pass - `{"ok":true,"players":0,"version":"0.1.3"}` |
+| `GET /stats` on the HTTPS domain | Pass - world 1400 x 800, ball at centre, no players |
+| TCP hello/welcome through `maglev.proxy.rlwy.net:28071` | **Not verified** - the build environment used for this record only permits outbound HTTPS, so the raw TCP port could not be reached from it. To be confirmed by the first client connection from a device, or by checking the Railway deploy log for the line `[plaza] game port 0.0.0.0:7777`. |
+| Device install using the addresses above | **Not performed** - required |
+
+### Rollback plan
+
+Delete the domain and TCP proxy in Railway, Settings > Networking, or stop
+the service. Nothing in the repository needs reverting; this record stays
+as history.
