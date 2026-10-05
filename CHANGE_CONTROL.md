@@ -46,6 +46,7 @@ Rules for this register:
 | CR-0029 | 2026-10-05 | 0.1.17 | Corrective change | Plaza channel could not start on Batocera: embed Plaza 0.1.6 with bundled runtime, launcher and artwork | `release/v0.1.17`, merged to `main` | Approved by author ("go"), implemented |
 | CR-0030 | 2026-10-05 | 0.1.18 | Corrective change | Menu button textures broken at real button height; RetroAchievements avatar address missing the username | `release/v0.1.18`, merged to `main` | Approved by author ("Fix it"), implemented |
 | CR-0031 | 2026-10-05 | 0.1.19 | Standard change | Embedded Plaza updated to 0.1.7 (stadium, avatars, movement, generated names); root start scripts to 0.1.7 | `release/v0.1.19`, merged to `main` | Approved by author ("build the stadium and look"), implemented |
+| CR-0032 | 2026-10-05 | 0.1.20 | Corrective change | RetroAchievements avatar stuck on the default picture: web image cache never expires; cache-busting tag added. Corrects the root cause recorded in CR-0030 | `release/v0.1.20`, merged to `main` | Implemented after a repeated report ("I STILL don't have my proper retroachievements avatar") |
 
 ---
 
@@ -1932,3 +1933,64 @@ pushed to the distribution repository (team reviewing 0.1.15).
 ### Rollback plan
 
 Install `v0.1.18`. In the repository, revert the merge (server 0.1.6 and client 0.1.6 interoperate).
+
+---
+
+## CR-0032 - RetroAchievements avatar stuck on the default picture (corrects CR-0030)
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0032 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo ("I STILL don't have my proper retroachievements avatar") |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.20 (folder `v0.1.20/BatWiiCera`, zips `BatWiiCera-v0.1.20.zip`, `BatWiiCera-full-v0.1.20.zip`) |
+| Previous version | 0.1.19 (folder `v0.1.19`, left unchanged) |
+| Change type | Corrective change |
+| Branch | `release/v0.1.20`, merged to `main` |
+| Status | Implemented; awaiting device confirmation |
+| Approver | yiddifliddo |
+
+### Root cause, corrected
+
+CR-0030 stated that the address form `${global.cheevos.username}` was left
+empty inside an image address and that RetroAchievements answered with a
+"generic joystick for the unknown user". Checked again against the
+engine source and the RetroAchievements server:
+
+* The engine substitutes `${...}` variables when the theme is parsed, for
+  every property type including paths (`ThemeData::parseElement` calls
+  `resolvePlaceholders` before the type switch). The static form was never
+  the problem.
+* `UserPic/_User.png`, the picture RetroAchievements serves for an account
+  with no picture, is the rainbow joystick seen on the device.
+  `UserPic/MonsterGeeza.png` returns the author's own picture today.
+* `WebImageComponent` caches each download under
+  `configs/emulationstation/tmp/<host>/<path>` and, with the default cache
+  duration of -1, never refreshes it. A default picture downloaded once
+  (before the author's picture existed, or during a failed fetch) is shown
+  for ever, whatever the theme does with the address form.
+
+### Description of change
+
+* `webimage ra-avatar` path: back to the parse-time form and suffixed with
+  `?v=0120`. The engine includes a checksum of the query in the cache file
+  name, so every theme release that changes the tag downloads afresh.
+* Version 0.1.20 in `theme.xml`, `README.md`, `LICENSE`; root README and
+  `package.json` version updated. Plaza embed unchanged (0.1.7).
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `xmllint` on `theme.xml`; zips pass integrity checks; theme zip byte-identical to the folder | Pass |
+| `UserPic/_User.png` fetched and inspected: the rainbow joystick | Pass |
+| `UserPic/MonsterGeeza.png` fetched and inspected: the author's picture | Pass |
+| Engine source: cache path, query checksum, no expiry by default | Read |
+| On the device after installing 0.1.20 | **Not performed** - required |
+
+### Rollback plan
+
+Install `v0.1.19`.

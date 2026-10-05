@@ -3,7 +3,7 @@
 A retro console "channel menu" theme for Batocera's EmulationStation.
 
 **Author:** yiddifliddo (personal project)
-**Current version:** 0.1.19
+**Current version:** 0.1.20
 **Licence:** Creative Commons BY-NC-SA 4.0
 
 ## Screenshots
@@ -55,7 +55,8 @@ client's own install item. Details in the theme README and
 
 | Version | Folder | Zip | Date | Status | Summary |
 | --- | --- | --- | --- | --- | --- |
-| 0.1.19 | [`v0.1.19/BatWiiCera`](v0.1.19/BatWiiCera) | [`BatWiiCera-v0.1.19.zip`](v0.1.19/BatWiiCera-v0.1.19.zip), [`BatWiiCera-full-v0.1.19.zip`](v0.1.19/BatWiiCera-full-v0.1.19.zip) | 2026-10-05 | Release candidate, awaiting on-device sign-off | Plaza 0.1.7: football stadium, new avatars and movement, generated names |
+| 0.1.20 | [`v0.1.20/BatWiiCera`](v0.1.20/BatWiiCera) | [`BatWiiCera-v0.1.20.zip`](v0.1.20/BatWiiCera-v0.1.20.zip), [`BatWiiCera-full-v0.1.20.zip`](v0.1.20/BatWiiCera-full-v0.1.20.zip) | 2026-10-05 | Release candidate, awaiting on-device sign-off | RetroAchievements avatar: cache-busting address tag |
+| 0.1.19 | [`v0.1.19/BatWiiCera`](v0.1.19/BatWiiCera) | [`BatWiiCera-v0.1.19.zip`](v0.1.19/BatWiiCera-v0.1.19.zip), [`BatWiiCera-full-v0.1.19.zip`](v0.1.19/BatWiiCera-full-v0.1.19.zip) | 2026-10-05 | Superseded by 0.1.20 | Plaza 0.1.7: football stadium, new avatars and movement, generated names |
 | 0.1.18 | [`v0.1.18/BatWiiCera`](v0.1.18/BatWiiCera) | [`BatWiiCera-v0.1.18.zip`](v0.1.18/BatWiiCera-v0.1.18.zip), [`BatWiiCera-full-v0.1.18.zip`](v0.1.18/BatWiiCera-full-v0.1.18.zip) | 2026-10-05 | Superseded by 0.1.19 | Menu buttons pill-shaped again; RetroAchievements avatar shows the real picture |
 | 0.1.17 | [`v0.1.17/BatWiiCera`](v0.1.17/BatWiiCera) | [`BatWiiCera-v0.1.17.zip`](v0.1.17/BatWiiCera-v0.1.17.zip), [`BatWiiCera-full-v0.1.17.zip`](v0.1.17/BatWiiCera-full-v0.1.17.zip) | 2026-10-05 | Superseded by 0.1.18 | Plaza channel starts: bundled LÖVE runtime (Plaza 0.1.6), one launcher, game-screen artwork |
 | 0.1.16 | [`v0.1.16/BatWiiCera`](v0.1.16/BatWiiCera) | [`BatWiiCera-v0.1.16.zip`](v0.1.16/BatWiiCera-v0.1.16.zip), [`BatWiiCera-full-v0.1.16.zip`](v0.1.16/BatWiiCera-full-v0.1.16.zip) | 2026-10-05 | Superseded by 0.1.17 (Plaza channel could not start) | Second music track (menu theme) and a four-way Background music choice |
