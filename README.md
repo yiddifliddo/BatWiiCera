@@ -3,7 +3,7 @@
 A retro console "channel menu" theme for Batocera's EmulationStation.
 
 **Author:** yiddifliddo (personal project)
-**Current version:** 0.1.22
+**Current version:** 0.1.23
 **Licence:** Creative Commons BY-NC-SA 4.0
 
 ## Screenshots
@@ -57,7 +57,8 @@ client's own install item. Details in the theme README and
 
 | Version | Folder | Zip | Date | Status | Summary |
 | --- | --- | --- | --- | --- | --- |
-| 0.1.22 | [`v0.1.22/BatWiiCera`](v0.1.22/BatWiiCera) | [`BatWiiCera-v0.1.22.zip`](v0.1.22/BatWiiCera-v0.1.22.zip), [`BatWiiCera-full-v0.1.22.zip`](v0.1.22/BatWiiCera-full-v0.1.22.zip) | 2026-10-05 | Release candidate, awaiting on-device sign-off | Avatar and bar buttons no longer fade and reload between consoles |
+| 0.1.23 | [`v0.1.23/BatWiiCera`](v0.1.23/BatWiiCera) | [`BatWiiCera-v0.1.23.zip`](v0.1.23/BatWiiCera-v0.1.23.zip), [`BatWiiCera-full-v0.1.23.zip`](v0.1.23/BatWiiCera-full-v0.1.23.zip) | 2026-10-05 | Release candidate, awaiting on-device sign-off | Avatar moved to the screen overlay: one copy, no flicker |
+| 0.1.22 | [`v0.1.22/BatWiiCera`](v0.1.22/BatWiiCera) | [`BatWiiCera-v0.1.22.zip`](v0.1.22/BatWiiCera-v0.1.22.zip), [`BatWiiCera-full-v0.1.22.zip`](v0.1.22/BatWiiCera-full-v0.1.22.zip) | 2026-10-05 | Superseded by 0.1.23 (still flickered) | Avatar and bar buttons no longer fade and reload between consoles |
 | 0.1.21 | [`v0.1.21/BatWiiCera`](v0.1.21/BatWiiCera) | [`BatWiiCera-v0.1.21.zip`](v0.1.21/BatWiiCera-v0.1.21.zip), [`BatWiiCera-full-v0.1.21.zip`](v0.1.21/BatWiiCera-full-v0.1.21.zip) | 2026-10-05 | Superseded by 0.1.22 | Plaza 0.1.9: pitch markings to scale; netplay relay in the server package |
 | 0.1.20 | [`v0.1.20/BatWiiCera`](v0.1.20/BatWiiCera) | [`BatWiiCera-v0.1.20.zip`](v0.1.20/BatWiiCera-v0.1.20.zip), [`BatWiiCera-full-v0.1.20.zip`](v0.1.20/BatWiiCera-full-v0.1.20.zip) | 2026-10-05 | Superseded by 0.1.21; published to the distribution repository | RetroAchievements avatar: cache-busting address tag |
 | 0.1.19 | [`v0.1.19/BatWiiCera`](v0.1.19/BatWiiCera) | [`BatWiiCera-v0.1.19.zip`](v0.1.19/BatWiiCera-v0.1.19.zip), [`BatWiiCera-full-v0.1.19.zip`](v0.1.19/BatWiiCera-full-v0.1.19.zip) | 2026-10-05 | Superseded by 0.1.20 | Plaza 0.1.7: football stadium, new avatars and movement, generated names |

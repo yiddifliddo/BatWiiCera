@@ -46,6 +46,7 @@ Rules for this register:
 | CR-0029 | 2026-10-05 | 0.1.17 | Corrective change | Plaza channel could not start on Batocera: embed Plaza 0.1.6 with bundled runtime, launcher and artwork | `release/v0.1.17`, merged to `main` | Approved by author ("go"), implemented |
 | CR-0030 | 2026-10-05 | 0.1.18 | Corrective change | Menu button textures broken at real button height; RetroAchievements avatar address missing the username | `release/v0.1.18`, merged to `main` | Approved by author ("Fix it"), implemented |
 | CR-0031 | 2026-10-05 | 0.1.19 | Standard change | Embedded Plaza updated to 0.1.7 (stadium, avatars, movement, generated names); root start scripts to 0.1.7 | `release/v0.1.19`, merged to `main` | Approved by author ("build the stadium and look"), implemented |
+| CR-0038 | 2026-10-05 | 0.1.23 | Corrective change | Avatar still flickered after CR-0037: moved to the screen overlay view (single shared copy) | `release/v0.1.23`, merged to `main` | Approved by author (report "It flickers"), implemented |
 | CR-0037 | 2026-10-05 | 0.1.22 | Corrective change | RetroAchievements avatar and bar buttons faded and reloaded on every console move: marked as static extras | `release/v0.1.22`, merged to `main` | Approved by author (report), implemented |
 | CR-0036 | 2026-10-05 | none (record) | Deployment record | Netplay relay exposed on Railway: `altaria.proxy.rlwy.net:47409` to container port 55435; server 0.1.9 live | `main` | Implemented; first live netplay test pending |
 | CR-0035 | 2026-10-05 | 0.1.21 | Corrective change | Embedded Plaza updated to 0.1.9 (pitch markings fixed); root start scripts to 0.1.9 | `release/v0.1.21`, merged to `main` | Approved by author, implemented |
@@ -2179,3 +2180,53 @@ unchanged (0.1.9).
 ### Rollback plan
 
 Install `v0.1.21`.
+
+---
+
+## CR-0038 - Avatar still flickered: moved to the screen overlay view
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0038 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo ("It flickers", after CR-0037) |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.23 (folder `v0.1.23/BatWiiCera`, zips `BatWiiCera-v0.1.23.zip`, `BatWiiCera-full-v0.1.23.zip`) |
+| Previous version | 0.1.22 (folder `v0.1.22`, left unchanged) |
+| Change type | Corrective change |
+| Branch | `release/v0.1.23`, merged to `main` |
+| Status | Approved by author, implemented |
+| Approver | yiddifliddo |
+
+### Root cause, continued from CR-0037
+
+Static extras skip the transition but are still one component per system;
+the engine loads each copy's texture when that system is first shown and
+can release it when it is not, so a brief blank remained on every move.
+`Window::onThemeChanged` builds the `screen` view's extras once with
+`ThemeData::makeExtras(theme, "screen", ...)` and renders them over every
+view; a web image placed there is a single instance for the whole session.
+
+### Description of change
+
+`webimage ra-avatar` removed from the shared browsing-view block and
+recreated in `<view name="screen">` with the same position, size and
+corner rounding, `zIndex` 60, no `onclick` (the overlay does not take
+clicks; the name under it keeps its click to the RetroAchievements panel).
+Address tag `?v=0123`. Version 0.1.23 in `theme.xml`, `README.md`,
+`LICENSE`; root README and `package.json`. Plaza embed unchanged (0.1.9).
+Side effect, documented: the picture is also visible over menus.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `xmllint` on `theme.xml`; a single `ra-avatar` element, in the screen view; zips pass integrity checks; theme zip byte-identical to the folder | Pass |
+| Engine source read: screen extras built once, rendered after views and menus | Done |
+| On the device | **Not performed** - required |
+
+### Rollback plan
+
+Install `v0.1.22`.
