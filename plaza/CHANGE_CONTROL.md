@@ -10,6 +10,7 @@ record carries author, company, risk, test evidence and rollback.
 | Change ID | Date | Version | Type | Title | Branch | Status |
 | --- | --- | --- | --- | --- | --- | --- |
 | PCR-0001 | 2026-10-05 | 0.1.0 | New product | Initial creation of the Plaza channel (server, client, hook, installer) | `release/plaza-v0.1.0` (BatWiiCera repository, `plaza/` folder) | Submitted for approval |
+| PCR-0002 | 2026-10-05 | 0.1.1 | Standard change | Theme palette and automatic light/dark matching | `release/plaza-v0.1.1` | Submitted for approval |
 
 ---
 
@@ -123,3 +124,63 @@ on the VPS. The theme is unaffected.
 ### Post-implementation review
 
 To be completed after the device test.
+
+---
+
+## PCR-0002 - Theme palette and automatic light/dark matching
+
+| Field | Value |
+| --- | --- |
+| Change ID | PCR-0002 |
+| Date raised | 2026-10-05 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera Plaza |
+| Version produced | 0.1.1 (folder `plaza/v0.1.1`) |
+| Previous version | 0.1.0 (folder `plaza/v0.1.0`, left unchanged) |
+| Change type | Standard change (low risk) |
+| Branch | `release/plaza-v0.1.1` (branched from `release/plaza-v0.1.0`) |
+| Status | Submitted for approval |
+| Approver | Dan Lee |
+| Approval date | Pending |
+
+### Description of change
+
+The author asked that the Plaza match the theme, colours included.
+
+* `client/src/ui.lua`: two palettes with the exact hex values from the
+  theme's `classic.xml` and `dark.xml` (backdrop, stripe lines, panel,
+  border, three text greys, three blues) plus floor, tile and bubble tints
+  derived from them; `setPalette()` and `detectThemeMode()`, which reads
+  `subset.colorset` from EmulationStation's `es_settings.cfg`.
+* Plaza floor, tiles, bubbles and HUD, the editor and the menu all draw from
+  the active palette; the window background follows it.
+* Profile gains `colors` = auto, light or dark (auto by default); the
+  editor gains a **Colours** row; `main.lua` applies the palette on start and
+  after editing. Demo mode gains `--dark`.
+* Self-test extended to 55 checks. Light and dark previews rendered.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| `es_settings.cfg` unreadable or in a different place on some builds | Low | Falls back to light | Manual Colours override in the editor |
+| Future theme palette changes drift from the Plaza | Medium | Cosmetic | Palette values are in one table with the source files named |
+
+Overall risk rating: **Negligible**.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| Client self-test (`lua5.1 test/run.lua`) | Pass, 55 checks |
+| Server smoke test (unchanged server, re-run) | Pass |
+| Light and dark renders under LÖVE on a virtual framebuffer (`--demo`, `--demo --dark`) | Pass, six previews |
+| Packages rebuilt | Pass |
+| On a Batocera device | **Not performed** |
+
+### Rollback plan
+
+Install `plaza/v0.1.0`. In the repository, revert the merge of
+`release/plaza-v0.1.1`.

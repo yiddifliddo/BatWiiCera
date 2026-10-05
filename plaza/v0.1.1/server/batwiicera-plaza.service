@@ -1,0 +1,33 @@
+# BatWiiCera Plaza - systemd unit for the room server
+# Version 0.1.1 | Author: Dan Lee | Licence: MIT
+#
+# Install (as root on your VPS):
+#   useradd -r -s /usr/sbin/nologin plaza
+#   mkdir -p /opt/batwiicera-plaza && cp -r server/* /opt/batwiicera-plaza/
+#   chown -R plaza:plaza /opt/batwiicera-plaza
+#   cp /opt/batwiicera-plaza/batwiicera-plaza.service /etc/systemd/system/
+#   systemctl daemon-reload && systemctl enable --now batwiicera-plaza
+#   # open TCP 7777 and 7778 in your firewall
+[Unit]
+Description=BatWiiCera Plaza room server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=plaza
+Group=plaza
+WorkingDirectory=/opt/batwiicera-plaza
+Environment=PLAZA_TCP_PORT=7777
+Environment=PLAZA_HTTP_PORT=7778
+Environment=PLAZA_MAX=200
+ExecStart=/usr/bin/node /opt/batwiicera-plaza/index.js
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

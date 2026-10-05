@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="160" viewBox="0 0 400 160">
+  <!-- BatWiiCera Plaza channel logo. Original artwork, Dan Lee, MIT. -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7CCDF8"/>
+      <stop offset="1" stop-color="#2E95D8"/>
+    </linearGradient>
+  </defs>
+  <!-- little crowd -->
+  <g>
+    <circle cx="48" cy="62" r="13" fill="#F6D4BA"/><rect x="34" y="78" width="28" height="30" rx="8" fill="#E2473B"/>
+    <circle cx="88" cy="54" r="13" fill="#C58C5C"/><rect x="74" y="70" width="28" height="30" rx="8" fill="#3B8BE2"/>
+    <circle cx="128" cy="64" r="13" fill="#EBBF9B"/><rect x="114" y="80" width="28" height="30" rx="8" fill="#3DB34A"/>
+    <path d="M35,52 a13,13 0 0 1 26,0 z" fill="#4A2F1B"/>
+    <path d="M75,44 a13,13 0 0 1 26,0 z" fill="#2A1B12"/>
+    <path d="M115,54 a13,13 0 0 1 26,0 z" fill="#E9C46A"/>
+    <circle cx="150" cy="106" r="10" fill="#FFFFFF" stroke="#333" stroke-width="2"/>
+    <path d="M150,96 l4,7 l-4,3 l-4,-3 z" fill="#333"/>
+  </g>
+  <!-- wordmark -->
+  <text x="175" y="88" font-family="Arial Rounded MT Bold, Arial, Helvetica, sans-serif" font-weight="bold" font-size="56" fill="url(#sky)">PLAZA</text>
+  <text x="177" y="118" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#6E6E6E">meet other players</text>
+</svg>
