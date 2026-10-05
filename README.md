@@ -3,8 +3,22 @@
 A retro console "channel menu" theme for Batocera's EmulationStation.
 
 **Author:** yiddifliddo (personal project)
-**Current version:** 0.1.23
+**Current version:** 0.1.24
 **Licence:** Creative Commons BY-NC-SA 4.0
+
+## Install
+
+One download per release, one procedure, the same for a first install and
+for every update:
+
+1. Download the current release zip from the Versions table below.
+2. Open it and drag its `themes`, `roms` and `system` folders onto the
+   Batocera share, `\\BATOCERA\share`, merging and replacing.
+3. Reboot Batocera, then Main Menu > UI Settings > Theme set > **BatWiiCera**.
+
+The theme and the Plaza channel install together. The Plaza's public server
+is built in; nothing is typed. (Batocera's own Themes Downloader will also
+offer the theme once it is listed; that path installs the theme only.)
 
 ## Screenshots
 
@@ -55,17 +69,18 @@ client's own install item. Details in the theme README and
 
 ## Versions
 
-| Version | Folder | Zip | Date | Status | Summary |
+| Version | Folder | Download | Date | Status | Summary |
 | --- | --- | --- | --- | --- | --- |
-| 0.1.23 | [`v0.1.23/BatWiiCera`](v0.1.23/BatWiiCera) | [`BatWiiCera-v0.1.23.zip`](v0.1.23/BatWiiCera-v0.1.23.zip), [`BatWiiCera-full-v0.1.23.zip`](v0.1.23/BatWiiCera-full-v0.1.23.zip) | 2026-10-05 | Release candidate, awaiting on-device sign-off | Avatar moved to the screen overlay: one copy, no flicker |
-| 0.1.22 | [`v0.1.22/BatWiiCera`](v0.1.22/BatWiiCera) | [`BatWiiCera-v0.1.22.zip`](v0.1.22/BatWiiCera-v0.1.22.zip), [`BatWiiCera-full-v0.1.22.zip`](v0.1.22/BatWiiCera-full-v0.1.22.zip) | 2026-10-05 | Superseded by 0.1.23 (still flickered) | Avatar and bar buttons no longer fade and reload between consoles |
-| 0.1.21 | [`v0.1.21/BatWiiCera`](v0.1.21/BatWiiCera) | [`BatWiiCera-v0.1.21.zip`](v0.1.21/BatWiiCera-v0.1.21.zip), [`BatWiiCera-full-v0.1.21.zip`](v0.1.21/BatWiiCera-full-v0.1.21.zip) | 2026-10-05 | Superseded by 0.1.22 | Plaza 0.1.9: pitch markings to scale; netplay relay in the server package |
-| 0.1.20 | [`v0.1.20/BatWiiCera`](v0.1.20/BatWiiCera) | [`BatWiiCera-v0.1.20.zip`](v0.1.20/BatWiiCera-v0.1.20.zip), [`BatWiiCera-full-v0.1.20.zip`](v0.1.20/BatWiiCera-full-v0.1.20.zip) | 2026-10-05 | Superseded by 0.1.21; published to the distribution repository | RetroAchievements avatar: cache-busting address tag |
-| 0.1.19 | [`v0.1.19/BatWiiCera`](v0.1.19/BatWiiCera) | [`BatWiiCera-v0.1.19.zip`](v0.1.19/BatWiiCera-v0.1.19.zip), [`BatWiiCera-full-v0.1.19.zip`](v0.1.19/BatWiiCera-full-v0.1.19.zip) | 2026-10-05 | Superseded by 0.1.20 | Plaza 0.1.7: football stadium, new avatars and movement, generated names |
-| 0.1.18 | [`v0.1.18/BatWiiCera`](v0.1.18/BatWiiCera) | [`BatWiiCera-v0.1.18.zip`](v0.1.18/BatWiiCera-v0.1.18.zip), [`BatWiiCera-full-v0.1.18.zip`](v0.1.18/BatWiiCera-full-v0.1.18.zip) | 2026-10-05 | Superseded by 0.1.19 | Menu buttons pill-shaped again; RetroAchievements avatar shows the real picture |
-| 0.1.17 | [`v0.1.17/BatWiiCera`](v0.1.17/BatWiiCera) | [`BatWiiCera-v0.1.17.zip`](v0.1.17/BatWiiCera-v0.1.17.zip), [`BatWiiCera-full-v0.1.17.zip`](v0.1.17/BatWiiCera-full-v0.1.17.zip) | 2026-10-05 | Superseded by 0.1.18 | Plaza channel starts: bundled LÖVE runtime (Plaza 0.1.6), one launcher, game-screen artwork |
-| 0.1.16 | [`v0.1.16/BatWiiCera`](v0.1.16/BatWiiCera) | [`BatWiiCera-v0.1.16.zip`](v0.1.16/BatWiiCera-v0.1.16.zip), [`BatWiiCera-full-v0.1.16.zip`](v0.1.16/BatWiiCera-full-v0.1.16.zip) | 2026-10-05 | Superseded by 0.1.17 (Plaza channel could not start) | Second music track (menu theme) and a four-way Background music choice |
-| 0.1.15 | [`v0.1.15/BatWiiCera`](v0.1.15/BatWiiCera) | [`BatWiiCera-v0.1.15.zip`](v0.1.15/BatWiiCera-v0.1.15.zip), [`BatWiiCera-full-v0.1.15.zip`](v0.1.15/BatWiiCera-full-v0.1.15.zip) | 2026-10-05 | Superseded by 0.1.16; published to the distribution repository | Plaza install automated (built-in server, Ports entry, auto restart, full-install zip); author credit yiddifliddo |
+| 0.1.24 | [`v0.1.24/BatWiiCera`](v0.1.24/BatWiiCera) | [`BatWiiCera-v0.1.24.zip`](v0.1.24/BatWiiCera-v0.1.24.zip) | 2026-10-05 | Release candidate, awaiting on-device sign-off | One download, one procedure; content as 0.1.23 |
+| 0.1.23 | [`v0.1.23/BatWiiCera`](v0.1.23/BatWiiCera) | [`BatWiiCera-full-v0.1.23.zip`](v0.1.23/BatWiiCera-full-v0.1.23.zip) | 2026-10-05 | Superseded by 0.1.24 | Avatar moved to the screen overlay: one copy, no flicker |
+| 0.1.22 | [`v0.1.22/BatWiiCera`](v0.1.22/BatWiiCera) | [`BatWiiCera-full-v0.1.22.zip`](v0.1.22/BatWiiCera-full-v0.1.22.zip) | 2026-10-05 | Superseded by 0.1.23 (still flickered) | Avatar and bar buttons no longer fade and reload between consoles |
+| 0.1.21 | [`v0.1.21/BatWiiCera`](v0.1.21/BatWiiCera) | [`BatWiiCera-full-v0.1.21.zip`](v0.1.21/BatWiiCera-full-v0.1.21.zip) | 2026-10-05 | Superseded by 0.1.22 | Plaza 0.1.9: pitch markings to scale; netplay relay in the server package |
+| 0.1.20 | [`v0.1.20/BatWiiCera`](v0.1.20/BatWiiCera) | [`BatWiiCera-full-v0.1.20.zip`](v0.1.20/BatWiiCera-full-v0.1.20.zip) | 2026-10-05 | Superseded by 0.1.21; published to the distribution repository | RetroAchievements avatar: cache-busting address tag |
+| 0.1.19 | [`v0.1.19/BatWiiCera`](v0.1.19/BatWiiCera) | [`BatWiiCera-full-v0.1.19.zip`](v0.1.19/BatWiiCera-full-v0.1.19.zip) | 2026-10-05 | Superseded by 0.1.20 | Plaza 0.1.7: football stadium, new avatars and movement, generated names |
+| 0.1.18 | [`v0.1.18/BatWiiCera`](v0.1.18/BatWiiCera) | [`BatWiiCera-full-v0.1.18.zip`](v0.1.18/BatWiiCera-full-v0.1.18.zip) | 2026-10-05 | Superseded by 0.1.19 | Menu buttons pill-shaped again; RetroAchievements avatar shows the real picture |
+| 0.1.17 | [`v0.1.17/BatWiiCera`](v0.1.17/BatWiiCera) | [`BatWiiCera-full-v0.1.17.zip`](v0.1.17/BatWiiCera-full-v0.1.17.zip) | 2026-10-05 | Superseded by 0.1.18 | Plaza channel starts: bundled LÖVE runtime (Plaza 0.1.6), one launcher, game-screen artwork |
+| 0.1.16 | [`v0.1.16/BatWiiCera`](v0.1.16/BatWiiCera) | [`BatWiiCera-full-v0.1.16.zip`](v0.1.16/BatWiiCera-full-v0.1.16.zip) | 2026-10-05 | Superseded by 0.1.17 (Plaza channel could not start) | Second music track (menu theme) and a four-way Background music choice |
+| 0.1.15 | [`v0.1.15/BatWiiCera`](v0.1.15/BatWiiCera) | [`BatWiiCera-full-v0.1.15.zip`](v0.1.15/BatWiiCera-full-v0.1.15.zip) | 2026-10-05 | Superseded by 0.1.16; published to the distribution repository | Plaza install automated (built-in server, Ports entry, auto restart, full-install zip); author credit yiddifliddo |
 | 0.1.14 | [`v0.1.14/BatWiiCera`](v0.1.14/BatWiiCera) | [`BatWiiCera-v0.1.14.zip`](v0.1.14/BatWiiCera-v0.1.14.zip) | 2026-10-05 | Superseded by 0.1.15 | Embedded Plaza updated to 0.1.3 (terminal-free install) |
 | 0.1.13 | [`v0.1.13/BatWiiCera`](v0.1.13/BatWiiCera) | [`BatWiiCera-v0.1.13.zip`](v0.1.13/BatWiiCera-v0.1.13.zip) | 2026-10-05 | Superseded by 0.1.14 | Embedded Plaza updated to 0.1.2 (Railway support and guide) |
 | 0.1.12 | [`v0.1.12/BatWiiCera`](v0.1.12/BatWiiCera) | [`BatWiiCera-v0.1.12.zip`](v0.1.12/BatWiiCera-v0.1.12.zip) | 2026-10-05 | Superseded by 0.1.13 | Plaza 0.1.1 embedded in the theme (`_plaza/`) with installer and VPS guide |

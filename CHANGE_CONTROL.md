@@ -46,6 +46,7 @@ Rules for this register:
 | CR-0029 | 2026-10-05 | 0.1.17 | Corrective change | Plaza channel could not start on Batocera: embed Plaza 0.1.6 with bundled runtime, launcher and artwork | `release/v0.1.17`, merged to `main` | Approved by author ("go"), implemented |
 | CR-0030 | 2026-10-05 | 0.1.18 | Corrective change | Menu button textures broken at real button height; RetroAchievements avatar address missing the username | `release/v0.1.18`, merged to `main` | Approved by author ("Fix it"), implemented |
 | CR-0031 | 2026-10-05 | 0.1.19 | Standard change | Embedded Plaza updated to 0.1.7 (stadium, avatars, movement, generated names); root start scripts to 0.1.7 | `release/v0.1.19`, merged to `main` | Approved by author ("build the stadium and look"), implemented |
+| CR-0039 | 2026-10-05 | 0.1.24 | Packaging change | One download per release in one layout; single install procedure everywhere | `release/v0.1.24`, merged to `main` | Approved by author ("you need to be consistent"), implemented |
 | CR-0038 | 2026-10-05 | 0.1.23 | Corrective change | Avatar still flickered after CR-0037: moved to the screen overlay view (single shared copy) | `release/v0.1.23`, merged to `main` | Approved by author (report "It flickers"), implemented |
 | CR-0037 | 2026-10-05 | 0.1.22 | Corrective change | RetroAchievements avatar and bar buttons faded and reloaded on every console move: marked as static extras | `release/v0.1.22`, merged to `main` | Approved by author (report), implemented |
 | CR-0036 | 2026-10-05 | none (record) | Deployment record | Netplay relay exposed on Railway: `altaria.proxy.rlwy.net:47409` to container port 55435; server 0.1.9 live | `main` | Implemented; first live netplay test pending |
@@ -2230,3 +2231,54 @@ Side effect, documented: the picture is also visible over menus.
 ### Rollback plan
 
 Install `v0.1.22`.
+
+---
+
+## CR-0039 - One download per release, one install procedure
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0039 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo ("you need to be consistent, what if someone was downloading this for the first time") |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.24 (folder `v0.1.24/BatWiiCera`, single zip `v0.1.24/BatWiiCera-v0.1.24.zip`) |
+| Previous version | 0.1.23 (folder `v0.1.23`, left unchanged) |
+| Change type | Packaging change |
+| Branch | `release/v0.1.24`, merged to `main` |
+| Status | Approved by author, implemented |
+| Approver | yiddifliddo |
+
+### Problem
+
+Since 0.1.15 each release shipped two zips of different shape: a theme-only
+zip holding the `BatWiiCera` folder, and a "full" zip laid out for the share
+(`themes`, `roms`, `system`). Instructions alternated between them. A
+first-time installer could pick the wrong one; the author did, on an update.
+
+### Description of change
+
+* One zip per release from now on, `BatWiiCera-vX.Y.Z.zip`, always in the
+  share layout, always installed the same way (drag three folders onto the
+  share, reboot, pick the theme). The text file inside says exactly that.
+* Theme README Installation section rewritten to that single procedure;
+  root README gains an Install section and the Versions table lists one
+  download per row (older rows now point at their share-layout zip only).
+* Theme content and the Plaza embed are identical to 0.1.23; avatar tag
+  `?v=0124`; version 0.1.24 in `theme.xml`, `README.md`, `LICENSE`, root
+  README and `package.json`.
+* The Batocera Themes Downloader path (distribution repository) is
+  unaffected: it installs the theme folder itself.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `xmllint` on `theme.xml`; zip integrity; theme part byte-identical to the folder; zip root holds `themes`, `roms`, `system` and the text file only | Pass |
+| On the device | **Not performed** - required |
+
+### Rollback plan
+
+Install `v0.1.23`'s share-layout zip.
