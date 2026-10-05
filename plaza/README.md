@@ -4,7 +4,9 @@ A social channel for the [BatWiiCera](https://github.com/yiddifliddo/BatWiiCera)
 Batocera theme: one shared online football stadium where players meet as
 original cartoon avatars, see what everyone is playing, run around, hop,
 slap, kick a ball and score goals. The same server now also relays Batocera netplay
-games so friends can host and join without port forwarding.
+games so friends can host and join without port forwarding: the hosting
+Batocera sets Netplay Settings > Relay server > Custom to
+`altaria.proxy.rlwy.net:47409`; joiners pick the game from the Netplay list.
 
 **Author:** yiddifliddo (personal project)
 **Current version:** 0.1.9

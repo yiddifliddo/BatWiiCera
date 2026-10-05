@@ -10,6 +10,7 @@ own copy.
 | --- | --- |
 | Game (TCP proxy) | `maglev.proxy.rlwy.net:28071` |
 | Presence and health (HTTPS) | `https://batwiicera-production.up.railway.app` |
+| Netplay relay (TCP proxy to container port 55435) | `altaria.proxy.rlwy.net:47409` |
 
 Railway can host the Plaza server. Two things differ from a VPS:
 

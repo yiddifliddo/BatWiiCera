@@ -46,6 +46,7 @@ Rules for this register:
 | CR-0029 | 2026-10-05 | 0.1.17 | Corrective change | Plaza channel could not start on Batocera: embed Plaza 0.1.6 with bundled runtime, launcher and artwork | `release/v0.1.17`, merged to `main` | Approved by author ("go"), implemented |
 | CR-0030 | 2026-10-05 | 0.1.18 | Corrective change | Menu button textures broken at real button height; RetroAchievements avatar address missing the username | `release/v0.1.18`, merged to `main` | Approved by author ("Fix it"), implemented |
 | CR-0031 | 2026-10-05 | 0.1.19 | Standard change | Embedded Plaza updated to 0.1.7 (stadium, avatars, movement, generated names); root start scripts to 0.1.7 | `release/v0.1.19`, merged to `main` | Approved by author ("build the stadium and look"), implemented |
+| CR-0036 | 2026-10-05 | none (record) | Deployment record | Netplay relay exposed on Railway: `altaria.proxy.rlwy.net:47409` to container port 55435; server 0.1.9 live | `main` | Implemented; first live netplay test pending |
 | CR-0035 | 2026-10-05 | 0.1.21 | Corrective change | Embedded Plaza updated to 0.1.9 (pitch markings fixed); root start scripts to 0.1.9 | `release/v0.1.21`, merged to `main` | Approved by author, implemented |
 | CR-0034 | 2026-10-05 | 0.1.20 (distribution) | Distribution record | Distribution repository republished at 0.1.20; default branch renamed to `master` at the Batocera team's request | `master` of `BatWiiCera-theme` | Implemented; awaiting the team |
 | CR-0033 | 2026-10-05 | repo | Release | Root start scripts moved to Plaza 0.1.8 (PCR-0009, netplay relay) | `main` | Approved by author instruction, implemented |
@@ -2091,3 +2092,41 @@ word or with the next release.
 ### Rollback plan
 
 Install `v0.1.20`.
+
+---
+
+## CR-0036 - Netplay relay exposed on Railway
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0036 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera Plaza server 0.1.9 on Railway |
+| Change type | Deployment record (documentation only) |
+| Status | Implemented; first live netplay test pending |
+
+### Description
+
+The author redeployed the Railway service (health now reports 0.1.9 with a
+`relay` block) and added a TCP proxy to container port 55435. Railway
+assigned `altaria.proxy.rlwy.net:47409`. Recorded in the Plaza 0.1.9
+README, the Railway guide, the Plaza index and the root README. The copy
+embedded in theme 0.1.21 predates this line and does not carry the address;
+the next theme release will.
+
+| Purpose | Address |
+| --- | --- |
+| Game connection | `maglev.proxy.rlwy.net:28071` |
+| Presence and health | `https://batwiicera-production.up.railway.app` |
+| Netplay relay | `altaria.proxy.rlwy.net:47409` |
+
+### Verification
+
+| Check | Result |
+| --- | --- |
+| `GET /health` reports version 0.1.9 and `relay.sessions` | Pass |
+| Relay reachable through the proxy from the build environment | Not possible (outbound raw TCP blocked there) |
+| One Batocera hosting through the relay, another joining from the Netplay list | **Not performed** - required |

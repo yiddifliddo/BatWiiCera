@@ -45,7 +45,9 @@ It has its own README, licence (MIT) and change register.
 
 The public Plaza server runs on Railway from this repository's `main` branch
 and is built into the client, so players type nothing. Batocera has no LÖVE
-engine, so the Plaza bundles its own runtime (x86_64 for now). Installing the channel
+engine, so the Plaza bundles its own runtime (x86_64 for now). The same
+server relays Batocera netplay: the host sets Relay server > Custom to
+`altaria.proxy.rlwy.net:47409`, and friends join from the Netplay list. Installing the channel
 on a Batocera box is one of: extract the full-install zip onto the share and
 reboot; drop `Plaza.sh` into `roms/ports` and start it once; or use the
 client's own install item. Details in the theme README and

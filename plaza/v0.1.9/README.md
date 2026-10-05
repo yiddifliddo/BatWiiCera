@@ -101,7 +101,11 @@ host, or `host:port`.
 
 The server also runs a RetroArch **relay server** on port 55435 (the same
 one RetroArch's built-in relays use). It speaks RetroArch's tunnel protocol,
-so stock Batocera works with it:
+so stock Batocera works with it. The public BatWiiCera relay is:
+
+    altaria.proxy.rlwy.net:47409
+
+To use it:
 
 1. **Expose it once.** On Railway: Settings > Networking > TCP Proxy, port
    55435; note the `host:port` it shows. On a VPS: open TCP 55435.
