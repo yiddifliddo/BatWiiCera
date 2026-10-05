@@ -40,6 +40,7 @@ Rules for this register:
 | CR-0023 | 2026-10-05 | none (record) | Deployment record | Plaza server deployed on Railway; public addresses recorded | `main` | Approved, implemented |
 | CR-0024 | 2026-10-05 | 0.1.15 | Standard change | Plaza install automated (Plaza 0.1.4), full-install zip, author credit yiddifliddo | `release/v0.1.15`, merged to `main` | Approved by author instruction, implemented |
 | CR-0025 | 2026-10-05 | repo | Emergency release | Root start scripts moved to Plaza 0.1.5 (PCR-0006, Railway port clash) | `main` | Approved by author instruction, implemented |
+| CR-0026 | 2026-10-05 | 0.1.15 (distribution) | Release / distribution | Public distribution repository `BatWiiCera-theme` filled with 0.1.15 for Batocera's Themes Downloader | `main` of `BatWiiCera-theme` | Approved by author instruction, implemented |
 
 ---
 
@@ -1606,3 +1607,46 @@ unchanged.
 ### Rollback plan
 
 Point the two files back at `plaza/v0.1.4/server` and set `PLAZA_HTTP_PORT=8080` in Railway.
+
+---
+
+## CR-0026 - Distribution repository filled with 0.1.15
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0026 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo ("I have created it already") |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera - distribution copy for Batocera's Themes Downloader |
+| Version produced | None new; publishes 0.1.15 (CR-0024) at https://github.com/yiddifliddo/BatWiiCera-theme |
+| Change type | Release / distribution |
+| Branch | `main` of `BatWiiCera-theme`, commit `545760f` |
+| Status | Approved by author instruction, implemented |
+| Approver | yiddifliddo |
+| Approval date | 2026-10-05 |
+
+### Description of change
+
+The author created the empty public repository `BatWiiCera-theme`.
+`tools/make-dist.sh 0.1.15` filled it: `v0.1.15/BatWiiCera` at the root
+(theme.xml, `_inc`, `_music`, `_plaza`, LICENSE), a `preview.png` from the
+console-grid mock-up, and a short README pointing back to this repository.
+The theme's own long README is replaced by that short one in the
+distribution copy, as the script has always done. Pushed as yiddifliddo.
+`docs/SUBMISSION.md` updated: steps 1 and 2 marked done, version 0.1.15.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| Distribution tree identical to `v0.1.15/BatWiiCera` apart from the intended README and added `preview.png`; 710 files, about 26 MB | Pass |
+| `theme.xml` at the root of `main` fetched from GitHub, header shows 0.1.15 and yiddifliddo | Pass |
+| `main` branch zip downloaded from GitHub the way the downloader fetches it: integrity check passed, `theme.xml` at the top level, Plaza files present | Pass |
+| No forbidden tool name in the distribution copy | Pass |
+| Install from that zip on a device | **Not performed** - required before the listing request |
+
+### Rollback plan
+
+Delete the repository, or push an earlier version with `tools/make-dist.sh`.

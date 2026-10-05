@@ -1,6 +1,6 @@
 # Getting BatWiiCera into Batocera's Themes Downloader
 
-Author: yiddifliddo. Status: prepared, not yet submitted.
+Author: yiddifliddo. Status: distribution repository filled with 0.1.15 (CR-0026); listing request not yet posted.
 
 ## How the downloader works
 
@@ -29,18 +29,20 @@ root `theme.xml`. The fix is a second, public, distribution-only repository.
 
 1. **Create the distribution repository** on GitHub, public, named
    `BatWiiCera-theme` (the repository name becomes the theme folder name on
-   the device, so keep it tidy). The tooling here cannot create repositories;
-   create it empty and clone it next to this one.
-2. **Fill it from the approved version** with the script in this repository:
+   the device, so keep it tidy). Done: https://github.com/yiddifliddo/BatWiiCera-theme
+2. **Fill it from the approved version** with the script in this repository,
+   from any checkout that has both repositories (the cloud session used for
+   this project does; nothing needs to be installed on a PC):
 
    ```
-   tools/make-dist.sh 0.1.11 ../BatWiiCera-theme
-   cd ../BatWiiCera-theme && git add -A && git commit -m "BatWiiCera 0.1.11" && git push
+   tools/make-dist.sh 0.1.15 ../BatWiiCera-theme
+   cd ../BatWiiCera-theme && git add -A && git commit -m "BatWiiCera 0.1.15" && git push
    ```
 
-   The script mirrors `v0.1.11/BatWiiCera/` to the root, adds `preview.png`
+   The script mirrors `v0.1.15/BatWiiCera/` to the root, adds `preview.png`
    and a short README pointing back here. Re-run it for every approved
-   release; the downloader then offers the update automatically.
+   release; the downloader then offers the update automatically. Done for
+   0.1.15 (commit `545760f` there).
 3. **Take a real screenshot** on the device for the request (the team shows
    one image per theme). `preview.png` is a layout mock-up; a photo of the
    console grid on your TV, or a capture through Batocera's screenshot
@@ -76,8 +78,8 @@ root `theme.xml`. The fix is a second, public, distribution-only repository.
 
 ## Checklist before asking
 
-- [ ] Distribution repository created, public, `theme.xml` at root
-- [ ] `tools/make-dist.sh` run for the approved version and pushed
+- [x] Distribution repository created, public, `theme.xml` at root
+- [x] `tools/make-dist.sh` run for the approved version and pushed (0.1.15)
 - [ ] Theme installs from a zip of that repository on a device and selects cleanly
 - [ ] Screenshot taken on a device
 - [ ] Request posted; record added to `CHANGE_CONTROL.md`
