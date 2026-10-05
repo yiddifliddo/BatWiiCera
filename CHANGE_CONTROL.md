@@ -46,6 +46,7 @@ Rules for this register:
 | CR-0029 | 2026-10-05 | 0.1.17 | Corrective change | Plaza channel could not start on Batocera: embed Plaza 0.1.6 with bundled runtime, launcher and artwork | `release/v0.1.17`, merged to `main` | Approved by author ("go"), implemented |
 | CR-0030 | 2026-10-05 | 0.1.18 | Corrective change | Menu button textures broken at real button height; RetroAchievements avatar address missing the username | `release/v0.1.18`, merged to `main` | Approved by author ("Fix it"), implemented |
 | CR-0031 | 2026-10-05 | 0.1.19 | Standard change | Embedded Plaza updated to 0.1.7 (stadium, avatars, movement, generated names); root start scripts to 0.1.7 | `release/v0.1.19`, merged to `main` | Approved by author ("build the stadium and look"), implemented |
+| CR-0040 | 2026-10-05 | 0.1.24 (distribution) | Distribution record | Themes Downloader route verified (theme under `BatWiiCera-theme`, Plaza via one Ports file); distribution README rewritten; 0.1.24 published to `master` | `master` of `BatWiiCera-theme` | Implemented |
 | CR-0039 | 2026-10-05 | 0.1.24 | Packaging change | One download per release in one layout; single install procedure everywhere | `release/v0.1.24`, merged to `main` | Approved by author ("you need to be consistent"), implemented |
 | CR-0038 | 2026-10-05 | 0.1.23 | Corrective change | Avatar still flickered after CR-0037: moved to the screen overlay view (single shared copy) | `release/v0.1.23`, merged to `main` | Approved by author (report "It flickers"), implemented |
 | CR-0037 | 2026-10-05 | 0.1.22 | Corrective change | RetroAchievements avatar and bar buttons faded and reloaded on every console move: marked as static extras | `release/v0.1.22`, merged to `main` | Approved by author (report), implemented |
@@ -2282,3 +2283,38 @@ first-time installer could pick the wrong one; the author did, on an update.
 ### Rollback plan
 
 Install `v0.1.23`'s share-layout zip.
+
+---
+
+## CR-0040 - Themes Downloader route verified; distribution at 0.1.24
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0040 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo ("make sure the theme can be installed properly from the xml too") |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera - distribution copy for Batocera's Themes Downloader |
+| Change type | Distribution record and documentation |
+| Status | Implemented |
+| Approver | yiddifliddo |
+
+### What was checked
+
+The published `master` zip was unpacked into a Batocera-style tree under the
+folder name the downloader uses, `/userdata/themes/BatWiiCera-theme`:
+
+| Check | Result |
+| --- | --- |
+| Every `./_inc/...` path referenced by `theme.xml`, the colour sets, the layout and the music includes exists relative to that folder | Pass (0 missing) |
+| `Plaza.sh` copied from `_plaza/installer` into `roms/ports` and run with no Plaza installed: found the theme under `BatWiiCera-theme`, installed client, runtime (unpacked), launcher, system file, hook, artwork, config with the public server, and the channel logo into that theme folder | Pass |
+| Install on a real device through the downloader | Not possible until the theme is listed |
+
+### Description of change
+
+* `tools/make-dist.sh`: the README written into the distribution copy now
+  tells downloader users how to add the Plaza with one file and names the
+  `BatWiiCera-theme` folder.
+* Root README Install section: same paragraph.
+* Distribution repository republished at 0.1.24 on `master`.

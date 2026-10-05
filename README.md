@@ -17,8 +17,14 @@ for every update:
 3. Reboot Batocera, then Main Menu > UI Settings > Theme set > **BatWiiCera**.
 
 The theme and the Plaza channel install together. The Plaza's public server
-is built in; nothing is typed. (Batocera's own Themes Downloader will also
-offer the theme once it is listed; that path installs the theme only.)
+is built in; nothing is typed.
+
+**Installed from Batocera's Themes Downloader instead?** That path installs
+the theme only, into `themes/BatWiiCera-theme`. Add the Plaza with one file:
+copy `_plaza/installer/Plaza.sh` from the installed theme folder into
+`share\roms\ports`, open Ports and start **Plaza** once. It installs the
+channel from the theme folder and restarts EmulationStation itself. This was
+checked against the published copy with the theme under that folder name.
 
 ## Screenshots
 
