@@ -35,6 +35,7 @@ Rules for this register:
 | CR-0018 | 2026-10-05 | 0.1.12 | Standard change | Embed the Plaza (0.1.1) in the theme package with installer and VPS guide | `release/v0.1.12` | Submitted for approval |
 | CR-0019 | 2026-10-05 | 0.1.13 | Standard change | Embedded Plaza updated to 0.1.2 (Railway support) | `release/v0.1.13` | Submitted for approval |
 | CR-0020 | 2026-10-05 | repo | Release / deployment | Merge all release branches to `main`; make the repository root deploy the Plaza server on Railway | `main` | Approved by author instruction, implemented |
+| CR-0021 | 2026-10-05 | repo | Release | Merge Plaza 0.1.3 (PCR-0004) to `main`; root start script now runs Plaza 0.1.3 | `main` | Approved by author instruction, implemented |
 
 ---
 
@@ -1374,3 +1375,38 @@ Overall risk rating: **Low**.
 
 Reset `main` to the previous head (`1e00923`) by a revert merge commit;
 delete the root `package.json`, `railway.json` and `.railwayignore`.
+
+---
+
+## CR-0021 - Merge Plaza 0.1.3 to main
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0021 |
+| Date raised | 2026-10-05 |
+| Requested by | Dan Lee |
+| Author | Dan Lee |
+| Company / project | Dan Lee (personal project) |
+| Product | BatWiiCera repository |
+| Version produced | None new; `main` now runs Plaza 0.1.3 on Railway |
+| Change type | Release (merge) |
+| Branch | `main` |
+| Status | Approved by author instruction (deploy to Railway), implemented |
+| Approver | Dan Lee |
+| Approval date | 2026-10-05 |
+
+### Description of change
+
+`release/plaza-v0.1.3` merged into `main`; root `package.json` and
+`railway.json` start scripts updated from `plaza/v0.1.2/server` to
+`plaza/v0.1.3/server`, so the Railway service serves the version whose
+welcome message carries the public presence URL. No volume or variables are
+required on Railway: the server holds all state in memory.
+
+### Testing and verification performed
+
+Root start of `plaza/v0.1.3/server/index.js` with `PORT` set: health answers.
+
+### Rollback plan
+
+Point the root start scripts back at `plaza/v0.1.2/server` and push.
