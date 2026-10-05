@@ -45,6 +45,7 @@ Rules for this register:
 | CR-0028 | 2026-10-05 | 0.1.16 | Standard change | Second music track (menu theme) and a four-way Background music choice | `release/v0.1.16`, merged to `main` | Approved by author instruction, implemented |
 | CR-0029 | 2026-10-05 | 0.1.17 | Corrective change | Plaza channel could not start on Batocera: embed Plaza 0.1.6 with bundled runtime, launcher and artwork | `release/v0.1.17`, merged to `main` | Approved by author ("go"), implemented |
 | CR-0030 | 2026-10-05 | 0.1.18 | Corrective change | Menu button textures broken at real button height; RetroAchievements avatar address missing the username | `release/v0.1.18`, merged to `main` | Approved by author ("Fix it"), implemented |
+| CR-0031 | 2026-10-05 | 0.1.19 | Standard change | Embedded Plaza updated to 0.1.7 (stadium, avatars, movement, generated names); root start scripts to 0.1.7 | `release/v0.1.19`, merged to `main` | Approved by author ("build the stadium and look"), implemented |
 
 ---
 
@@ -1888,3 +1889,46 @@ the Plaza server from the RetroAchievements web API) is with the author.
 ### Rollback plan
 
 Install `v0.1.17`. In the repository, revert the merge.
+
+---
+
+## CR-0031 - Embedded Plaza updated to 0.1.7
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0031 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo ("build the stadium and look") |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera - EmulationStation theme for Batocera |
+| Version produced | 0.1.19 (folder `v0.1.19/BatWiiCera`, zips `BatWiiCera-v0.1.19.zip`, `BatWiiCera-full-v0.1.19.zip`) |
+| Previous version | 0.1.18 (folder `v0.1.18`, left unchanged) |
+| Change type | Standard change (packaging) |
+| Branch | `release/v0.1.19`, merged to `main` |
+| Status | Approved by author, implemented |
+| Approver | yiddifliddo |
+| Approval date | 2026-10-05 |
+
+### Description of change
+
+`_plaza/` refreshed to Plaza 0.1.7 (PCR-0008): client, server package,
+guides and licence. Installer, hook, system file, artwork and runtime are
+unchanged in content. Full-install zip carries the new client under
+`roms/plaza/`. Root `package.json` and `railway.json` start
+`plaza/v0.1.7/server`; the public server redeploys as 0.1.7 on merge, which
+the 0.1.6 client on the author's device tolerates (facings drawn wrongly
+until 0.1.19 is installed). Theme views, colours and music unchanged. Not
+pushed to the distribution repository (team reviewing 0.1.15).
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `xmllint` on `theme.xml`; both zips pass integrity checks; theme zip byte-identical to the folder | Pass |
+| Plaza 0.1.7 tests and renders (PCR-0008) | Pass |
+| On the device | **Not performed** - required |
+
+### Rollback plan
+
+Install `v0.1.18`. In the repository, revert the merge (server 0.1.6 and client 0.1.6 interoperate).
