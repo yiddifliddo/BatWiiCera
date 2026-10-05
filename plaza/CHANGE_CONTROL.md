@@ -18,6 +18,7 @@ record carries author, company, risk, test evidence and rollback.
 | PCR-0007 | 2026-10-05 | 0.1.6 | Corrective change | Channel did not start on Batocera (no LÖVE engine): bundled runtime, one launcher, game-screen artwork | `release/plaza-v0.1.6`, merged to `main` | Implemented; device test passed (author, "The plaza works") |
 | PCR-0008 | 2026-10-05 | 0.1.7 | Standard change | Football stadium with goals, new avatar renderer and movement, smooth remote players, generated names | `release/plaza-v0.1.7`, merged to `main` | Approved by author ("build the stadium and look"), implemented |
 | PCR-0009 | 2026-10-05 | 0.1.8 | Standard change | RetroArch netplay relay built into the server (one port, Railway-friendly) | `release/plaza-v0.1.8`, merged to `main` | Approved by author ("I want netplay server to be added to the railway server"), implemented |
+| PCR-0010 | 2026-10-05 | 0.1.9 | Corrective change | Penalty-area D ran into the box; markings redrawn to real pitch proportions | `release/plaza-v0.1.9`, merged to `main` | Approved by author ("Can you fix the football pitch"), implemented |
 
 ---
 
@@ -689,3 +690,49 @@ Overall risk rating: **Low to Medium** until the first live netplay test.
 ### Rollback plan
 
 Set `PLAZA_TUNNEL_PORT=0` in Railway (relay off, room unaffected), or start `plaza/v0.1.7/server`.
+
+---
+
+## PCR-0010 - Penalty-area D ran into the box
+
+| Field | Value |
+| --- | --- |
+| Change ID | PCR-0010 |
+| Date raised | 2026-10-05 |
+| Requested by | yiddifliddo (device photos: "the penalty box D isn't rendering well") |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera Plaza (client) |
+| Version produced | 0.1.9 (folder `plaza/v0.1.9`) |
+| Previous version | 0.1.8 (folder `plaza/v0.1.8`, left unchanged) |
+| Change type | Corrective change |
+| Branch | `release/plaza-v0.1.9`, merged to `main` |
+| Status | Approved by author, implemented |
+| Approver | yiddifliddo |
+
+### Root cause
+
+The D was a fixed half circle of radius 0.12 x pitch height around a spot
+0.115 x pitch width from the goal line, while the box was 0.17 x width deep.
+Those three numbers do not describe a real penalty area, so the arc
+continued inside the box. The 0.1.7 device photo shows it.
+
+### Description of change
+
+`client/src/plaza.lua`, `drawStadium`: markings expressed in metres of a
+105 x 68 m pitch (one metre = pitch width / 105); the D's end angles come
+from `acos((box depth - spot distance) / radius)`, so the arc meets the box
+line. Corner arcs 1 m. Demo gains a penalty-area close-up. Version 0.1.9;
+packages rebuilt. Server unchanged.
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| Client self-test (86 checks), server tests | Pass |
+| Rendered close-up of the penalty area inspected: D starts and ends on the box line, six-yard box and spot inside | Pass |
+| On the device | **Not performed** - required |
+
+### Rollback plan
+
+Theme 0.1.20 package (Plaza 0.1.7 client); the server does not care which client connects.
