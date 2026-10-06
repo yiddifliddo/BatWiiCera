@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+=====================================================================
+ BatWiiCera - loading screen (EmulationStation splash)
+ Version : 0.1.26
+ Author  : yiddifliddo
+
+ EmulationStation reads this file from the theme folder whenever it
+ shows its loading screen (start-up, theme change, game list reload).
+ It fills the "label" text with its own messages ("Loading...",
+ system names, counts) and sizes the "progressbar:active" image to the
+ progress it reports. The picture itself is _inc/images/splash.jpg,
+ artwork supplied by the author, 1920 x 1080; on screens that are not
+ 16:9 the uncovered strips take the backgroundColor below, sampled
+ from the picture's edge.
+=====================================================================
+-->
+<theme>
+  <formatVersion>7</formatVersion>
+  <view name="splash">
+    <splash name="splash">
+      <backgroundColor>DBDEE7FF</backgroundColor>
+    </splash>
+    <image name="background">
+      <path>./_inc/images/splash.jpg</path>
+      <origin>0.5 0.5</origin>
+      <pos>0.5 0.5</pos>
+      <maxSize>1 1</maxSize>
+      <linearSmooth>true</linearSmooth>
+    </image>
+    <!-- EmulationStation's own progress text, under the picture's
+         "NOW LOADING..." line -->
+    <text name="label">
+      <fontPath>./_inc/fonts/Nunito-Regular.ttf</fontPath>
+      <fontSize>0.026</fontSize>
+      <color>6E6E6EFF</color>
+      <origin>0.5 0.5</origin>
+      <pos>0.5 0.957</pos>
+      <size>1 0.03</size>
+      <alignment>center</alignment>
+    </text>
+    <!-- thin bar along the bottom, light grey track, sky-blue fill -->
+    <image name="progressbar">
+      <origin>0 0</origin>
+      <pos>0.36 0.982</pos>
+      <size>0.28 0.0075</size>
+      <color>D9DDE2FF</color>
+      <roundCorners>0.5</roundCorners>
+    </image>
+    <image name="progressbar:active">
+      <color>5AB4E6FF</color>
+      <colorEnd>2E95D8FF</colorEnd>
+      <gradientType>horizontal</gradientType>
+    </image>
+  </view>
+</theme>
