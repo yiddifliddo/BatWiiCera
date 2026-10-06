@@ -3,7 +3,7 @@
 A retro console "channel menu" theme for Batocera's EmulationStation.
 
 **Author:** yiddifliddo (personal project)
-**Current version:** 0.1.26
+**Current version:** 0.1.27
 **Licence:** Creative Commons BY-NC-SA 4.0
 
 ## Install
@@ -88,7 +88,8 @@ client's own install item. Details in the theme README and
 
 | Version | Folder | Download | Date | Status | Summary |
 | --- | --- | --- | --- | --- | --- |
-| 0.1.26 | [`v0.1.26/BatWiiCera`](v0.1.26/BatWiiCera) | [`BatWiiCera-v0.1.26.zip`](v0.1.26/BatWiiCera-v0.1.26.zip) | 2026-10-06 | Release candidate, awaiting on-device sign-off | Loading screen with the BatWiiCera artwork |
+| 0.1.27 | [`v0.1.27/BatWiiCera`](v0.1.27/BatWiiCera) | [`BatWiiCera-v0.1.27.zip`](v0.1.27/BatWiiCera-v0.1.27.zip) | 2026-10-06 | Release candidate, awaiting on-device sign-off | Clock no longer draws over menus |
+| 0.1.26 | [`v0.1.26/BatWiiCera`](v0.1.26/BatWiiCera) | [`BatWiiCera-v0.1.26.zip`](v0.1.26/BatWiiCera-v0.1.26.zip) | 2026-10-06 | Superseded by 0.1.27 | Loading screen with the BatWiiCera artwork |
 | 0.1.25 | [`v0.1.25/BatWiiCera`](v0.1.25/BatWiiCera) | [`BatWiiCera-v0.1.25.zip`](v0.1.25/BatWiiCera-v0.1.25.zip) | 2026-10-06 | Superseded by 0.1.26 | 67 logos EmulationStation could not draw replaced, 17 missing logos added (RetroBat and Batocera), RetroBat notes |
 | 0.1.24 | [`v0.1.24/BatWiiCera`](v0.1.24/BatWiiCera) | [`BatWiiCera-v0.1.24.zip`](v0.1.24/BatWiiCera-v0.1.24.zip) | 2026-10-05 | Superseded by 0.1.25 | One download, one procedure; content as 0.1.23 |
 | 0.1.23 | [`v0.1.23/BatWiiCera`](v0.1.23/BatWiiCera) | [`BatWiiCera-full-v0.1.23.zip`](v0.1.23/BatWiiCera-full-v0.1.23.zip) | 2026-10-05 | Superseded by 0.1.24 | Avatar moved to the screen overlay: one copy, no flicker |
