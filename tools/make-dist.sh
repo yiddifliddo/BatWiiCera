@@ -48,6 +48,12 @@ Then open **Ports** in EmulationStation and start **Plaza** once. It installs
 the channel from the theme folder and restarts EmulationStation by itself.
 Nothing to type: the public server is built in. x86_64 PCs only for now.
 
+## RetroBat
+
+The theme also runs on RetroBat (Windows): put this folder into
+`emulationstation\.emulationstation\themes\` and pick it under UI Settings.
+The Plaza is Batocera only (its engine is a Linux build).
+
 ## Everything else
 
 Source, version history, the single-zip installer (theme and Plaza together),

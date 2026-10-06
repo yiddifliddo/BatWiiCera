@@ -53,6 +53,7 @@ Rules for this register:
 | CR-0031 | 2026-10-05 | 0.1.19 | Standard change | Embedded Plaza updated to 0.1.7 (stadium, avatars, movement, generated names); root start scripts to 0.1.7 | `release/v0.1.19`, merged to `main` | Approved by author ("build the stadium and look"), implemented |
 | CR-0040 | 2026-10-05 | 0.1.24 (distribution) | Distribution record | Themes Downloader route verified (theme under `BatWiiCera-theme`, Plaza via one Ports file); distribution README rewritten; 0.1.24 published to `master` | `master` of `BatWiiCera-theme` | Implemented |
 | CR-0041 | 2026-10-06 | none (record) | Distribution record | Listed in Batocera's Themes Downloader (feed entry verified); publishing to `master` made a fixed step of every theme release | `main` | Implemented |
+| CR-0042 | 2026-10-06 | 0.1.25 | Corrective change | 67 system logos EmulationStation could not draw replaced, 17 missing logos added (RetroBat and Batocera), RetroBat notes; published to `master` | `release/v0.1.25`, merged to `main` | Approved by author ("go 0.1.25"), implemented |
 | CR-0039 | 2026-10-05 | 0.1.24 | Packaging change | One download per release in one layout; single install procedure everywhere | `release/v0.1.24`, merged to `main` | Approved by author ("you need to be consistent"), implemented |
 | CR-0038 | 2026-10-05 | 0.1.23 | Corrective change | Avatar still flickered after CR-0037: moved to the screen overlay view (single shared copy) | `release/v0.1.23`, merged to `main` | Approved by author (report "It flickers"), implemented |
 | CR-0037 | 2026-10-05 | 0.1.22 | Corrective change | RetroAchievements avatar and bar buttons faded and reloaded on every console move: marked as static extras | `release/v0.1.22`, merged to `main` | Approved by author (report), implemented |
@@ -2407,3 +2408,113 @@ release commit.
 
 `master` = 0.1.24 (`6fff2db`). Leftover `masterx` branch (identical to the
 old `master`) may be deleted by the author.
+
+---
+
+## CR-0042 - BatWiiCera theme v0.1.25 - logos EmulationStation can draw, for RetroBat and Batocera
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0042 |
+| Date raised | 2026-10-06 |
+| Requested by | yiddifliddo ("Can you tell me what's missing for RetroBat - we need more assets?", then "go 0.1.25") |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera theme |
+| Version | 0.1.25 (new folder `v0.1.25/`, built from 0.1.24) |
+| Change type | Corrective change (assets and documentation) |
+| Branch | `release/v0.1.25`, merged to `main` |
+| Status | Implemented; on-device sign-off pending |
+| Approver | yiddifliddo |
+
+### Problem
+
+A RetroBat screenshot showed console tiles with no logo. Comparison of the
+theme's logo folder with RetroBat's system list (247 systems) and Batocera
+42's (304 systems) found two causes:
+
+| Cause | RetroBat systems | Batocera systems |
+| --- | --- | --- |
+| No logo file in the theme | 13 | 4 |
+| SVG logo relying on features EmulationStation's SVG renderer (nanosvg) does not implement: `<text>`, `<image>`, filters, clip paths, masks | 31 | 29 |
+
+Text-based logos draw nothing at all; the others draw with wrong shading or
+overflow. Beyond the two system lists, the same fault affected Batocera's
+automatic collections (last played, never played, 2 and 4 players,
+lightgun), 21 arcade-maker logos and the theme's own Plaza channel logo,
+whose "PLAZA" lettering had never rendered on a device.
+
+### Description of change
+
+In `v0.1.25/BatWiiCera/_inc/systems/logos/` (67 SVG files removed, 29 SVG
+and 55 PNG files added; 158 PNG and 503 SVG afterwards):
+
+| Replacement | Count | Systems |
+| --- | --- | --- |
+| Clean vector copy of the same logo from Art Book Next (already a credited source), white recoloured to dark grey `#3C3C3C` for the white tiles | 29 | apple2gs, camplynx, cave, cgenius, daphne, easyrpg, fpinball, gamepock, gx4000, imageviewer, library, lutro, model2, model3, moonlight, msxturbor, multivision, openbor, pygame, sonicretro, spectravideo, supervision, tic80, auto-at2players, auto-at4players, auto-lastplayed, auto-lightgun, auto-neverplayed, pspminis |
+| PNG render of the original vector (Chromium, 1200 px box, trimmed, transparent) | 10 | arcadia, segastv (recoloured Art Book Next); epic, raze, vg5k, cave3rd, hbmame, appleios, model1 (Carbon); plaza (own artwork, lettering set in Nunito Bold) |
+| New wordmark PNG in Nunito Bold, dark grey with a coloured underline | 28 | archimedes, atom, coco, emulators, vpinball, teknoparrot, lightgun, aarch, amcoe, centurye, cinematronics, comad, dynax, exidy, igs, megaplay, megatech, mitchell, neogeomvs, nmk, playchoice, seibu, seibukaihatsu, semicom, taitox, tandy1k, visco, vsc |
+| New wordmark PNG for systems that had no logo | 17 | laseractive, n64recomp, rtcw, exodos, exowin3x, exowin9x, bk, bsyndrome, 2ship, dusklight, ghostship, dinothawr, screenshots (RetroBat); uqm, jkdf2, jknight, mohaa (Batocera) |
+
+No `theme.xml` layout change: the theme already lists `${logoPath}` (SVG)
+then `${logoPathPng}`, and EmulationStation keeps the last `<path>` whose
+file exists, so a PNG wins wherever both exist (checked in
+`ThemeData.cpp`: `element.properties[name] = path` on each existing file).
+The Plaza client's setup still drops its old `plaza.svg` into theme folders
+that lack one; the new `plaza.png` wins over it, so no Plaza change is
+needed now (to be removed in the next Plaza version).
+
+Localised duplicates (`*-fr`, `*-de`, ... 94 files) and five filter-only
+maker logos (aae, incredibletech, retrobat_old, stratagus, toaplan) were
+left as they are: the theme never references the former, and the latter
+draw acceptably with the filter ignored.
+
+Other changes:
+
+* `theme.xml`: version 0.1.25; avatar cache tag `?v=0125`.
+* Version README: RetroBat section (unzip location; Plaza is Batocera only);
+  changes list.
+* `LICENSE`: notes on the PNG renders, the recoloured Art Book Next
+  vectors and the new wordmarks (own work, set in Nunito Bold).
+* Root README: version, Versions row, RetroBat paragraph in Install.
+* `tools/make-dist.sh`: RetroBat paragraph in the distribution README.
+* `v0.1.25/BatWiiCera-v0.1.25.zip`: the single release zip, share layout;
+  `roms` and `system` parts identical to 0.1.24 (Plaza 0.1.9).
+
+Tooling used to produce the assets (kept out of the repository): a
+Playwright/Chromium script rendering SVGs and wordmarks, the theme's own
+font files embedded, ImageMagick trim with a 24 px margin.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| A replaced logo looks different from before on a user's device | Certain for the 67 | Low: before, those tiles were blank or broken | Each replacement reviewed on a white contact sheet before packaging |
+| Dark grey monochrome logos among coloured ones | Certain for 29 | Cosmetic | Same treatment the theme already applied to its Art Book Next fallbacks |
+| A wordmark names a system wrongly | Low | Cosmetic | Names taken from RetroBat's and Batocera's system files |
+| PNG at 1200 px looks soft on 4K tiles | Low | Cosmetic | Tiles are far smaller than 1200 px even at 4K |
+| Zip drifts from the folder | Low | Stale install | Zip unpacked and diffed against the folder: identical |
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `xmllint --noout theme.xml` | Pass |
+| No system in RetroBat's list (247) or Batocera 42's list (304) without a logo file | Pass (0 missing) |
+| No non-localised SVG with `<text>`, `<image>`, clip path or mask left | Pass |
+| Exactly one logo file per changed system (no SVG left beside a new PNG) | Pass |
+| Visual review of all 84 new or replaced logos on white | Pass (two contact sheets) |
+| Zip integrity, file count 769, theme folder in zip identical to `v0.1.25/BatWiiCera` | Pass |
+| Forbidden-word scan | Pass |
+| On a device (Batocera and RetroBat) | Pending the author's sign-off |
+
+### Rollback plan
+
+Install 0.1.24 over it with the same procedure; the version folder and zip
+remain. On the listing, reset `master` of the distribution repository to
+the 0.1.24 commit `6fff2db`.
+
+### Distribution
+
+Published to `master` of `yiddifliddo/BatWiiCera-theme` per the CR-0041
+rule; the commit is noted below once pushed.
