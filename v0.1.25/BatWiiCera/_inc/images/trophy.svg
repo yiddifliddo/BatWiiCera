@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <!-- Original trophy icon drawn for BatWiiCera. White so the theme can tint it. -->
+  <path d="M28,12 L72,12 L72,40 C72,56 62,66 50,66 C38,66 28,56 28,40 Z" fill="#FFFFFF"/>
+  <path d="M28,20 L16,20 C12,20 10,23 10,27 C10,40 18,50 30,52 L30,44 C22,42 18,36 18,28 L28,28 Z" fill="#FFFFFF"/>
+  <path d="M72,20 L84,20 C88,20 90,23 90,27 C90,40 82,50 70,52 L70,44 C78,42 82,36 82,28 L72,28 Z" fill="#FFFFFF"/>
+  <rect x="45" y="64" width="10" height="14" fill="#FFFFFF"/>
+  <path d="M32,78 L68,78 L68,86 L32,86 Z" fill="#FFFFFF"/>
+  <path d="M26,86 L74,86 L74,92 L26,92 Z" fill="#FFFFFF"/>
+  <path d="M50,24 L54,33 L64,34 L56,41 L58,51 L50,46 L42,51 L44,41 L36,34 L46,33 Z" fill="#000000" fill-opacity="0.18"/>
+</svg>

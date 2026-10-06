@@ -3,7 +3,7 @@
 A retro console "channel menu" theme for Batocera's EmulationStation.
 
 **Author:** yiddifliddo (personal project)
-**Current version:** 0.1.24
+**Current version:** 0.1.25
 **Licence:** Creative Commons BY-NC-SA 4.0
 
 ## Install
@@ -25,6 +25,13 @@ copy `_plaza/installer/Plaza.sh` from the installed theme folder into
 `share\roms\ports`, open Ports and start **Plaza** once. It installs the
 channel from the theme folder and restarts EmulationStation itself. This was
 checked against the published copy with the theme under that folder name.
+
+**RetroBat (Windows)?** The theme works there too: unzip the
+`themes/BatWiiCera` folder from the release zip into RetroBat's
+`emulationstation\.emulationstation\themes\` folder and pick it under
+UI Settings. The Plaza channel is Batocera only (its engine is a Linux
+build), so the zip's `roms` and `system` folders do nothing on RetroBat.
+Since 0.1.25 every system in RetroBat's list has a logo.
 
 ## Screenshots
 
@@ -77,7 +84,8 @@ client's own install item. Details in the theme README and
 
 | Version | Folder | Download | Date | Status | Summary |
 | --- | --- | --- | --- | --- | --- |
-| 0.1.24 | [`v0.1.24/BatWiiCera`](v0.1.24/BatWiiCera) | [`BatWiiCera-v0.1.24.zip`](v0.1.24/BatWiiCera-v0.1.24.zip) | 2026-10-05 | Release candidate, awaiting on-device sign-off | One download, one procedure; content as 0.1.23 |
+| 0.1.25 | [`v0.1.25/BatWiiCera`](v0.1.25/BatWiiCera) | [`BatWiiCera-v0.1.25.zip`](v0.1.25/BatWiiCera-v0.1.25.zip) | 2026-10-06 | Release candidate, awaiting on-device sign-off | 67 logos EmulationStation could not draw replaced, 17 missing logos added (RetroBat and Batocera), RetroBat notes |
+| 0.1.24 | [`v0.1.24/BatWiiCera`](v0.1.24/BatWiiCera) | [`BatWiiCera-v0.1.24.zip`](v0.1.24/BatWiiCera-v0.1.24.zip) | 2026-10-05 | Superseded by 0.1.25 | One download, one procedure; content as 0.1.23 |
 | 0.1.23 | [`v0.1.23/BatWiiCera`](v0.1.23/BatWiiCera) | [`BatWiiCera-full-v0.1.23.zip`](v0.1.23/BatWiiCera-full-v0.1.23.zip) | 2026-10-05 | Superseded by 0.1.24 | Avatar moved to the screen overlay: one copy, no flicker |
 | 0.1.22 | [`v0.1.22/BatWiiCera`](v0.1.22/BatWiiCera) | [`BatWiiCera-full-v0.1.22.zip`](v0.1.22/BatWiiCera-full-v0.1.22.zip) | 2026-10-05 | Superseded by 0.1.23 (still flickered) | Avatar and bar buttons no longer fade and reload between consoles |
 | 0.1.21 | [`v0.1.21/BatWiiCera`](v0.1.21/BatWiiCera) | [`BatWiiCera-full-v0.1.21.zip`](v0.1.21/BatWiiCera-full-v0.1.21.zip) | 2026-10-05 | Superseded by 0.1.22 | Plaza 0.1.9: pitch markings to scale; netplay relay in the server package |
