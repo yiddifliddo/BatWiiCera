@@ -2517,4 +2517,5 @@ the 0.1.24 commit `6fff2db`.
 ### Distribution
 
 Published to `master` of `yiddifliddo/BatWiiCera-theme` per the CR-0041
-rule; the commit is noted below once pushed.
+rule: commit `ec34ec9` ("BatWiiCera 0.1.25"), pushed 2026-10-06. The
+Themes Downloader offers it as an update from that moment.
