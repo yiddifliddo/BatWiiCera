@@ -3,7 +3,7 @@
 A retro console "channel menu" theme for Batocera's EmulationStation.
 
 **Author:** yiddifliddo (personal project)
-**Current version:** 0.1.25
+**Current version:** 0.1.26
 **Licence:** Creative Commons BY-NC-SA 4.0
 
 ## Install
@@ -38,6 +38,10 @@ Since 0.1.25 every system in RetroBat's list has a logo.
 Layout mock-ups rendered from the theme's own assets, fonts and coordinates at
 1280 x 720. They show the intended layout; captures from a real Batocera device
 will be added after on-device testing.
+
+**Loading screen** (0.1.26) - EmulationStation's progress line and bar drawn under the artwork's "NOW LOADING..."
+
+![Loading screen mock-up](v0.1.26/previews/mockup-splash.png)
 
 **Console channel grid (system view)** - logos washed-out until highlighted, RetroAchievements avatar and user name left of the clock
 
@@ -84,7 +88,8 @@ client's own install item. Details in the theme README and
 
 | Version | Folder | Download | Date | Status | Summary |
 | --- | --- | --- | --- | --- | --- |
-| 0.1.25 | [`v0.1.25/BatWiiCera`](v0.1.25/BatWiiCera) | [`BatWiiCera-v0.1.25.zip`](v0.1.25/BatWiiCera-v0.1.25.zip) | 2026-10-06 | Release candidate, awaiting on-device sign-off | 67 logos EmulationStation could not draw replaced, 17 missing logos added (RetroBat and Batocera), RetroBat notes |
+| 0.1.26 | [`v0.1.26/BatWiiCera`](v0.1.26/BatWiiCera) | [`BatWiiCera-v0.1.26.zip`](v0.1.26/BatWiiCera-v0.1.26.zip) | 2026-10-06 | Release candidate, awaiting on-device sign-off | Loading screen with the BatWiiCera artwork |
+| 0.1.25 | [`v0.1.25/BatWiiCera`](v0.1.25/BatWiiCera) | [`BatWiiCera-v0.1.25.zip`](v0.1.25/BatWiiCera-v0.1.25.zip) | 2026-10-06 | Superseded by 0.1.26 | 67 logos EmulationStation could not draw replaced, 17 missing logos added (RetroBat and Batocera), RetroBat notes |
 | 0.1.24 | [`v0.1.24/BatWiiCera`](v0.1.24/BatWiiCera) | [`BatWiiCera-v0.1.24.zip`](v0.1.24/BatWiiCera-v0.1.24.zip) | 2026-10-05 | Superseded by 0.1.25 | One download, one procedure; content as 0.1.23 |
 | 0.1.23 | [`v0.1.23/BatWiiCera`](v0.1.23/BatWiiCera) | [`BatWiiCera-full-v0.1.23.zip`](v0.1.23/BatWiiCera-full-v0.1.23.zip) | 2026-10-05 | Superseded by 0.1.24 | Avatar moved to the screen overlay: one copy, no flicker |
 | 0.1.22 | [`v0.1.22/BatWiiCera`](v0.1.22/BatWiiCera) | [`BatWiiCera-full-v0.1.22.zip`](v0.1.22/BatWiiCera-full-v0.1.22.zip) | 2026-10-05 | Superseded by 0.1.23 (still flickered) | Avatar and bar buttons no longer fade and reload between consoles |

@@ -54,6 +54,7 @@ Rules for this register:
 | CR-0040 | 2026-10-05 | 0.1.24 (distribution) | Distribution record | Themes Downloader route verified (theme under `BatWiiCera-theme`, Plaza via one Ports file); distribution README rewritten; 0.1.24 published to `master` | `master` of `BatWiiCera-theme` | Implemented |
 | CR-0041 | 2026-10-06 | none (record) | Distribution record | Listed in Batocera's Themes Downloader (feed entry verified); publishing to `master` made a fixed step of every theme release | `main` | Implemented |
 | CR-0042 | 2026-10-06 | 0.1.25 | Corrective change | 67 system logos EmulationStation could not draw replaced, 17 missing logos added (RetroBat and Batocera), RetroBat notes; published to `master` | `release/v0.1.25`, merged to `main` | Approved by author ("go 0.1.25"), implemented |
+| CR-0043 | 2026-10-06 | 0.1.26 | Standard change | Loading screen: BatWiiCera artwork as EmulationStation's splash (`splash.xml`); published to `master` | `release/v0.1.26`, merged to `main` | Approved by author instruction, implemented |
 | CR-0039 | 2026-10-05 | 0.1.24 | Packaging change | One download per release in one layout; single install procedure everywhere | `release/v0.1.24`, merged to `main` | Approved by author ("you need to be consistent"), implemented |
 | CR-0038 | 2026-10-05 | 0.1.23 | Corrective change | Avatar still flickered after CR-0037: moved to the screen overlay view (single shared copy) | `release/v0.1.23`, merged to `main` | Approved by author (report "It flickers"), implemented |
 | CR-0037 | 2026-10-05 | 0.1.22 | Corrective change | RetroAchievements avatar and bar buttons faded and reloaded on every console move: marked as static extras | `release/v0.1.22`, merged to `main` | Approved by author (report), implemented |
@@ -2519,3 +2520,81 @@ the 0.1.24 commit `6fff2db`.
 Published to `master` of `yiddifliddo/BatWiiCera-theme` per the CR-0041
 rule: commit `ec34ec9` ("BatWiiCera 0.1.25"), pushed 2026-10-06. The
 Themes Downloader offers it as an update from that moment.
+
+---
+
+## CR-0043 - BatWiiCera theme v0.1.26 - loading screen
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0043 |
+| Date raised | 2026-10-06 |
+| Requested by | yiddifliddo ("I want to add this as a loading splash screen", with the artwork) |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera theme |
+| Version | 0.1.26 (new folder `v0.1.26/`, built from 0.1.25) |
+| Change type | Standard change (new asset and theme file) |
+| Branch | `release/v0.1.26`, merged to `main` |
+| Status | Implemented; on-device sign-off pending |
+| Approver | yiddifliddo |
+
+### Description of change
+
+EmulationStation's loading screen (start-up, theme change, game list
+reload) is themeable through a `splash.xml` in the theme folder
+(`Splash.cpp`: `<view name="splash">` with `background` image, `label`
+text that ES fills with its own messages, `progressbar` and
+`progressbar:active` images, and a `splash` element whose
+`backgroundColor` fills any uncovered area). The engine sets the
+background's maximum size to the screen, so a 16:9 picture fills a 16:9
+screen exactly and is letterboxed on others.
+
+* `v0.1.26/BatWiiCera/splash.xml` (new): background
+  `./_inc/images/splash.jpg`, letterbox colour `DBDEE7` sampled from the
+  picture's edge; label in Nunito Regular, 2.6 % of screen height, grey
+  `6E6E6E`, centred at y 0.957 (under the artwork's "NOW LOADING..."
+  line); progress bar 28 % wide, 0.75 % tall at y 0.982, light grey track,
+  sky-blue gradient fill.
+* `_inc/images/splash.jpg` (new, 226 KB): the supplied artwork
+  (2000 x 1116 WebP) centre-cropped to 16:9 and scaled to 1920 x 1080,
+  JPEG quality 90.
+* `v0.1.26/previews/mockup-splash.png`: mock-up of the result with a sample
+  progress line and bar, shown in the root README.
+* Version 0.1.26 in `theme.xml` (avatar tag `?v=0126`), README (new
+  "Loading screen" section), LICENSE (1d: artwork supplied by the author).
+* Single release zip `BatWiiCera-v0.1.26.zip`; `roms` and `system` parts
+  unchanged (Plaza 0.1.9).
+
+Not changed: Batocera's boot video before EmulationStation starts (a
+system file, `/userdata/system/splash/`, not part of a theme) and the game
+launch splash (`gamesplash.xml`, which shows the game's own image).
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| ES progress text overlaps the artwork's lettering | Low | Cosmetic | Positions chosen from the artwork's pixel rows; mock-up checked at 1080p |
+| Older ES builds without the themed splash | Low | They show their default splash; nothing else affected | `splash.xml` is only read by builds that support it |
+| Light text on the light picture unreadable | Low | Cosmetic | Grey 6E6E6E on the near-white band, same contrast as the artwork's own credits |
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `xmllint --noout` on `splash.xml` and `theme.xml` | Pass |
+| Mock-up render at 1920 x 1080 with sample text and bar | Pass (reviewed) |
+| Zip integrity, 771 files, theme folder in zip identical to `v0.1.26/BatWiiCera` | Pass |
+| Forbidden-word scan | Pass |
+| On a device | Pending the author's sign-off |
+
+### Rollback plan
+
+Install 0.1.25 over it with the same procedure, or delete `splash.xml`
+from the installed theme folder to get EmulationStation's default loading
+screen back. On the listing, reset `master` to the 0.1.25 commit `ec34ec9`.
+
+### Distribution
+
+Published to `master` of `yiddifliddo/BatWiiCera-theme` per the CR-0041
+rule; the commit is noted below once pushed.
