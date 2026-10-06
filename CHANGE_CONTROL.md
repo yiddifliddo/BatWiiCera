@@ -2675,4 +2675,4 @@ Install 0.1.26 over it with the same procedure. On the listing, reset
 ### Distribution
 
 Published to `master` of `yiddifliddo/BatWiiCera-theme` per the CR-0041
-rule; the commit is noted below once pushed.
+rule: commit `752e14b` ("BatWiiCera 0.1.27"), pushed 2026-10-06.
