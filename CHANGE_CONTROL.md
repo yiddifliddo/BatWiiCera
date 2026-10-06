@@ -2597,4 +2597,4 @@ screen back. On the listing, reset `master` to the 0.1.25 commit `ec34ec9`.
 ### Distribution
 
 Published to `master` of `yiddifliddo/BatWiiCera-theme` per the CR-0041
-rule; the commit is noted below once pushed.
+rule: commit `2c303d5` ("BatWiiCera 0.1.26"), pushed 2026-10-06.
