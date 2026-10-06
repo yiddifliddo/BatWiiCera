@@ -116,7 +116,7 @@ vX.Y.Z/BatWiiCera/      that version of the theme (installable folder)
 vX.Y.Z/BatWiiCera-vX.Y.Z.zip  the same folder packaged for download (0.1.1 onwards)
 vX.Y.Z/previews/        layout mock-ups for that version (light and dark from 0.1.8)
 tools/make-dist.sh      builds the root-layout copy for Batocera's Themes Downloader
-docs/SUBMISSION.md      how the theme gets listed in Batocera's downloader, with the request text
+docs/SUBMISSION.md      how the theme is listed in Batocera's downloader and how each release is published there
 plaza/                  the Plaza channel source (server, client, installer), own README and register
 package.json, railway.json, .railwayignore   let Railway run the Plaza server from the repository root
 ```
@@ -125,12 +125,19 @@ One `vX.Y.Z/` folder exists per released version, 0.1.0 to 0.1.14; see the
 table above. From 0.1.12 the theme folder also carries the Plaza channel in
 `_plaza/` (client, hook, installer, server package and guides).
 
-## Getting listed in Batocera
+## Listed in Batocera
 
-Batocera's Themes Downloader installs from a GitHub repository with
-`theme.xml` at its root, which this versioned repository is not. The
-distribution copy is produced by `tools/make-dist.sh` into a separate public
-repository; the full procedure and the submission text are in
+The theme is in Batocera's Themes Downloader (added by the Batocera team on
+2026-10-05, CR-0041): *Main Menu > Updates & Downloads > Themes >
+BatWiiCera*. The downloader installs the theme into
+`/userdata/themes/BatWiiCera-theme`; to add the Plaza channel afterwards,
+copy one file as the Install section describes.
+
+The downloader fetches the `master` branch of a separate repository,
+[`yiddifliddo/BatWiiCera-theme`](https://github.com/yiddifliddo/BatWiiCera-theme),
+which carries `theme.xml` at its root. `tools/make-dist.sh` mirrors a version
+folder into it, and publishing there is a fixed step of every theme release,
+so the two repositories always carry the same version. Procedure and history:
 [`docs/SUBMISSION.md`](docs/SUBMISSION.md).
 
 ## Change control

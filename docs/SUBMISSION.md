@@ -1,6 +1,6 @@
 # Getting BatWiiCera into Batocera's Themes Downloader
 
-Author: yiddifliddo. Status: listing request posted 2026-10-05 (CR-0027); team asked for a `master` default branch, done 2026-10-05 with 0.1.20 published (CR-0034); awaiting the team (lbrpdx).
+Author: yiddifliddo. Status: **listed** since 2026-10-05 (feed entry verified 2026-10-06, CR-0041). Request posted 2026-10-05 (CR-0027); `master` default branch done with 0.1.20 (CR-0034); listed at 0.1.24. Every theme release is published to `master` of the distribution repository as its last step.
 
 ## How the downloader works
 
@@ -40,9 +40,10 @@ root `theme.xml`. The fix is a second, public, distribution-only repository.
    ```
 
    The script mirrors the version folder to the root, adds `preview.png`
-   and a short README pointing back here. Re-run it for every approved
-   release; the downloader then offers the update automatically. Done for
-   0.1.15 (commit `545760f`) and 0.1.20 (commit `9562280`), on `master`.
+   and a short README pointing back here. **This runs for every theme
+   release** (register rule since CR-0041); the downloader then offers the
+   update automatically. Done for 0.1.15 (`545760f`), 0.1.20 (`9562280`)
+   and 0.1.24 (`6fff2db`), on `master`.
 3. **Take a real screenshot** on the device for the request (the team shows
    one image per theme). `preview.png` is a layout mock-up; a photo of the
    console grid on your TV, or a capture through Batocera's screenshot
@@ -53,7 +54,8 @@ root `theme.xml`. The fix is a second, public, distribution-only repository.
    re-run step 2.
 5. **Record the outcome** in `CHANGE_CONTROL.md` as a new record (listing
    requested, listing accepted) so the theme's distribution status is
-   tracked.
+   tracked. Done: requested CR-0027, accepted CR-0041 (feed entry:
+   theme BatWiiCera, author yiddifliddo, last_update 2026-10-05, size 19 MB).
 
 ## Request text
 

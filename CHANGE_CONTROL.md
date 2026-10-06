@@ -10,6 +10,11 @@ Rules for this register:
   `vX.Y.Z/` folder. Previous version folders are never modified.
 * Each record carries the author, the company or project, a risk assessment,
   test evidence and a rollback plan, and is approved before merge to `main`.
+* The theme is listed in Batocera's Themes Downloader (CR-0041). Every
+  theme release therefore ends with publishing the new version folder to the
+  `master` branch of `yiddifliddo/BatWiiCera-theme` with
+  `tools/make-dist.sh <version> <checkout>`, and the record notes the
+  resulting commit. The two repositories must never differ in version.
 
 ## Register summary
 
@@ -47,6 +52,7 @@ Rules for this register:
 | CR-0030 | 2026-10-05 | 0.1.18 | Corrective change | Menu button textures broken at real button height; RetroAchievements avatar address missing the username | `release/v0.1.18`, merged to `main` | Approved by author ("Fix it"), implemented |
 | CR-0031 | 2026-10-05 | 0.1.19 | Standard change | Embedded Plaza updated to 0.1.7 (stadium, avatars, movement, generated names); root start scripts to 0.1.7 | `release/v0.1.19`, merged to `main` | Approved by author ("build the stadium and look"), implemented |
 | CR-0040 | 2026-10-05 | 0.1.24 (distribution) | Distribution record | Themes Downloader route verified (theme under `BatWiiCera-theme`, Plaza via one Ports file); distribution README rewritten; 0.1.24 published to `master` | `master` of `BatWiiCera-theme` | Implemented |
+| CR-0041 | 2026-10-06 | none (record) | Distribution record | Listed in Batocera's Themes Downloader (feed entry verified); publishing to `master` made a fixed step of every theme release | `main` | Implemented |
 | CR-0039 | 2026-10-05 | 0.1.24 | Packaging change | One download per release in one layout; single install procedure everywhere | `release/v0.1.24`, merged to `main` | Approved by author ("you need to be consistent"), implemented |
 | CR-0038 | 2026-10-05 | 0.1.23 | Corrective change | Avatar still flickered after CR-0037: moved to the screen overlay view (single shared copy) | `release/v0.1.23`, merged to `main` | Approved by author (report "It flickers"), implemented |
 | CR-0037 | 2026-10-05 | 0.1.22 | Corrective change | RetroAchievements avatar and bar buttons faded and reloaded on every console move: marked as static extras | `release/v0.1.22`, merged to `main` | Approved by author (report), implemented |
@@ -2325,3 +2331,79 @@ The first commit under this record (`a26ecf7`) contained a broken edit of
 `tools/make-dist.sh` (an unquoted here-document), so the publication it
 describes had not happened at that point; the script was repaired and the
 0.1.24 copy pushed in the follow-up commit that carries this note.
+
+---
+
+## CR-0041 - Listed in Batocera's Themes Downloader; publication rule
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0041 |
+| Date raised | 2026-10-06 |
+| Requested by | yiddifliddo ("Your theme has been added ... let's make sure we keep up the repo in step as it should be") |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera - distribution and process |
+| Change type | Distribution record and process change |
+| Status | Implemented |
+| Approver | yiddifliddo |
+
+### What happened
+
+The Batocera team added the theme to the Themes Downloader. Verified from
+here on 2026-10-06 in the live feed `https://batocera.org/upgrades/themes.json`:
+
+| Field in the feed | Value |
+| --- | --- |
+| theme | BatWiiCera |
+| author | yiddifliddo |
+| theme_url | https://github.com/yiddifliddo/BatWiiCera-theme |
+| last_update | 2026-10-05 (the 0.1.24 commit `6fff2db` on `master`) |
+| size | 19 (MB, as the feed reports it) |
+| screenshot | themes/BatWiiCera.jpg (the team's copy of the submitted screenshot) |
+
+Any Batocera user can now install the theme from *Main Menu > Updates &
+Downloads > Themes*. The downloader installs whatever is on `master` of the
+distribution repository, so that branch is now a live release channel.
+
+### Process change
+
+The register rules gain a line: every theme release ends with publishing the
+new version to `master` of the distribution repository, and the record notes
+the commit. Concretely, every theme release is now:
+
+1. New `vX.Y.Z/` folder, zip built and verified, record raised, branch
+   merged to `main`.
+2. `tools/make-dist.sh X.Y.Z /home/user/batwiicera-theme`, then in that
+   checkout `git add -A && git commit -m "BatWiiCera X.Y.Z" && git push origin master`.
+3. Record the distribution commit in the release's change record.
+4. README "Versions" row and `docs/SUBMISSION.md` status updated.
+
+The downloader's "update available" state follows the repository's last
+update date, so users on the listing receive each release automatically.
+
+### Files changed
+
+* `CHANGE_CONTROL.md`: rule added, this record.
+* `README.md`: "Getting listed in Batocera" becomes "Listed in Batocera",
+  with the install route and the release rule.
+* `docs/SUBMISSION.md`: status line set to listed; publication step says
+  "every release".
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| A release lands in this repository but not on `master`, so downloader users fall behind | Medium without the rule | Users miss fixes | Publication is now a numbered step of every release and part of the record |
+| A broken build is published to `master` and pushed to every downloader user | Low | Theme fails to load for listed users | Only verified version folders are published; the folder is zipped and diffed before release |
+
+### Rollback
+
+Documentation only; revert the commit. Unpublishing is not possible from this
+side (the listing is the team's), but `master` can be reset to any earlier
+release commit.
+
+### Current state of the distribution repository
+
+`master` = 0.1.24 (`6fff2db`). Leftover `masterx` branch (identical to the
+old `master`) may be deleted by the author.
