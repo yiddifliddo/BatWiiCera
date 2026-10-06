@@ -55,6 +55,7 @@ Rules for this register:
 | CR-0041 | 2026-10-06 | none (record) | Distribution record | Listed in Batocera's Themes Downloader (feed entry verified); publishing to `master` made a fixed step of every theme release | `main` | Implemented |
 | CR-0042 | 2026-10-06 | 0.1.25 | Corrective change | 67 system logos EmulationStation could not draw replaced, 17 missing logos added (RetroBat and Batocera), RetroBat notes; published to `master` | `release/v0.1.25`, merged to `main` | Approved by author ("go 0.1.25"), implemented |
 | CR-0043 | 2026-10-06 | 0.1.26 | Standard change | Loading screen: BatWiiCera artwork as EmulationStation's splash (`splash.xml`); published to `master` | `release/v0.1.26`, merged to `main` | Approved by author instruction, implemented |
+| CR-0044 | 2026-10-06 | 0.1.27 | Corrective change | Clock drew over menus from the screen layer: moved into the bar as a static view element; published to `master` | `release/v0.1.27`, merged to `main` | Approved by author instruction, implemented |
 | CR-0039 | 2026-10-05 | 0.1.24 | Packaging change | One download per release in one layout; single install procedure everywhere | `release/v0.1.24`, merged to `main` | Approved by author ("you need to be consistent"), implemented |
 | CR-0038 | 2026-10-05 | 0.1.23 | Corrective change | Avatar still flickered after CR-0037: moved to the screen overlay view (single shared copy) | `release/v0.1.23`, merged to `main` | Approved by author (report "It flickers"), implemented |
 | CR-0037 | 2026-10-05 | 0.1.22 | Corrective change | RetroAchievements avatar and bar buttons faded and reloaded on every console move: marked as static extras | `release/v0.1.22`, merged to `main` | Approved by author (report), implemented |
@@ -2598,3 +2599,80 @@ screen back. On the listing, reset `master` to the 0.1.25 commit `ec34ec9`.
 
 Published to `master` of `yiddifliddo/BatWiiCera-theme` per the CR-0041
 rule: commit `2c303d5` ("BatWiiCera 0.1.26"), pushed 2026-10-06.
+
+---
+
+## CR-0044 - BatWiiCera theme v0.1.27 - clock no longer draws over menus
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0044 |
+| Date raised | 2026-10-06 |
+| Requested by | yiddifliddo ("the clock doesn't and shouldn't render over menus period", with a screenshot) |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera theme |
+| Version | 0.1.27 (new folder `v0.1.27/`, built from 0.1.26) |
+| Change type | Corrective change |
+| Branch | `release/v0.1.27`, merged to `main` |
+| Status | Implemented; on-device sign-off pending |
+| Approver | yiddifliddo |
+
+### Problem
+
+With a menu open (screenshot: User Interface Settings), the big clock and
+the RetroAchievements picture drew bright on top of the dialog while the
+rest of the theme was dimmed behind it. Cause: CR-0038 (0.1.23) moved the
+avatar and the clock into the theme's `screen` view to stop the flicker
+between consoles. The engine builds that layer once and draws it after the
+GUI stack and the dimming overlay on every frame (`Window::render`, the
+`mScreenExtras` loop after `renderScreenSaver()`), with no condition and no
+theme binding for "a menu is open". The engine's own clock is drawn under
+the same rule on screens where menus are not full screen.
+
+### Description of change
+
+* `theme.xml`, shared view `system, basic, detailed, grid`: new
+  `<clock name="bar-clock" extra="static">` with the clock's previous
+  position, size, font and colour (zIndex 26). The `clock` element inherits
+  text properties and its component follows UI Settings > Show Clock
+  (`ClockComponent::update` sets visibility from `DrawClock`). As a view
+  element it is drawn under menus; as a static extra it does not fade or
+  reload between consoles.
+* `theme.xml`, `screen` view: the engine clock element kept but parked off
+  screen (`pos -1 -1`, size 0.001, transparent colour). It must exist: when
+  the screen view has no clock element the engine falls back to its own
+  small top-right clock, which would again draw over menus.
+* Avatar unchanged (still the screen layer, still visible over menus); the
+  fetch-to-file alternative was offered and not requested.
+* Version 0.1.27 in `theme.xml` (avatar tag `?v=0127`), `splash.xml`,
+  README, LICENSE; root README version and Versions row; single release zip,
+  `roms` and `system` parts unchanged (Plaza 0.1.9).
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| The static clock extra fades or reloads on console moves | Low | Cosmetic | Same mechanism as the bar buttons since 0.1.22, which do not |
+| Engine clock stub still visible | Low | A dot in the top-left | Off screen and fully transparent |
+| Show Clock toggle no longer hides the clock | Low | Setting ignored | `ClockComponent` applies the setting itself, checked in source |
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `xmllint --noout` on `theme.xml` and `splash.xml` | Pass |
+| Engine behaviour confirmed from source (`Window.cpp` render order, `ClockComponent.cpp`, `ThemeData.cpp` clock element inherits text) | Pass |
+| Zip integrity, 771 files, theme folder in zip identical to `v0.1.27/BatWiiCera` | Pass |
+| Forbidden-word scan | Pass |
+| On a device, menu open over the console grid and over a game list | Pending the author's sign-off |
+
+### Rollback plan
+
+Install 0.1.26 over it with the same procedure. On the listing, reset
+`master` to the 0.1.26 commit `2c303d5`.
+
+### Distribution
+
+Published to `master` of `yiddifliddo/BatWiiCera-theme` per the CR-0041
+rule; the commit is noted below once pushed.
