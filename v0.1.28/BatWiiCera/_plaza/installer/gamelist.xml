@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<gameList>
+  <game>
+    <path>./Plaza.sh</path>
+    <name>Plaza</name>
+    <desc>Meet everyone running BatWiiCera. Walk around, hop, slap, kick the ball and see what people are playing. Nothing to set up: the public server is built in.</desc>
+    <image>./images/plaza-preview.png</image>
+    <thumbnail>./images/plaza-preview.png</thumbnail>
+    <marquee>./images/plaza-logo.png</marquee>
+    <developer>yiddifliddo</developer>
+    <publisher>BatWiiCera</publisher>
+    <releasedate>20261005T000000</releasedate>
+    <players>1-200</players>
+    <genre>Social</genre>
+    <rating>1</rating>
+  </game>
+</gameList>
