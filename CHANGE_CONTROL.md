@@ -2751,7 +2751,7 @@ engine's own view selection and was left where users expect it.
 | `xmllint --noout` on `theme.xml`, `_inc/grid-wall.xml`, `splash.xml` | Pass |
 | Parse order confirmed from engine source | Pass |
 | Mock-up rendered and reviewed at 1920 x 1080 | Pass |
-| Zip integrity, 773 files, theme folder in zip identical to `v0.1.28/BatWiiCera` | Pass |
+| Zip integrity, 772 files, theme folder in zip identical to `v0.1.28/BatWiiCera` | Pass |
 | Forbidden-word scan | Pass |
 | On a device: option appears, wall applies in Grid view, selection frame and strip | Pending the author's sign-off |
 
@@ -2764,4 +2764,4 @@ Set Game grid style back to Channel tiles (no reinstall needed), or install
 ### Distribution
 
 Published to `master` of `yiddifliddo/BatWiiCera-theme` per the CR-0041
-rule; the commit is noted below once pushed.
+rule: commit `8962e80` ("BatWiiCera 0.1.28"), pushed 2026-10-13.
