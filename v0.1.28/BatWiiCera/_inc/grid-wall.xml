@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  BatWiiCera - "Screenshot wall" style for the Game grid view
+  Author: yiddifliddo
+
+  Chosen under Theme Configuration > Game grid style. This file is included
+  from theme.xml AFTER the base grid view, so every property here replaces
+  the channel-tile value. Everything not mentioned (favourite star, trophy
+  overlay, hidden metadata, system name under the clock) stays as defined
+  in theme.xml.
+
+  Layout at 16:9: 5 columns x 3 rows of game pictures with no tile plate,
+  the game name in small text under each picture, unselected pictures
+  dimmed, the selected one at full brightness inside the sky-blue frame.
+  Under the grid an information strip: console logo, name, players, star
+  rating, save-state disc and trophy marks, and a one-line description.
+-->
+<theme>
+  <formatVersion>7</formatVersion>
+  <view name="grid">
+    <imagegrid name="gamegrid">
+      <pos>0.05 0.04</pos>
+      <size>0.90 0.605</size>
+      <autoLayout>5 3</autoLayout>
+      <autoLayoutSelectedZoom>1.0</autoLayoutSelectedZoom>
+      <margin>0.008 0.014</margin>
+      <padding>0.004 0.004 0.004 0.004</padding>
+    </imagegrid>
+    <gridtile name="default">
+      <backgroundColor>00000000</backgroundColor>
+      <selectionMode>image</selectionMode>
+      <imageSizeMode>minSize</imageSizeMode>
+      <imageSizeMode ifSubset="grid-source:thumbnail|marquee">maxSize</imageSizeMode>
+      <imageColor>8A8A8AFF</imageColor>
+      <padding>6 6 6 34</padding>
+    </gridtile>
+    <gridtile name="selected">
+      <backgroundCenterColor>00000000</backgroundCenterColor>
+      <backgroundEdgeColor>FFFFFFFF</backgroundEdgeColor>
+      <imageColor>FFFFFFFF</imageColor>
+      <padding>6 6 6 34</padding>
+    </gridtile>
+    <image name="gridtile.image">
+      <roundCorners>0.03</roundCorners>
+    </image>
+    <video name="gridtile.video">
+      <roundCorners>0.03</roundCorners>
+    </video>
+    <!-- game name under the picture, in the 34 px band left free by the padding -->
+    <text name="gridtile">
+      <pos>0.02 0.84</pos>
+      <size>0.96 0.16</size>
+      <fontPath>${fontRegular}</fontPath>
+      <fontSize>0.018</fontSize>
+      <color>${textMuted}</color>
+      <backgroundColor>00000000</backgroundColor>
+      <alignment>left</alignment>
+      <verticalAlignment>center</verticalAlignment>
+    </text>
+    <text name="gridtile_selected">
+      <fontPath>${fontBold}</fontPath>
+      <color>${textPrimary}</color>
+      <backgroundColor>00000000</backgroundColor>
+    </text>
+
+    <!-- information strip between the grid and the bar -->
+    <image name="logo">
+      <pos>0.05 0.69</pos>
+      <origin>0 0.5</origin>
+      <maxSize>0.12 0.055</maxSize>
+      <visible>true</visible>
+    </image>
+    <text name="md_name">
+      <pos>0.19 0.672</pos>
+      <origin>0 0.5</origin>
+      <size>0.42 0.04</size>
+      <fontSize>0.03</fontSize>
+      <alignment>left</alignment>
+    </text>
+    <image name="wall-players-icon" extra="true">
+      <path>./_inc/images/gamepad.svg</path>
+      <pos>0.625 0.672</pos>
+      <origin>0 0.5</origin>
+      <maxSize>0.02 0.03</maxSize>
+      <color>${textMuted}</color>
+      <zIndex>30</zIndex>
+    </image>
+    <text name="md_players">
+      <pos>0.65 0.672</pos>
+      <origin>0 0.5</origin>
+      <size>0.05 0.03</size>
+      <fontPath>${fontRegular}</fontPath>
+      <fontSize>0.022</fontSize>
+      <color>${textSecondary}</color>
+      <alignment>left</alignment>
+      <visible>true</visible>
+      <zIndex>30</zIndex>
+    </text>
+    <rating name="md_rating">
+      <pos>0.705 0.672</pos>
+      <origin>0 0.5</origin>
+      <size>0.13 0.024</size>
+      <filledPath>./_inc/images/star-filled.svg</filledPath>
+      <unfilledPath>./_inc/images/star-unfilled.svg</unfilledPath>
+      <color>FFFFFFFF</color>
+      <visible>true</visible>
+      <zIndex>30</zIndex>
+    </rating>
+    <image name="wall-savestates" extra="true" onclick="savestates">
+      <path>./_inc/images/compact-disc.svg</path>
+      <pos>0.905 0.672</pos>
+      <origin>0.5 0.5</origin>
+      <maxSize>0.026 0.045</maxSize>
+      <visible>{game:savestate}</visible>
+      <zIndex>30</zIndex>
+    </image>
+    <image name="wall-cheevos" extra="true" if="{global.cheevos} == true">
+      <path>./_inc/images/trophy.svg</path>
+      <pos>0.94 0.672</pos>
+      <origin>0.5 0.5</origin>
+      <maxSize>0.02 0.034</maxSize>
+      <color>E8B820FF</color>
+      <visible>{game:cheevos}</visible>
+      <zIndex>30</zIndex>
+    </image>
+    <text name="md_description">
+      <pos>0.19 0.708</pos>
+      <origin>0 0.5</origin>
+      <size>0.76 0.03</size>
+      <fontPath>${fontRegular}</fontPath>
+      <fontSize>0.019</fontSize>
+      <color>${textSecondary}</color>
+      <alignment>left</alignment>
+      <singleLineScroll>true</singleLineScroll>
+      <visible>true</visible>
+      <zIndex>30</zIndex>
+    </text>
+  </view>
+</theme>

@@ -56,6 +56,7 @@ Rules for this register:
 | CR-0042 | 2026-10-06 | 0.1.25 | Corrective change | 67 system logos EmulationStation could not draw replaced, 17 missing logos added (RetroBat and Batocera), RetroBat notes; published to `master` | `release/v0.1.25`, merged to `main` | Approved by author ("go 0.1.25"), implemented |
 | CR-0043 | 2026-10-06 | 0.1.26 | Standard change | Loading screen: BatWiiCera artwork as EmulationStation's splash (`splash.xml`); published to `master` | `release/v0.1.26`, merged to `main` | Approved by author instruction, implemented |
 | CR-0044 | 2026-10-06 | 0.1.27 | Corrective change | Clock drew over menus from the screen layer: moved into the bar as a static view element; published to `master` | `release/v0.1.27`, merged to `main` | Approved by author instruction, implemented |
+| CR-0045 | 2026-10-13 | 0.1.28 | Standard change | Screenshot wall: second style for the Game grid view, new theme option; published to `master` | `release/v0.1.28`, merged to `main` | Approved by author ("go 0.1.28"), implemented |
 | CR-0039 | 2026-10-05 | 0.1.24 | Packaging change | One download per release in one layout; single install procedure everywhere | `release/v0.1.24`, merged to `main` | Approved by author ("you need to be consistent"), implemented |
 | CR-0038 | 2026-10-05 | 0.1.23 | Corrective change | Avatar still flickered after CR-0037: moved to the screen overlay view (single shared copy) | `release/v0.1.23`, merged to `main` | Approved by author (report "It flickers"), implemented |
 | CR-0037 | 2026-10-05 | 0.1.22 | Corrective change | RetroAchievements avatar and bar buttons faded and reloaded on every console move: marked as static extras | `release/v0.1.22`, merged to `main` | Approved by author (report), implemented |
@@ -2676,3 +2677,91 @@ Install 0.1.26 over it with the same procedure. On the listing, reset
 
 Published to `master` of `yiddifliddo/BatWiiCera-theme` per the CR-0041
 rule: commit `752e14b` ("BatWiiCera 0.1.27"), pushed 2026-10-06.
+
+---
+
+## CR-0045 - BatWiiCera theme v0.1.28 - Screenshot wall style for the game grid
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0045 |
+| Date raised | 2026-10-13 |
+| Requested by | yiddifliddo ("Can we have an option to view the games like this somehow. A toggle to switch to this sort of layout", with a screenshot of another theme's grid) |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera theme |
+| Version | 0.1.28 (new folder `v0.1.28/`, built from 0.1.27) |
+| Change type | Standard change (new theme option) |
+| Branch | `release/v0.1.28`, merged to `main` |
+| Status | Implemented; on-device sign-off pending |
+| Approver | yiddifliddo |
+
+### Description of change
+
+The requested layout is the engine's grid view styled as a wall of game
+pictures. The theme already has a grid view (channel tiles); this release
+adds a second style selectable in Theme Configuration.
+
+* New subset `grid-style` ("Game grid style") with `channels` (no file,
+  the existing look) and `wall` (`./_inc/grid-wall.xml`). The subset is
+  declared at the end of `theme.xml`, after the base grid view, because a
+  format-7 theme is applied in document order (`ThemeData::parseTheme`
+  iterates root children in order); an include placed before the view
+  would be overridden by it. A comment in `theme.xml` says so.
+* `_inc/grid-wall.xml` (new) overrides the grid view: imagegrid 0.90 x
+  0.605 at 5 x 3, no selection zoom, tighter margins; default tile with
+  transparent background, `selectionMode image`, pictures cropped to the
+  tile (`minSize`; `maxSize` kept for box art and logos via the existing
+  `grid-source` subset), dimmed to `8A8A8A`; selected tile with
+  transparent centre, the sky-blue frame of `tile-selected.png` and full
+  brightness; 34 px bottom padding leaves a band for the name under the
+  picture (small Nunito, muted; bold and primary when selected, no label
+  background). Information strip between grid and bar: console logo
+  (made visible), `md_name` left-aligned, gamepad icon with `md_players`,
+  `md_rating`, save-state disc and trophy marks (new extras bound to
+  `{game:savestate}` and `{game:cheevos}`), `md_description` as one
+  scrolling line. `md_players` and `md_description` are re-enabled here
+  only; the base grid view keeps them hidden.
+* Mock-up `v0.1.28/previews/mockup-grid-wall.png` (dark set, 1920 x 1080,
+  placeholder pictures) rendered with the theme's own fonts, images and
+  coordinates; shown in the root README.
+* Version README: option table row, navigation note, changes; root README:
+  version, Versions row, screenshot; `LICENSE` and `splash.xml` version.
+  Avatar tag `?v=0128`. Single release zip; `roms` and `system` parts
+  unchanged (Plaza 0.1.9).
+
+How a user turns it on: Theme Configuration > Game grid style >
+Screenshot wall, and View Options (Select on a game list) > Game list view
+style > Grid, per console or as the default. The second step is the
+engine's own view selection and was left where users expect it.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Include order wrong on some engine build, wall never applies | Low | Option does nothing | Order verified in `ThemeData.cpp`; both builds (Batocera, RetroBat) share the parser |
+| White inner ring between frame and picture on the selected tile | Medium | Cosmetic | The selected ninepatch has white inside its blue border; the picture covers most of it; adjust after the on-device look |
+| Name band clipped on 4K (padding is in pixels) | Low | Label tight | 34 px matches the 0.018 font at 1080p; 4K users can report, as for the existing tile padding |
+| Games without a screenshot | Certain for some | "No preview" card in the tile | Same as the existing grid; documented |
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `xmllint --noout` on `theme.xml`, `_inc/grid-wall.xml`, `splash.xml` | Pass |
+| Parse order confirmed from engine source | Pass |
+| Mock-up rendered and reviewed at 1920 x 1080 | Pass |
+| Zip integrity, 773 files, theme folder in zip identical to `v0.1.28/BatWiiCera` | Pass |
+| Forbidden-word scan | Pass |
+| On a device: option appears, wall applies in Grid view, selection frame and strip | Pending the author's sign-off |
+
+### Rollback plan
+
+Set Game grid style back to Channel tiles (no reinstall needed), or install
+0.1.27 over it. On the listing, reset `master` to the 0.1.27 commit
+`752e14b`.
+
+### Distribution
+
+Published to `master` of `yiddifliddo/BatWiiCera-theme` per the CR-0041
+rule; the commit is noted below once pushed.
