@@ -57,6 +57,7 @@ Rules for this register:
 | CR-0043 | 2026-10-06 | 0.1.26 | Standard change | Loading screen: BatWiiCera artwork as EmulationStation's splash (`splash.xml`); published to `master` | `release/v0.1.26`, merged to `main` | Approved by author instruction, implemented |
 | CR-0044 | 2026-10-06 | 0.1.27 | Corrective change | Clock drew over menus from the screen layer: moved into the bar as a static view element; published to `master` | `release/v0.1.27`, merged to `main` | Approved by author instruction, implemented |
 | CR-0045 | 2026-10-13 | 0.1.28 | Standard change | Screenshot wall: second style for the Game grid view, new theme option; published to `master` | `release/v0.1.28`, merged to `main` | Approved by author ("go 0.1.28"), implemented |
+| CR-0046 | 2026-10-14 | 0.1.29 | Corrective change | Clock too large on 4:3 and small screens: scaled in the 4:3 layout and via the engine's small-screen switch; published to `master` | `release/v0.1.29`, merged to `main` | Approved by author instruction, implemented |
 | CR-0039 | 2026-10-05 | 0.1.24 | Packaging change | One download per release in one layout; single install procedure everywhere | `release/v0.1.24`, merged to `main` | Approved by author ("you need to be consistent"), implemented |
 | CR-0038 | 2026-10-05 | 0.1.23 | Corrective change | Avatar still flickered after CR-0037: moved to the screen overlay view (single shared copy) | `release/v0.1.23`, merged to `main` | Approved by author (report "It flickers"), implemented |
 | CR-0037 | 2026-10-05 | 0.1.22 | Corrective change | RetroAchievements avatar and bar buttons faded and reloaded on every console move: marked as static extras | `release/v0.1.22`, merged to `main` | Approved by author (report), implemented |
@@ -2765,3 +2766,78 @@ Set Game grid style back to Channel tiles (no reinstall needed), or install
 
 Published to `master` of `yiddifliddo/BatWiiCera-theme` per the CR-0041
 rule: commit `8962e80` ("BatWiiCera 0.1.28"), pushed 2026-10-13.
+
+---
+
+## CR-0046 - BatWiiCera theme v0.1.29 - smaller clock on 4:3 and small screens
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0046 |
+| Date raised | 2026-10-14 |
+| Requested by | yiddifliddo ("On smaller screens the clock is too big. Can you make it smaller", with a photo of a handheld's 4:3 top screen) |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera theme |
+| Version | 0.1.29 (new folder `v0.1.29/`, built from 0.1.28) |
+| Change type | Corrective change |
+| Branch | `release/v0.1.29`, merged to `main` |
+| Status | Implemented; on-device sign-off pending |
+| Approver | yiddifliddo |
+
+### Problem
+
+On a handheld's 4:3 top screen the clock filled the bar's dip and crowded
+the console name under it. Cause: every font size in the theme is a
+fraction of the screen height. A 4:3 screen is three quarters as wide as
+a 16:9 screen of the same height, so the same clock takes a third more
+of the width, and the bar artwork (1920 x 300, stretched to the width)
+narrows its dip in step with the width. The effect is worst on small
+screens, where the engine itself switches to compact layouts.
+
+### Description of change
+
+* `_inc/layouts/4-3.xml` (applied when the engine detects 4:3 or 5:4, or
+  when chosen under Theme Configuration): clock `bar-clock` scaled to
+  font 0.056 (from 0.075) in a 0.36 x 0.07 box; console name 0.036 (from
+  0.045) and game count 0.02 (from 0.024) under it, with wider boxes.
+* `theme.xml`: `bar-clock` gains `<fontSize tinyScreen="true">0.052</fontSize>`;
+  the 4:3 layout adds the same switch at 0.048. `tinyScreen` is the
+  engine's own rule (`Renderer::ScreenSettings::isSmallScreen`: width or
+  height of 480 px or less, or the ForceSmallScreen setting), checked in
+  `ThemeData::parseFilterAttributes`.
+* Version 0.1.29 in `theme.xml` (avatar tag `?v=0129`), `splash.xml`,
+  README (changes), LICENSE; root README version and Versions row. Single
+  release zip; `roms` and `system` parts unchanged (Plaza 0.1.9).
+
+The device's resolution was not reported; the two switches cover both a
+4:3 screen of any size and a small screen of any ratio, so the clock
+shrinks on either.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Clock now too small on large 4:3 monitors | Low | Cosmetic | 0.056 of height on 4:3 is the same share of the width as 0.075 on 16:9, the proportion the design was drawn at |
+| `tinyScreen` attribute ignored on an older engine | Low | Falls back to the 4:3 value | Attribute is in the engine's filter list; the 4:3 scaling applies regardless |
+| 16:9 screens over 480 px unchanged | Certain | None | Intended; the report was about small 4:3 screens |
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `xmllint --noout` on `theme.xml` and `_inc/layouts/4-3.xml` | Pass |
+| Engine rule for small screens and the `tinyScreen` attribute confirmed from source | Pass |
+| Zip integrity, 772 files, theme folder in zip identical to `v0.1.29/BatWiiCera` | Pass |
+| Forbidden-word scan | Pass |
+| On the handheld and on a 16:9 TV (unchanged there) | Pending the author's sign-off |
+
+### Rollback plan
+
+Install 0.1.28 over it with the same procedure. On the listing, reset
+`master` to the 0.1.28 commit `8962e80`.
+
+### Distribution
+
+Published to `master` of `yiddifliddo/BatWiiCera-theme` per the CR-0041
+rule; the commit is noted below once pushed.

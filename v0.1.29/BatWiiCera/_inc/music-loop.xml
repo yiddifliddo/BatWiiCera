@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+BatWiiCera - background music: quiet bass loop only
+Author: yiddifliddo
+
+Plays _music/batwiicera-menu-loop.ogg on repeat while browsing.
+Chosen with the theme's "Background music" option (UI Settings > Theme Configuration).
+-->
+<theme>
+  <formatVersion>7</formatVersion>
+  <view name="system">
+    <sound name="bgsound">
+      <path>./_music/batwiicera-menu-loop.ogg</path>
+    </sound>
+  </view>
+</theme>
