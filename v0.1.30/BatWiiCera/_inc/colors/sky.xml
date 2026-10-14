@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+BatWiiCera - colour set: Sky (pale blue stripes)
+Author: yiddifliddo
+-->
+<theme>
+  <formatVersion>7</formatVersion>
+  <variables>
+    <bgImage>./_inc/images/bg-stripes-blue.png</bgImage>
+    <textPrimary>3C4C58FF</textPrimary>
+    <textSecondary>66788AFF</textSecondary>
+    <textMuted>8A9BAAFF</textMuted>
+    <textOnAccent>FFFFFFFF</textOnAccent>
+    <accent>3FA9EEFF</accent>
+    <accentLight>6EC4F6FF</accentLight>
+    <accentDark>2178B5FF</accentDark>
+    <folderColor>2178B5FF</folderColor>
+    <separator>CFDFEAFF</separator>
+    <panelTint>FFFFFFFF</panelTint>
+    <!-- artwork and tints that differ in dark mode -->
+    <barImage>./_inc/images/bottom-bar.svg</barImage>
+    <homeButtonImage>./_inc/images/btn-round.svg</homeButtonImage>
+    <mailButtonImage>./_inc/images/btn-mail.svg</mailButtonImage>
+    <noPreviewImage>./_inc/images/no-preview.png</noPreviewImage>
+    <tileTint>FFFFFFFF</tileTint>
+    <menuFrameImage>./_inc/images/menu-frame.png</menuFrameImage>
+    <menuGroupBg>F1F1F1FF</menuGroupBg>
+    <labelBg>FFFFFFCC</labelBg>
+    <labelBgSelected>FFFFFFE6</labelBgSelected>
+  </variables>
+</theme>

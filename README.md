@@ -3,7 +3,7 @@
 A retro console "channel menu" theme for Batocera's EmulationStation.
 
 **Author:** yiddifliddo (personal project)
-**Current version:** 0.1.29
+**Current version:** 0.1.30
 **Licence:** Creative Commons BY-NC-SA 4.0
 
 ## Install
@@ -92,7 +92,8 @@ client's own install item. Details in the theme README and
 
 | Version | Folder | Download | Date | Status | Summary |
 | --- | --- | --- | --- | --- | --- |
-| 0.1.29 | [`v0.1.29/BatWiiCera`](v0.1.29/BatWiiCera) | [`BatWiiCera-v0.1.29.zip`](v0.1.29/BatWiiCera-v0.1.29.zip) | 2026-10-14 | Release candidate, awaiting on-device sign-off | Smaller clock on 4:3 and small screens |
+| 0.1.30 | [`v0.1.30/BatWiiCera`](v0.1.30/BatWiiCera) | [`BatWiiCera-v0.1.30.zip`](v0.1.30/BatWiiCera-v0.1.30.zip) | 2026-10-14 | Release candidate, awaiting on-device sign-off | Panel corners in proportion on smaller screens |
+| 0.1.29 | [`v0.1.29/BatWiiCera`](v0.1.29/BatWiiCera) | [`BatWiiCera-v0.1.29.zip`](v0.1.29/BatWiiCera-v0.1.29.zip) | 2026-10-14 | Superseded by 0.1.30 | Smaller clock on 4:3 and small screens |
 | 0.1.28 | [`v0.1.28/BatWiiCera`](v0.1.28/BatWiiCera) | [`BatWiiCera-v0.1.28.zip`](v0.1.28/BatWiiCera-v0.1.28.zip) | 2026-10-13 | Superseded by 0.1.29 | Screenshot wall style for the game grid (theme option) |
 | 0.1.27 | [`v0.1.27/BatWiiCera`](v0.1.27/BatWiiCera) | [`BatWiiCera-v0.1.27.zip`](v0.1.27/BatWiiCera-v0.1.27.zip) | 2026-10-06 | Superseded by 0.1.28 | Clock no longer draws over menus |
 | 0.1.26 | [`v0.1.26/BatWiiCera`](v0.1.26/BatWiiCera) | [`BatWiiCera-v0.1.26.zip`](v0.1.26/BatWiiCera-v0.1.26.zip) | 2026-10-06 | Superseded by 0.1.27 | Loading screen with the BatWiiCera artwork |
