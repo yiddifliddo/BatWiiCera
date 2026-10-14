@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+BatWiiCera - background music: everything in the _music folder
+Author: yiddifliddo
+
+Shuffles every audio file in the theme's _music folder (both bundled tracks
+and anything you add) while browsing. Chosen with the theme's "Background
+music" option (UI Settings > Theme Configuration).
+-->
+<theme>
+  <formatVersion>7</formatVersion>
+  <view name="system">
+    <sound name="directory">
+      <path>./_music/</path>
+    </sound>
+  </view>
+</theme>

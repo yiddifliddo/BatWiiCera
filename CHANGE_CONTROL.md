@@ -58,6 +58,7 @@ Rules for this register:
 | CR-0044 | 2026-10-06 | 0.1.27 | Corrective change | Clock drew over menus from the screen layer: moved into the bar as a static view element; published to `master` | `release/v0.1.27`, merged to `main` | Approved by author instruction, implemented |
 | CR-0045 | 2026-10-13 | 0.1.28 | Standard change | Screenshot wall: second style for the Game grid view, new theme option; published to `master` | `release/v0.1.28`, merged to `main` | Approved by author ("go 0.1.28"), implemented |
 | CR-0046 | 2026-10-14 | 0.1.29 | Corrective change | Clock too large on 4:3 and small screens: scaled in the 4:3 layout and via the engine's small-screen switch; published to `master` | `release/v0.1.29`, merged to `main` | Approved by author instruction, implemented |
+| CR-0047 | 2026-10-14 | 0.1.30 | Corrective change | Panel corners too round on smaller screens: scaled panel textures by screen height; published to `master` | `release/v0.1.30`, merged to `main` | Approved by author instruction, implemented |
 | CR-0039 | 2026-10-05 | 0.1.24 | Packaging change | One download per release in one layout; single install procedure everywhere | `release/v0.1.24`, merged to `main` | Approved by author ("you need to be consistent"), implemented |
 | CR-0038 | 2026-10-05 | 0.1.23 | Corrective change | Avatar still flickered after CR-0037: moved to the screen overlay view (single shared copy) | `release/v0.1.23`, merged to `main` | Approved by author (report "It flickers"), implemented |
 | CR-0037 | 2026-10-05 | 0.1.22 | Corrective change | RetroAchievements avatar and bar buttons faded and reloaded on every console move: marked as static extras | `release/v0.1.22`, merged to `main` | Approved by author (report), implemented |
@@ -2841,3 +2842,81 @@ Install 0.1.28 over it with the same procedure. On the listing, reset
 
 Published to `master` of `yiddifliddo/BatWiiCera-theme` per the CR-0041
 rule: commit `c7d60bf` ("BatWiiCera 0.1.29"), pushed 2026-10-14.
+
+---
+
+## CR-0047 - BatWiiCera theme v0.1.30 - panel corners in proportion on smaller screens
+
+| Field | Value |
+| --- | --- |
+| Change ID | CR-0047 |
+| Date raised | 2026-10-14 |
+| Requested by | yiddifliddo ("The pill doesn't render well as the edges are too curved", with a photo of the game list on a handheld) |
+| Author | yiddifliddo |
+| Company / project | yiddifliddo (personal project) |
+| Product | BatWiiCera theme |
+| Version | 0.1.30 (new folder `v0.1.30/`, built from 0.1.29) |
+| Change type | Corrective change |
+| Branch | `release/v0.1.30`, merged to `main` |
+| Status | Implemented; on-device sign-off pending |
+| Approver | yiddifliddo |
+
+### Problem
+
+On the handheld the game information panel rendered as a pill and the
+other panels had oversized corners. The panels are ninepatches of
+`panel.png` (192 x 192, corner radius drawn at about 40 px) with
+`cornerSize 40 40`. The engine takes `cornerSize` in screen pixels
+(`NinePatch.cpp`: corner quads are `mCornerSize` wide, texture
+coordinates `mCornerSize / texSize`). At 1080p a 40-pixel corner is 3.7 %
+of the height; on a 480-line screen it is 8.3 %, and the information
+panel (0.20 of the height, 96 px) is 80 px of corner.
+
+### Description of change
+
+* New textures `_inc/images/panel-md.png` (128 x 128) and
+  `_inc/images/panel-sm.png` (96 x 96): `panel.png` resized with a Lanczos
+  filter, transparency kept, corner radius about 27 and 20 px.
+* `theme.xml`: all five panel ninepatches (`list-panel`, `logo-plate`,
+  both `screen-panel` variants, `info-panel`) keep the 1080p values and
+  add property-level overrides: below 900 lines `panel-md.png` with
+  `cornerSize 27 27`; below 600 lines `panel-sm.png` with `cornerSize 20 20`.
+  The engine filters each property node by its `if` attribute
+  (`parseFilterAttributes`, called per property in `parseElement`) and
+  exposes `screen.height` to expressions (`SystemData.cpp`); later
+  properties replace earlier ones.
+* Version 0.1.30 in `theme.xml` (avatar tag `?v=0130`), `splash.xml`,
+  README (changes), LICENSE; root README version and Versions row. Single
+  release zip; `roms` and `system` parts unchanged (Plaza 0.1.9).
+
+Not changed: menu frame (24 px corners) and grid tiles (28 to 30 px),
+which looked right in the handheld photos.
+
+### Risk assessment
+
+| Risk | Likelihood | Impact | Mitigation |
+| --- | --- | --- | --- |
+| Scaled texture edge slightly soft | Low | Cosmetic | Lanczos resize of a flat shape; checked side by side |
+| `if` on a property ignored by an older engine | Low | Falls back to 40 px, as before | Same mechanism as the existing 4:3 detection and tinyScreen sizes |
+| Breakpoints wrong for an odd resolution | Low | Corners one step off | Three tiers track 40 px at 1080p proportionally (27 at 720, 20 at 480) |
+
+### Testing and verification performed
+
+| Check | Result |
+| --- | --- |
+| `xmllint --noout theme.xml`; five panels carry the overrides | Pass |
+| Scaled textures keep alpha (GrayscaleAlpha) and the same shape | Pass (reviewed side by side) |
+| Information panel at 480 lines drawn before and after | Pass (pill before, proportional after) |
+| Zip integrity, theme folder in zip identical to `v0.1.30/BatWiiCera` | Pass |
+| Forbidden-word scan | Pass |
+| On the handheld and on a 1080p TV (unchanged there) | Pending the author's sign-off |
+
+### Rollback plan
+
+Install 0.1.29 over it with the same procedure. On the listing, reset
+`master` to the 0.1.29 commit `c7d60bf`.
+
+### Distribution
+
+Published to `master` of `yiddifliddo/BatWiiCera-theme` per the CR-0041
+rule; the commit is noted below once pushed.
